@@ -5,8 +5,13 @@
    ============================================================ */
 window.PARCELAZO = {
 
-  /* >>> PENDIENTE: fechas reales de la venta (hora de Chile) <<< */
-  inicioVenta: '2026-09-18T09:00:00-03:00',
+  /* Apertura del Parcelazo: el live del miercoles 16 de septiembre a
+     las 19:30. En esa fecha Chile continental ya esta en UTC-3, porque
+     el horario de verano parte el primer domingo de septiembre.
+     De aqui salen el contador y todas las fechas que se muestran. */
+  inicioVenta: '2026-09-16T19:30:00-03:00',
+
+  /* >>> PENDIENTE: fecha real de cierre de la venta <<< */
   cierreVenta: '2026-09-21T23:59:00-03:00',
 
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',

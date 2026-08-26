@@ -30,8 +30,8 @@ Todo vive en **`datos.js`**. Al cambiar algo ahí se actualizan la portada y las
 
 ```js
 window.PARCELAZO = {
-  inicioVenta: '2026-09-18T09:00:00-03:00',  // PENDIENTE: fecha real de apertura
-  cierreVenta: '2026-09-21T23:59:00-03:00',  // PENDIENTE
+  inicioVenta: '2026-09-16T19:30:00-03:00',  // live de apertura, miercoles 16
+  cierreVenta: '2026-09-21T23:59:00-03:00',  // PENDIENTE: fecha real de cierre
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
   newsletterEndpoint: '',                    // PENDIENTE: URL del proveedor de email
   tasaAnual: 19.5,
@@ -51,7 +51,8 @@ window.PARCELAZO = {
 | Link del grupo de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
 | Fotos | 3 de 5 proyectos |
-| Fechas de inicio y cierre | Pendientes |
+| Fecha de apertura (live) | Cargada: mié 16 de sept, 19:30 |
+| Fecha de cierre | Pendiente |
 | Endpoint del newsletter | Pendiente |
 | Superficies (5.000 m²) | Supuesto, sin confirmar |
 | Comunas de los 5 proyectos | Confirmadas por coordenadas |
@@ -127,7 +128,7 @@ El repositorio ya está en https://github.com/lukas-code-master-ctp/parcelazo
 Para publicar el sitio: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**.
 Queda en `https://lukas-code-master-ctp.github.io/parcelazo/` en un par de minutos.
 
-> No lo actives hasta cerrar el plazo de financiamiento, las fechas y la revisión legal de los Términos.
+> No lo actives hasta cerrar la fecha de término y la revisión legal de los Términos.
 
 ### Dominio propio
 
@@ -149,5 +150,6 @@ Todas las rutas del sitio son relativas, así que funciona igual en `lukas-code-
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
 - El mapa usa el embed de Google Maps sin API key. Cada proyecto tiene `coords: [lat, lng]` del loteo (zoom 15) y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar».
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
-- El contador usa hora de Chile (`-03:00`) codificada en la fecha, así que muestra lo mismo sin importar la zona horaria del visitante.
+- Todas las fechas visibles («Miércoles 16 de septiembre · 19:30 h», el contador, el aviso de las fichas) se generan desde `inicioVenta` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano: al cambiar `inicioVenta` se actualiza todo.
+- En septiembre Chile ya está en horario de verano (parte el primer domingo del mes), por eso el `-03:00` del ISO.
 - `terminos.html` tiene hoja de estilos de impresión: se puede exportar a PDF desde el navegador sin el nav ni el índice.

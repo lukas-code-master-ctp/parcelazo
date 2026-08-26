@@ -177,6 +177,19 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;letter-spacing
 .tarjeta--precio .btn{margin-top:18px;position:relative;z-index:2}
 
 /* Simulador del panel */
+.aviso-live{
+  background:var(--oro);border:var(--borde);box-shadow:var(--sombra-dura-sm);
+  padding:16px 18px;display:flex;gap:13px;align-items:center;
+}
+.aviso-live__pto{
+  width:13px;height:13px;flex:0 0 auto;border-radius:50%;
+  background:var(--rojo);border:2px solid var(--tinta);
+  animation:pulso 1.6s ease-in-out infinite;
+}
+@keyframes pulso{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.65}}
+.aviso-live b{display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.76rem;color:#5a3d16}
+.aviso-live span{font-family:var(--display);font-size:1.02rem;line-height:1.15;display:block;margin-top:2px}
+
 .tarjeta h3{font-size:1.35rem;margin-bottom:14px}
 .plazos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:18px}
 .plazo{
@@ -336,6 +349,14 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo
 
     <!-- ============ PANEL LATERAL ============ -->
     <aside class="lado">
+      <div class="aviso-live" id="aviso-live" hidden>
+        <span class="aviso-live__pto" aria-hidden="true"></span>
+        <span>
+          <b id="aviso-live-tit">La venta parte</b>
+          <span id="aviso-live-txt">—</span>
+        </span>
+      </div>
+
       <div class="tarjeta tarjeta--precio">
         <p class="eyebrow">Tu cuota mensual</p>
         <p class="precio__cuota" id="s-cuota">—</p>
@@ -438,6 +459,16 @@ const pmt = (capital, n) => {
 const cuotaDe = (p, plazo, pie = 0) =>
   pie > 0 ? pmt(p.precio - pie, plazo) : p.cuotas[plazo];
 
+/* Fechas siempre en hora de Chile, no en la del visitante */
+const CHILE = 'America/Santiago';
+const mayus = t => t.charAt(0).toUpperCase() + t.slice(1);
+const fechaLarga = iso => mayus(new Intl.DateTimeFormat('es-CL', {
+  weekday: 'long', day: 'numeric', month: 'long', timeZone: CHILE
+}).format(new Date(iso)).replace(',', ''));
+const horaChile = iso => new Intl.DateTimeFormat('es-CL', {
+  hour: '2-digit', minute: '2-digit', hour12: false, timeZone: CHILE
+}).format(new Date(iso));
+
 /* ---------- Qué proyecto mostrar ---------- */
 const id = new URLSearchParams(location.search).get('id');
 const P  = D.proyectos.find(x => x.id === id);
@@ -465,6 +496,28 @@ function arrancar() {
 
   $$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
   $('#anio').textContent = new Date().getFullYear();
+
+  /* ---------- Aviso del live ---------- */
+  (() => {
+    const caja = $('#aviso-live');
+    const inicio = new Date(D.inicioVenta).getTime();
+    const cierre = D.cierreVenta ? new Date(D.cierreVenta).getTime() : null;
+    const ahora = Date.now();
+
+    if (ahora < inicio) {
+      $('#aviso-live-tit').textContent = 'El live parte';
+      $('#aviso-live-txt').textContent =
+        `${fechaLarga(D.inicioVenta)} · ${horaChile(D.inicioVenta)} h`;
+    } else if (cierre && ahora < cierre) {
+      $('#aviso-live-tit').textContent = '¡Estamos en vivo!';
+      $('#aviso-live-txt').textContent =
+        `La venta cierra el ${fechaLarga(D.cierreVenta).toLowerCase()}`;
+    } else {
+      $('#aviso-live-tit').textContent = 'El Parcelazo terminó';
+      $('#aviso-live-txt').textContent = 'Escríbenos igual por WhatsApp';
+    }
+    caja.hidden = false;
+  })();
 
   /* ---------- Chips ---------- */
   $('#p-chips').innerHTML = [

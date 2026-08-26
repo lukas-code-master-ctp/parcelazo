@@ -659,7 +659,7 @@ input[type=range]::-moz-range-thumb{
   </div>
 
   <div class="hero__in">
-    <p class="cinta">Venta online · Fiestas Patrias 2026 · 5 proyectos</p>
+    <p class="cinta" id="hero-fecha">Venta online · Fiestas Patrias 2026</p>
 
     <h1>
       <picture>
@@ -682,7 +682,7 @@ input[type=range]::-moz-range-thumb{
     </div>
 
     <div class="contador" id="contador">
-      <p class="contador__label" id="contador-titulo">La venta parte en</p>
+      <p class="contador__label" id="contador-titulo">Arrancamos en</p>
       <div class="contador__grid" role="timer" aria-live="polite" aria-atomic="true" aria-labelledby="contador-titulo">
         <div class="cd"><span class="cd__n" id="cd-dias">00</span><span class="cd__u">Días</span></div>
         <div class="cd"><span class="cd__n" id="cd-horas">00</span><span class="cd__u">Horas</span></div>
@@ -941,18 +941,38 @@ const cuotaMinima = () =>
 const urlProyecto = id => 'proyecto.html?id=' + id;
 
 /* ============================================================
+   FECHAS
+   Todo lo que se muestra sale de D.inicioVenta, siempre en hora
+   de Chile, para que no dependa del reloj del visitante.
+   ============================================================ */
+const CHILE = 'America/Santiago';
+const mayus = t => t.charAt(0).toUpperCase() + t.slice(1);
+
+const fechaLarga = iso => mayus(new Intl.DateTimeFormat('es-CL', {
+  weekday: 'long', day: 'numeric', month: 'long', timeZone: CHILE
+}).format(new Date(iso)).replace(',', ''));
+
+const horaChile = iso => new Intl.DateTimeFormat('es-CL', {
+  hour: '2-digit', minute: '2-digit', hour12: false, timeZone: CHILE
+}).format(new Date(iso));
+
+const cuandoParte = () => `${fechaLarga(D.inicioVenta)} · ${horaChile(D.inicioVenta)} h`;
+
+/* ============================================================
    WHATSAPP Y TITULARES CALCULADOS
    ============================================================ */
 $$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
 
 $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
+$('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
 
 /* ============================================================
    MARQUEE
    ============================================================ */
 (() => {
   const frases = ['Pie $0', 'Cuotas desde ' + pesosDesde(cuotaMinima()), 'Sin banco',
-                  '5 proyectos', 'Venta online', 'Solo por el 18'];
+                  '5 proyectos', fechaLarga(D.inicioVenta) + ' · ' + horaChile(D.inicioVenta) + ' h',
+                  'Evento online'];
   const bloque = frases.map(f => `<span>${f}</span>`).join('');
   $('#marquee-track').innerHTML = bloque + bloque; /* duplicado para loop continuo */
 })();
@@ -969,11 +989,11 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
 
   function tick() {
     const ahora = Date.now();
-    let objetivo = inicio, titulo = 'La venta parte en', vivo = false;
+    let objetivo = inicio, titulo = 'El live parte en', vivo = false;
 
     if (ahora >= inicio) {
       if (cierre && ahora < cierre) {
-        objetivo = cierre; titulo = '¡Venta en vivo! Cierra en'; vivo = true;
+        objetivo = cierre; titulo = '¡Estamos en vivo! La venta cierra en'; vivo = true;
       } else {
         el.titulo.textContent = 'El Parcelazo terminó · escríbenos igual';
         [el.d, el.h, el.m, el.s].forEach(n => n.textContent = '00');
