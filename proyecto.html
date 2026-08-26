@@ -451,7 +451,8 @@ if (!P) {
 
 function arrancar() {
   const sinUbic = P.comuna.startsWith('[');
-  const ubic = sinUbic ? 'Ubicación por confirmar' : P.comuna + ', ' + P.region;
+  const ubic = sinUbic ? 'Ubicación por confirmar'
+             : (P.sector ? P.sector + ' · ' : '') + P.comuna + ', ' + P.region;
 
   document.title = `${P.nombre} · Parcelazo Diecio$0 · Compra Tu Parcela`;
   $('meta[name=description]').setAttribute('content',
@@ -495,24 +496,27 @@ function arrancar() {
     $('#fotos-lead').textContent = 'Estamos preparando el material de este proyecto.';
   }
 
-  /* ---------- Mapa ---------- */
+  /* ---------- Mapa ----------
+     Con coordenadas apuntamos al loteo y acercamos; sin ellas
+     caemos a la comuna, que es mucho mas general. */
   const consulta = P.coords ? P.coords.join(',') : P.mapaQ;
   const m = $('#p-mapa');
   if (consulta) {
-    const q = encodeURIComponent(consulta);
+    const q    = encodeURIComponent(consulta);
+    const zoom = P.coords ? 15 : 12;
+    const irA  = P.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${q}`;
     m.innerHTML = `
-      <iframe src="https://www.google.com/maps?q=${q}&z=12&output=embed"
+      <iframe src="https://www.google.com/maps?q=${q}&z=${zoom}&output=embed"
               title="Mapa de ${P.nombre}" loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
       <div class="mapa__pie">
         <p class="mapa__nota">${P.coords
-          ? 'Ubicación del loteo.'
-          : 'Ubicación referencial de la comuna. El punto exacto del loteo se coordina con un ejecutivo.'}</p>
-        <a class="btn btn--sm" href="https://www.google.com/maps/search/?api=1&query=${q}"
-           target="_blank" rel="noopener">Abrir en Google Maps</a>
+          ? 'Punto del loteo. Los deslindes exactos están en el plano.'
+          : 'Ubicación referencial de la comuna.'}</p>
+        <a class="btn btn--sm" href="${irA}" target="_blank" rel="noopener">Cómo llegar</a>
       </div>`;
     $('#mapa-lead').textContent = P.coords
-      ? 'Ubicación del loteo en el mapa.'
+      ? `${P.sector ? P.sector + ', ' : ''}${P.comuna}, ${P.region}.`
       : `Sector de ${P.comuna}, ${P.region}.`;
   } else {
     m.innerHTML = `

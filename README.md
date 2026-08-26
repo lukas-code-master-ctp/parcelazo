@@ -54,8 +54,8 @@ window.PARCELAZO = {
 | Fechas de inicio y cierre | Pendientes |
 | Endpoint del newsletter | Pendiente |
 | Superficies (5.000 m²) | Supuesto, sin confirmar |
-| Comunas de Don Danilo y Don Guillermo | Sin confirmar |
-| Coordenadas exactas de los loteos | Pendientes (el mapa usa la comuna) |
+| Comunas de los 5 proyectos | Confirmadas por coordenadas |
+| Coordenadas de los loteos | Cargadas |
 
 ### 2. Cómo funciona el financiamiento
 
@@ -86,13 +86,13 @@ No hay ninguna cifra escrita a mano en el HTML.
 
 Optimizadas en `assets/`, generadas desde `Material/` (que no se sube al repo por peso).
 
-| Proyecto | Fotos | Plano | Mapa |
-|---|---|---|---|
-| Vive Longaví | 5 | Sí | Comuna |
-| Praderas de Cauquenes | 5 | Sí (rasterizado) | Comuna |
-| Jardines de Litueche | 5 | Sí | Comuna |
-| **Hacienda Don Danilo** | **Falta** | **Falta** | **Falta** |
-| **Don Guillermo** | **Falta** | **Falta** | **Falta** |
+| Proyecto | Ubicación | Fotos | Plano | Mapa |
+|---|---|---|---|---|
+| Don Guillermo | Sector Quilico, Hualañé (Maule) | **Falta** | **Falta** | Sí |
+| Praderas de Cauquenes | Cauquenes (Maule) | 5 | Sí (rasterizado) | Sí |
+| Jardines de Litueche | Litueche (O'Higgins) | 5 | Sí | Sí |
+| Vive Longaví | Longaví (Maule) | 5 | Sí | Sí |
+| Hacienda Don Danilo | Sector El Cuzco, Litueche (O'Higgins) | **Falta** | **Falta** | Sí |
 
 Para agregar fotos a un proyecto: deja los archivos en `assets/` como `don-guillermo.jpg` + `.webp`
 (y `-2`, `-3`… para la galería), y agrega los nombres base al array `fotos` de ese proyecto en `datos.js`.
@@ -147,7 +147,7 @@ Todas las rutas del sitio son relativas, así que funciona igual en `lukas-code-
 - Las imágenes se sirven en WebP con respaldo JPG/PNG vía `<picture>`. Total de `assets/`: ~1,8 MB.
 - Las fotos de las tarjetas usan `loading="lazy"`; el escudo del hero usa `fetchpriority="high"`.
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
-- El mapa usa el embed de Google Maps sin API key, buscando por comuna. Cuando tengas las coordenadas exactas del loteo, ponlas en `coords: [lat, lng]` y el mapa las usará en vez de la comuna.
+- El mapa usa el embed de Google Maps sin API key. Cada proyecto tiene `coords: [lat, lng]` del loteo (zoom 15) y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar».
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - El contador usa hora de Chile (`-03:00`) codificada en la fecha, así que muestra lo mismo sin importar la zona horaria del visitante.
 - `terminos.html` tiene hoja de estilos de impresión: se puede exportar a PDF desde el navegador sin el nav ni el índice.

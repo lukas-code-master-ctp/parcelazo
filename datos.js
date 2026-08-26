@@ -27,16 +27,19 @@ window.PARCELAZO = {
   {
     id: 'guillermo',
     nombre: "Don Guillermo",
-    comuna: "[POR CONFIRMAR]",
-    region: "[POR CONFIRMAR]",
+    comuna: "Hualañé",
+    region: "Región del Maule",
     m2: 5000,                    /* supuesto, sin confirmar */
     precio: 7990000,
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
     cuotas: { 12: 732164, 24: 398654, 36: 288649, 48: 234500 },
     fotos: [],
     plano: null,
-    mapaQ: null,
-    coords: null,                /* PENDIENTE: [lat, lng] exactas del loteo */
+
+
+    coords: [-34.877248, -71.913388],
+    mapsUrl: 'https://maps.app.goo.gl/qzd4b2zCNSpcVb5o9',
+    sector: 'Sector Quilico',
     destacado: "El más conveniente"
   },
   {
@@ -50,8 +53,10 @@ window.PARCELAZO = {
     cuotas: { 12: 823799, 24: 448548, 36: 324776, 48: 263850 },
     fotos: ["praderas-cauquenes", "praderas-cauquenes-2", "praderas-cauquenes-3", "praderas-cauquenes-4", "praderas-cauquenes-5"],
     plano: 'planos/praderas-cauquenes-plano.pdf',
-    mapaQ: "Cauquenes, Región del Maule, Chile",
-    coords: null,                /* PENDIENTE: [lat, lng] exactas del loteo */
+
+    coords: [-35.866250, -72.273528],
+    mapsUrl: 'https://maps.app.goo.gl/1JJ4hxLmhtUrEiRw9',
+    sector: null,
     destacado: null
   },
   {
@@ -65,8 +70,10 @@ window.PARCELAZO = {
     cuotas: { 12: 1190340, 24: 648125, 36: 469281, 48: 381247 },
     fotos: ["jardines-litueche", "jardines-litueche-2", "jardines-litueche-3", "jardines-litueche-4", "jardines-litueche-5"],
     plano: 'planos/jardines-litueche-plano.pdf',
-    mapaQ: "Litueche, Region de O'Higgins, Chile",
-    coords: null,                /* PENDIENTE: [lat, lng] exactas del loteo */
+
+    coords: [-34.107009, -71.712509],
+    mapsUrl: 'https://maps.app.goo.gl/e6QhQDPfXmZt2rFw6',
+    sector: null,
     destacado: "Más cerca de la costa"
   },
   {
@@ -80,23 +87,28 @@ window.PARCELAZO = {
     cuotas: { 12: 1237074, 24: 673571, 36: 487706, 48: 396215 },
     fotos: ["vive-longavi", "vive-longavi-2", "vive-longavi-3", "vive-longavi-4", "vive-longavi-5"],
     plano: 'planos/vive-longavi-plano.pdf',
-    mapaQ: "Longaví, Región del Maule, Chile",
-    coords: null,                /* PENDIENTE: [lat, lng] exactas del loteo */
+
+    coords: [-36.125343, -71.534417],
+    mapsUrl: 'https://maps.app.goo.gl/Gd1qQSAArA5Kb5CXA',
+    sector: null,
     destacado: null
   },
   {
     id: 'danilo',
     nombre: "Hacienda Don Danilo",
-    comuna: "[POR CONFIRMAR]",
-    region: "[POR CONFIRMAR]",
+    comuna: "Litueche",
+    region: "Región de O’Higgins",
     m2: 5000,                    /* supuesto, sin confirmar */
     precio: 14990000,
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
     cuotas: { 12: 1373610, 24: 747913, 36: 541534, 48: 439945 },
     fotos: [],
     plano: null,
-    mapaQ: null,
-    coords: null,                /* PENDIENTE: [lat, lng] exactas del loteo */
+
+
+    coords: [-34.134905, -71.600353],
+    mapsUrl: 'https://maps.app.goo.gl/LLbrzpsJ9EWataZu5',
+    sector: 'Sector El Cuzco',
     destacado: null
   }
   ]
