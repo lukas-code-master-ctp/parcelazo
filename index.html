@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Venta Dieciochera Pie $0 · Compra Tu Parcela</title>
+<meta name="description" content="Venta online dieciochera: parcelas con Pie $0 y cuotas desde $234.000. Vive Longaví, Praderas de Cauquenes, Hacienda Don Danilo, Don Guillermo y Jardines de Litueche.">
+<meta property="og:title" content="Venta Dieciochera Pie $0 · Compra Tu Parcela">
+<meta property="og:description" content="Pie $0 y cuotas desde $234.000. Solo por Fiestas Patrias.">
+<!-- PLACEHOLDER: reemplazar por la imagen real para compartir en redes (1200x630) -->
+<meta property="og:image" content="assets/og-venta-dieciochera.jpg">
+<meta name="theme-color" content="#0B1F45">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Rye&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   VENTA DIECIOCHERA · PIE $0 — Compra Tu Parcela
+   Estética: afiche de fonda / serigrafía chichera
+   ============================================================ */
+
+:root{
+  --kraft:      #EFDDB9;
+  --kraft-dark: #E2CB9C;
+  --crema:      #FBF4E4;
+  --tinta:      #23140A;
+  --tinta-soft: #4A3323;
+  --rojo:       #C8352F;
+  --rojo-hondo: #8E1F1C;
+  --azul:       #14346E;
+  --noche:      #0B1F45;
+  --verde:      #2E6B43;
+  --oro:        #E9A21B;
+  --oro-claro:  #F6C556;
+
+  --borde: 3px solid var(--tinta);
+  --sombra-dura: 8px 8px 0 var(--tinta);
+  --sombra-dura-sm: 5px 5px 0 var(--tinta);
+
+  --display: 'Alfa Slab One', Georgia, serif;
+  --western: 'Rye', 'Alfa Slab One', serif;
+  --cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --body: 'Barlow', system-ui, sans-serif;
+
+  --max: 1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--kraft);
+  color:var(--tinta);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* Textura de papel: grano + fibra */
+body::before{
+  content:'';
+  position:fixed; inset:0; z-index:9999; pointer-events:none;
+  opacity:.32; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- Tipografía base ---------- */
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spacing:-.01em;margin:0}
+.eyebrow{
+  font-family:var(--western);
+  font-size:clamp(.72rem,1.6vw,.9rem);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+/* ============================================================
+   GUIRNALDA DE BANDERINES
+   ============================================================ */
+.guirnalda{
+  display:flex; justify-content:center; gap:0;
+  height:44px; overflow:hidden; position:relative; z-index:5;
+  filter:drop-shadow(0 3px 0 rgba(0,0,0,.25));
+}
+.guirnalda span{
+  flex:1 0 34px;
+  max-width:56px;height:44px;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  animation:sway 3.2s ease-in-out infinite;
+}
+.guirnalda span:nth-child(5n+1){background:var(--rojo)}
+.guirnalda span:nth-child(5n+2){background:var(--crema)}
+.guirnalda span:nth-child(5n+3){background:var(--azul)}
+.guirnalda span:nth-child(5n+4){background:var(--oro)}
+.guirnalda span:nth-child(5n+5){background:var(--verde)}
+@keyframes sway{
+  0%,100%{transform:rotate(-3.5deg)}
+  50%{transform:rotate(3.5deg)}
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:sticky; top:0; z-index:100;
+  background:var(--noche);
+  border-bottom:3px solid var(--tinta);
+}
+.nav__in{
+  max-width:var(--max);margin:0 auto;padding:12px 24px;
+  display:flex;align-items:center;gap:20px;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto}
+.logo__mark{
+  width:38px;height:38px;flex:0 0 auto;
+  background:var(--rojo);border:2px solid var(--crema);
+  display:grid;place-items:center;
+  transform:rotate(-4deg);
+}
+.logo__mark svg{width:20px;height:20px;fill:var(--crema)}
+.logo__txt{
+  font-family:var(--cond);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+  color:var(--crema);line-height:1;font-size:.95rem;
+}
+.logo__txt small{display:block;font-size:.62rem;color:var(--oro);letter-spacing:.22em}
+.nav__links{margin-left:auto;display:flex;gap:26px;align-items:center}
+.nav__links a{
+  font-family:var(--cond);font-weight:600;text-transform:uppercase;
+  letter-spacing:.08em;font-size:.95rem;color:var(--crema);
+  text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent;
+  transition:border-color .18s, color .18s;
+}
+.nav__links a:hover{color:var(--oro);border-color:var(--oro)}
+@media(max-width:860px){.nav__links a:not(.btn){display:none}}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;font-size:1.02rem;
+  padding:13px 24px;border:var(--borde);border-radius:2px;
+  text-decoration:none;cursor:pointer;
+  background:var(--oro);color:var(--tinta);
+  box-shadow:var(--sombra-dura-sm);
+  transition:transform .14s cubic-bezier(.2,.8,.3,1), box-shadow .14s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--tinta)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--tinta)}
+.btn svg{width:19px;height:19px;fill:currentColor;flex:0 0 auto}
+.btn--wa{background:var(--verde);color:var(--crema);border-color:var(--tinta)}
+.btn--rojo{background:var(--rojo);color:var(--crema)}
+.btn--ghost{background:transparent;color:var(--crema);box-shadow:none;border-color:var(--crema)}
+.btn--ghost:hover{background:var(--crema);color:var(--noche);box-shadow:none;transform:translate(-2px,-2px)}
+.btn--lg{padding:17px 32px;font-size:1.14rem}
+.btn--block{width:100%;justify-content:center}
+:focus-visible{outline:3px dashed var(--oro);outline-offset:3px}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--noche);
+  color:var(--crema);
+  padding:0 0 clamp(56px,8vw,96px);
+  border-bottom:3px solid var(--tinta);
+}
+.hero::after{ /* halo de fonda */
+  content:'';position:absolute;left:50%;top:8%;transform:translateX(-50%);
+  width:1100px;height:700px;max-width:150vw;
+  background:radial-gradient(ellipse at center,rgba(233,162,27,.22),transparent 62%);
+  pointer-events:none;
+}
+/* Rayos de afiche */
+.hero__rayos{
+  position:absolute;inset:0;pointer-events:none;opacity:.13;
+  background:repeating-conic-gradient(from 0deg at 50% 24%,
+    var(--oro) 0deg 6deg, transparent 6deg 12deg);
+  mask-image:radial-gradient(ellipse at 50% 24%,#000 5%,transparent 65%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 24%,#000 5%,transparent 65%);
+  animation:girar 90s linear infinite;
+}
+@keyframes girar{to{transform:rotate(360deg)}}
+
+.hero__in{position:relative;z-index:3;max-width:var(--max);margin:0 auto;padding:clamp(38px,6vw,64px) 24px 0;text-align:center}
+
+.cinta{
+  display:inline-block;
+  background:var(--rojo);color:var(--crema);
+  font-family:var(--western);font-size:clamp(.74rem,1.7vw,.94rem);
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:9px 22px;border:2px solid var(--crema);
+  transform:rotate(-1.6deg);
+  box-shadow:4px 4px 0 rgba(0,0,0,.45);
+}
+
+.hero h1{
+  margin:26px 0 0;
+  font-size:clamp(3.1rem,13vw,9.5rem);
+  color:var(--crema);
+  text-shadow:
+     4px 4px 0 var(--rojo),
+     8px 8px 0 var(--tinta);
+  line-height:.82;
+}
+.hero h1 .pie0{
+  display:block;
+  color:var(--oro-claro);
+  font-size:clamp(4.6rem,22vw,16rem);
+  letter-spacing:-.04em;
+  text-shadow:
+     5px 5px 0 var(--rojo),
+    10px 10px 0 var(--tinta);
+}
+.hero__sub{
+  max-width:640px;margin:22px auto 0;
+  font-size:clamp(1.02rem,2.3vw,1.28rem);
+  color:#DCE4F2;
+}
+.hero__sub b{color:var(--oro-claro);font-weight:600}
+
+.hero__ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+
+/* Volantines */
+.volantin{position:absolute;z-index:2;pointer-events:none;opacity:.9}
+.volantin--1{left:4%;top:22%;width:88px;animation:flotar 9s ease-in-out infinite}
+.volantin--2{right:5%;top:14%;width:64px;animation:flotar 11s ease-in-out infinite reverse}
+.volantin--3{right:12%;bottom:12%;width:52px;animation:flotar 13s ease-in-out infinite}
+@keyframes flotar{
+  0%,100%{transform:translate3d(0,0,0) rotate(-8deg)}
+  33%{transform:translate3d(14px,-22px,0) rotate(6deg)}
+  66%{transform:translate3d(-10px,12px,0) rotate(-3deg)}
+}
+@media(max-width:860px){.volantin--1,.volantin--3{display:none}}
+
+/* ---------- Contador ---------- */
+.contador{margin-top:44px}
+.contador__label{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.2em;font-size:.86rem;color:var(--oro);margin-bottom:14px;
+}
+.contador__grid{display:flex;gap:clamp(8px,2vw,18px);justify-content:center;flex-wrap:wrap}
+.cd{
+  background:var(--crema);color:var(--tinta);
+  border:var(--borde);box-shadow:var(--sombra-dura-sm);
+  min-width:clamp(72px,17vw,116px);
+  padding:12px 6px 9px;
+}
+.cd:nth-child(odd){transform:rotate(-1.2deg)}
+.cd:nth-child(even){transform:rotate(1.2deg)}
+.cd__n{
+  font-family:var(--display);
+  font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;
+  font-variant-numeric:tabular-nums;
+  display:block;
+}
+.cd__u{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;font-size:.72rem;color:var(--tinta-soft);
+}
+.contador--vivo .cd{background:var(--oro);animation:latido 1.4s ease-in-out infinite}
+@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee{
+  background:var(--rojo);color:var(--crema);
+  border-top:3px solid var(--tinta);border-bottom:3px solid var(--tinta);
+  overflow:hidden;white-space:nowrap;padding:11px 0;
+}
+.marquee__track{display:inline-flex;gap:0;animation:desliza 28s linear infinite}
+.marquee span{
+  font-family:var(--western);font-size:clamp(.9rem,2.2vw,1.15rem);
+  letter-spacing:.1em;text-transform:uppercase;padding:0 26px;
+}
+.marquee span::after{content:'✦';margin-left:26px;color:var(--oro-claro)}
+@keyframes desliza{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============================================================
+   SECCIONES
+   ============================================================ */
+.sec{padding:clamp(60px,9vw,110px) 0;position:relative}
+.sec__head{margin-bottom:44px;max-width:720px}
+.sec__head--c{margin-left:auto;margin-right:auto;text-align:center}
+.sec h2{font-size:clamp(2.1rem,6vw,4rem);margin:10px 0 0}
+.sec__lead{margin:16px 0 0;font-size:1.06rem;color:var(--tinta-soft);max-width:60ch}
+.sec__head--c .sec__lead{margin-left:auto;margin-right:auto}
+.marca-oro{
+  background:linear-gradient(transparent 58%, var(--oro-claro) 58% 92%, transparent 92%);
+  padding:0 .12em;
+}
+
+/* ---------- Beneficios ---------- */
+.benes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.bene{
+  background:var(--crema);border:var(--borde);box-shadow:var(--sombra-dura-sm);
+  padding:26px 24px 24px;position:relative;
+}
+.bene:nth-child(2){background:var(--oro)}
+.bene__ico{
+  width:52px;height:52px;display:grid;place-items:center;
+  background:var(--noche);border:2px solid var(--tinta);margin-bottom:16px;
+  transform:rotate(-4deg);
+}
+.bene__ico svg{width:26px;height:26px;fill:var(--oro-claro)}
+.bene:nth-child(2) .bene__ico{background:var(--rojo)}
+.bene h3{font-size:1.32rem;margin-bottom:8px;line-height:1.05}
+.bene p{margin:0;font-size:.98rem;color:var(--tinta-soft)}
+.bene:nth-child(2) p{color:#5a3d16}
+
+/* ---------- Proyectos ---------- */
+.proys{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.proy{
+  background:var(--crema);border:var(--borde);box-shadow:var(--sombra-dura);
+  display:flex;flex-direction:column;position:relative;
+  transition:transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s;
+}
+.proy:nth-child(odd){transform:rotate(-.7deg)}
+.proy:nth-child(even){transform:rotate(.7deg)}
+.proy:hover{transform:rotate(0deg) translateY(-6px);box-shadow:12px 12px 0 var(--tinta)}
+.proy__badge{
+  position:absolute;top:-14px;right:-10px;z-index:4;
+  background:var(--rojo);color:var(--crema);
+  font-family:var(--western);font-size:.76rem;letter-spacing:.1em;
+  padding:7px 13px;border:2px solid var(--tinta);
+  transform:rotate(6deg);box-shadow:3px 3px 0 var(--tinta);
+}
+.proy__body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.proy__comuna{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;font-size:.76rem;color:var(--rojo-hondo);
+}
+.proy h3{font-size:1.55rem;margin:6px 0 12px}
+.proy__specs{
+  list-style:none;margin:0 0 18px;padding:0;
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.proy__specs li{
+  font-family:var(--cond);font-weight:600;font-size:.86rem;
+  text-transform:uppercase;letter-spacing:.06em;
+  background:var(--kraft);border:2px solid var(--tinta);padding:3px 10px;
+}
+.proy__precio{margin-top:auto;border-top:2px dashed var(--tinta-soft);padding-top:14px}
+.proy__precio dt{
+  font-family:var(--cond);font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;font-size:.72rem;color:var(--tinta-soft);
+}
+.proy__precio dd{margin:0 0 10px}
+.proy__cuota{font-family:var(--display);font-size:1.9rem;line-height:1;color:var(--rojo-hondo)}
+.proy__cuota small{font-family:var(--body);font-size:.8rem;color:var(--tinta-soft);font-weight:500}
+.proy__total{font-family:var(--cond);font-weight:700;font-size:1.05rem}
+.proy .btn{margin-top:16px}
+
+/* ---------- Placeholders de imagen ---------- */
+.ph{
+  position:relative;display:grid;place-content:center;gap:6px;text-align:center;
+  background:
+    repeating-linear-gradient(45deg,var(--kraft-dark) 0 12px,var(--kraft) 12px 24px);
+  border-bottom:3px solid var(--tinta);
+  color:var(--tinta-soft);
+}
+.ph--16x9{aspect-ratio:16/10}
+.ph--sq{aspect-ratio:1/1;border:3px dashed var(--tinta);border-radius:0}
+.ph__tag{
+  font-family:var(--western);font-size:.74rem;letter-spacing:.16em;
+  background:var(--tinta);color:var(--kraft);padding:4px 12px;justify-self:center;
+}
+.ph__txt{font-family:var(--cond);font-weight:600;font-size:.84rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* ============================================================
+   CALCULADORA
+   ============================================================ */
+.calc-sec{background:var(--noche);color:var(--crema);border-top:3px solid var(--tinta);border-bottom:3px solid var(--tinta);position:relative;overflow:hidden}
+.calc-sec::before{
+  content:'';position:absolute;inset:0;opacity:.07;pointer-events:none;
+  background-image:radial-gradient(var(--oro) 1.5px, transparent 1.6px);
+  background-size:26px 26px;
+}
+.calc-sec .sec__head{position:relative;z-index:2}
+.calc-sec h2{color:var(--crema);text-shadow:4px 4px 0 var(--rojo-hondo)}
+.calc-sec .sec__lead{color:#C6D2E8}
+.calc-sec .eyebrow{color:var(--oro)}
+
+.calc{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:0;
+  border:var(--borde);box-shadow:var(--sombra-dura);
+  background:var(--crema);color:var(--tinta);
+}
+@media(max-width:820px){.calc{grid-template-columns:1fr}}
+
+.calc__form{padding:clamp(24px,4vw,38px)}
+.campo{margin-bottom:26px}
+.campo:last-child{margin-bottom:0}
+.campo__label{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;font-size:.82rem;margin-bottom:9px;
+}
+.campo__val{
+  font-family:var(--display);font-size:1.06rem;color:var(--rojo-hondo);
+  font-variant-numeric:tabular-nums;
+}
+select{
+  width:100%;font-family:var(--cond);font-weight:600;font-size:1.08rem;
+  text-transform:uppercase;letter-spacing:.05em;
+  padding:13px 44px 13px 14px;
+  background:var(--kraft);color:var(--tinta);
+  border:var(--borde);border-radius:0;appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 7 6-7z' fill='%2323140A'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:22px;
+}
+
+/* Sliders */
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:14px;
+  background:var(--kraft);border:3px solid var(--tinta);border-radius:0;
+  cursor:pointer;margin:6px 0;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:28px;height:28px;
+  background:var(--rojo);border:3px solid var(--tinta);border-radius:0;
+  cursor:grab;box-shadow:3px 3px 0 rgba(35,20,10,.4);
+}
+input[type=range]::-webkit-slider-thumb:active{cursor:grabbing;background:var(--oro)}
+input[type=range]::-moz-range-thumb{
+  width:22px;height:22px;background:var(--rojo);
+  border:3px solid var(--tinta);border-radius:0;cursor:grab;
+}
+.campo__hint{font-size:.82rem;color:var(--tinta-soft);margin:6px 0 0}
+.campo__ticks{
+  display:flex;justify-content:space-between;
+  font-family:var(--cond);font-weight:600;font-size:.74rem;
+  color:var(--tinta-soft);letter-spacing:.08em;text-transform:uppercase;
+}
+
+/* Resultado */
+.calc__out{
+  background:var(--rojo);color:var(--crema);
+  padding:clamp(24px,4vw,38px);
+  display:flex;flex-direction:column;justify-content:center;
+  border-left:3px solid var(--tinta);
+  position:relative;overflow:hidden;
+}
+@media(max-width:820px){.calc__out{border-left:none;border-top:3px solid var(--tinta)}}
+.calc__out::after{
+  content:'';position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;
+  border:22px solid rgba(251,244,228,.09);border-radius:50%;
+}
+.calc__out .eyebrow{color:var(--oro-claro)}
+.calc__cuota{
+  font-family:var(--display);
+  font-size:clamp(2.6rem,7.5vw,4.1rem);line-height:.95;
+  margin:10px 0 2px;font-variant-numeric:tabular-nums;
+  text-shadow:4px 4px 0 var(--rojo-hondo);
+}
+.calc__cuota-sub{font-family:var(--cond);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.9rem;opacity:.9}
+.calc__detalle{
+  list-style:none;margin:24px 0 0;padding:20px 0 0;
+  border-top:2px dashed rgba(251,244,228,.45);
+  display:grid;gap:9px;position:relative;z-index:2;
+}
+.calc__detalle li{display:flex;justify-content:space-between;gap:14px;font-size:.95rem}
+.calc__detalle b{font-family:var(--cond);font-weight:700;font-size:1.08rem;font-variant-numeric:tabular-nums}
+.calc__nota{font-size:.78rem;opacity:.85;margin:18px 0 0;line-height:1.45;position:relative;z-index:2}
+.calc__out .btn{margin-top:20px;position:relative;z-index:2}
+
+/* ============================================================
+   NEWSLETTER + WHATSAPP
+   ============================================================ */
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:820px){.dos{grid-template-columns:1fr}}
+.panel{
+  border:var(--borde);box-shadow:var(--sombra-dura);
+  padding:clamp(26px,4vw,40px);position:relative;overflow:hidden;
+}
+.panel--news{background:var(--crema)}
+.panel--wa{background:var(--verde);color:var(--crema)}
+.panel h3{font-size:clamp(1.6rem,3.6vw,2.2rem);margin-bottom:12px;line-height:1}
+.panel--wa h3{color:var(--crema);text-shadow:3px 3px 0 rgba(0,0,0,.3)}
+.panel p{font-size:1rem}
+.panel--news p{color:var(--tinta-soft)}
+.panel--wa .eyebrow{color:var(--oro-claro)}
+
+.form{display:grid;gap:14px;margin-top:22px}
+.form input[type=text],
+.form input[type=email],
+.form input[type=tel]{
+  width:100%;font-family:var(--body);font-size:1rem;
+  padding:13px 15px;background:var(--kraft);color:var(--tinta);
+  border:var(--borde);border-radius:0;
+}
+.form input::placeholder{color:#8a7358}
+.form input:focus{background:#fff}
+.form__fila{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.form__fila{grid-template-columns:1fr}}
+.form__check{display:flex;gap:10px;align-items:flex-start;font-size:.83rem;color:var(--tinta-soft);line-height:1.4}
+.form__check input{
+  width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:var(--rojo);
+}
+.form__msg{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  font-size:.9rem;padding:11px 14px;border:2px solid var(--tinta);
+}
+.form__msg[data-tipo=ok]{background:var(--verde);color:var(--crema)}
+.form__msg[data-tipo=error]{background:var(--rojo);color:var(--crema)}
+.form__msg[hidden]{display:none}
+
+.wa__lista{list-style:none;margin:20px 0 26px;padding:0;display:grid;gap:11px}
+.wa__lista li{display:flex;gap:11px;align-items:flex-start;font-size:.98rem}
+.wa__lista svg{width:20px;height:20px;fill:var(--oro-claro);flex:0 0 auto;margin-top:3px}
+.wa__cupos{
+  display:inline-block;margin-top:18px;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  font-size:.8rem;background:var(--oro);color:var(--tinta);
+  padding:5px 12px;border:2px solid var(--tinta);transform:rotate(-2deg);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{background:var(--noche);color:#B9C6DE;border-top:3px solid var(--tinta);padding:52px 0 34px;font-size:.9rem}
+.foot__top{display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.14)}
+.foot__links{display:flex;gap:22px;flex-wrap:wrap}
+.foot__links a{font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--crema)}
+.foot__links a:hover{color:var(--oro)}
+.foot__legal{margin-top:24px;font-size:.78rem;line-height:1.6;color:#8FA0BE;max-width:80ch}
+
+/* ============================================================
+   ANIMACIÓN DE ENTRADA
+   ============================================================ */
+.rev{opacity:0;translate:0 26px;transition:opacity .7s ease, translate .7s cubic-bezier(.2,.8,.3,1)}
+.rev.on{opacity:1;translate:0 0}
+
+.hero .cinta,.hero h1,.hero__sub,.hero__ctas,.contador{
+  animation:sube .85s cubic-bezier(.2,.8,.3,1) both;
+}
+.hero h1{animation-delay:.08s}
+.hero__sub{animation-delay:.2s}
+.hero__ctas{animation-delay:.3s}
+.contador{animation-delay:.4s}
+@keyframes sube{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rev{opacity:1;translate:0 0}
+  html{scroll-behavior:auto}
+}
+
+/* Botón flotante WhatsApp */
+.fab{
+  position:fixed;right:20px;bottom:20px;z-index:200;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--verde);border:3px solid var(--tinta);
+  display:grid;place-items:center;box-shadow:4px 4px 0 var(--tinta);
+  transition:transform .18s;
+}
+.fab:hover{transform:scale(1.08) rotate(-6deg)}
+.fab svg{width:30px;height:30px;fill:var(--crema)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav__in">
+    <a class="logo" href="#top">
+      <span class="logo__mark">
+        <!-- PLACEHOLDER: reemplazar por el isotipo real de Compra Tu Parcela (SVG) -->
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+      </span>
+      <span class="logo__txt">Compra Tu Parcela<small>Venta Dieciochera</small></span>
+    </a>
+    <div class="nav__links">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#newsletter">Newsletter</a>
+      <a class="btn btn--wa" data-wa href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+        Grupo WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero__rayos" aria-hidden="true"></div>
+
+  <!-- Volantines decorativos -->
+  <svg class="volantin volantin--1" viewBox="0 0 100 170" aria-hidden="true">
+    <g><path d="M50 2 L96 52 L50 118 L4 52 Z" fill="#C8352F" stroke="#23140A" stroke-width="4"/>
+    <path d="M50 2 L50 118 M4 52 L96 52" stroke="#FBF4E4" stroke-width="4"/>
+    <path d="M50 118 q18 16 0 32 q-18 16 0 30" fill="none" stroke="#E9A21B" stroke-width="4"/></g>
+  </svg>
+  <svg class="volantin volantin--2" viewBox="0 0 100 170" aria-hidden="true">
+    <g><path d="M50 2 L96 52 L50 118 L4 52 Z" fill="#E9A21B" stroke="#23140A" stroke-width="4"/>
+    <path d="M50 2 L50 118 M4 52 L96 52" stroke="#0B1F45" stroke-width="4"/>
+    <path d="M50 118 q18 16 0 32 q-18 16 0 30" fill="none" stroke="#FBF4E4" stroke-width="4"/></g>
+  </svg>
+  <svg class="volantin volantin--3" viewBox="0 0 100 170" aria-hidden="true">
+    <g><path d="M50 2 L96 52 L50 118 L4 52 Z" fill="#FBF4E4" stroke="#23140A" stroke-width="4"/>
+    <path d="M50 2 L50 118 M4 52 L96 52" stroke="#C8352F" stroke-width="4"/>
+    <path d="M50 118 q18 16 0 32 q-18 16 0 30" fill="none" stroke="#2E6B43" stroke-width="4"/></g>
+  </svg>
+
+  <div class="guirnalda" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="hero__in">
+    <p class="cinta">Venta online · Fiestas Patrias 2026 · 5 proyectos</p>
+
+    <h1>
+      Este dieciocho<br>tu parcela con
+      <span class="pie0">Pie $0</span>
+    </h1>
+
+    <p class="hero__sub">
+      Sin pie, sin banco y sin letra chica. Cuotas <b>desde $234.000</b> mensuales
+      en los cinco proyectos de Compra Tu Parcela. Solo durante la Venta Dieciochera.
+    </p>
+
+    <div class="hero__ctas">
+      <a class="btn btn--lg" href="#proyectos">Ver los 5 proyectos</a>
+      <a class="btn btn--lg btn--ghost" data-wa href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+        Entrar al grupo
+      </a>
+    </div>
+
+    <div class="contador" id="contador">
+      <p class="contador__label" id="contador-titulo">La venta parte en</p>
+      <div class="contador__grid" role="timer" aria-live="polite" aria-atomic="true" aria-labelledby="contador-titulo">
+        <div class="cd"><span class="cd__n" id="cd-dias">00</span><span class="cd__u">Días</span></div>
+        <div class="cd"><span class="cd__n" id="cd-horas">00</span><span class="cd__u">Horas</span></div>
+        <div class="cd"><span class="cd__n" id="cd-min">00</span><span class="cd__u">Minutos</span></div>
+        <div class="cd"><span class="cd__n" id="cd-seg">00</span><span class="cd__u">Segundos</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track" id="marquee-track"></div>
+</div>
+
+<!-- ============ BENEFICIOS ============ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head sec__head--c">
+      <p class="eyebrow">El trato dieciochero</p>
+      <h2>Tres razones para<br>no dejarlo para marzo</h2>
+    </div>
+
+    <div class="benes">
+      <article class="bene rev">
+        <div class="bene__ico"><svg viewBox="0 0 24 24"><path d="M12 1l3 6 6.5.9-4.7 4.6 1.1 6.5L12 16l-5.9 3 1.1-6.5L2.5 7.9 9 7z"/></svg></div>
+        <h3>Pie $0 de verdad</h3>
+        <p>Firmas y empiezas a pagar recién en tu primera cuota. Cero desembolso inicial, cero pie diferido escondido.</p>
+      </article>
+
+      <article class="bene rev">
+        <div class="bene__ico"><svg viewBox="0 0 24 24"><path d="M3 5h18v4H3zm0 6h18v8H3zm3 3h6v2H6z"/></svg></div>
+        <h3>Cuotas desde $234.000</h3>
+        <p>Financiamiento directo con nosotros, sin banco, sin comisiones de apertura y sin evaluación en Dicom.</p>
+      </article>
+
+      <article class="bene rev">
+        <div class="bene__ico"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg></div>
+        <h3>5.000 m² con roles propios</h3>
+        <p>Parcelas con acceso, factibilidad de agua y luz, y todos los papeles listos para escriturar a tu nombre.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROYECTOS ============ -->
+<section class="sec" id="proyectos" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec__head sec__head--c">
+      <p class="eyebrow">Del Maule a O'Higgins</p>
+      <h2>Los proyectos<br>en <span class="marca-oro">oferta</span></h2>
+      <p class="sec__lead">Cinco loteos, todos con Pie $0 durante la Venta Dieciochera. Valores y cuotas referenciales, sujetos a disponibilidad de parcelas.</p>
+    </div>
+
+    <div class="proys" id="grid-proyectos"><!-- se renderiza con JS desde CONFIG.proyectos --></div>
+  </div>
+</section>
+
+<!-- ============ CALCULADORA ============ -->
+<section class="sec calc-sec" id="calculadora">
+  <div class="wrap">
+    <div class="sec__head sec__head--c">
+      <p class="eyebrow">Saca la cuenta antes del asado</p>
+      <h2>Calculadora de<br>financiamiento</h2>
+      <p class="sec__lead">Elige el proyecto, mueve el plazo y mira tu cuota al instante.</p>
+    </div>
+
+    <div class="calc">
+      <form class="calc__form" id="form-calc" novalidate>
+        <div class="campo">
+          <label class="campo__label" for="calc-proyecto">Proyecto</label>
+          <select id="calc-proyecto"><!-- opciones desde JS --></select>
+          <p class="campo__hint" id="calc-hint">—</p>
+        </div>
+
+        <div class="campo">
+          <label class="campo__label" for="calc-plazo">
+            <span>Plazo</span>
+            <span class="campo__val" id="calc-plazo-val">120 cuotas</span>
+          </label>
+          <input type="range" id="calc-plazo" min="24" max="120" step="12" value="120"
+                 aria-describedby="calc-plazo-ticks">
+          <div class="campo__ticks" id="calc-plazo-ticks"><span>24 cuotas</span><span>120 cuotas</span></div>
+        </div>
+
+        <div class="campo">
+          <label class="campo__label" for="calc-pie">
+            <span>Pie (opcional)</span>
+            <span class="campo__val" id="calc-pie-val">$0</span>
+          </label>
+          <input type="range" id="calc-pie" min="0" max="30" step="5" value="0"
+                 aria-describedby="calc-pie-hint">
+          <p class="campo__hint" id="calc-pie-hint">En la Venta Dieciochera el pie es <b>$0</b>. Si igual quieres abonar, súbelo y baja tu cuota.</p>
+        </div>
+      </form>
+
+      <div class="calc__out" aria-live="polite">
+        <p class="eyebrow">Tu cuota mensual queda en</p>
+        <p class="calc__cuota" id="calc-cuota">$234.000</p>
+        <p class="calc__cuota-sub" id="calc-cuota-sub">120 cuotas · sin interés</p>
+
+        <ul class="calc__detalle">
+          <li><span>Valor parcela</span> <b id="calc-total">$28.080.000</b></li>
+          <li><span>Pie</span> <b id="calc-pie-monto">$0</b></li>
+          <li><span>Monto a financiar</span> <b id="calc-financiar">$28.080.000</b></li>
+        </ul>
+
+        <a class="btn btn--wa btn--block" data-wa href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+          Reservar esta cuota
+        </a>
+
+        <p class="calc__nota">Simulación referencial en pesos chilenos, sin interés ni reajuste, calculada como (valor − pie) ÷ número de cuotas. No constituye oferta ni cotización formal. <a href="terminos.html#c11" style="color:var(--oro-claro)">Ver bases</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER + WHATSAPP ============ -->
+<section class="sec" id="newsletter">
+  <div class="wrap">
+    <div class="dos">
+
+      <div class="panel panel--news rev">
+        <p class="eyebrow" style="color:var(--rojo-hondo)">Lista de espera</p>
+        <h3>Que no te pillen<br>volando el volantín</h3>
+        <p>Déjanos tus datos y te avisamos apenas se abra la venta, con la lista de parcelas y precios antes que al resto.</p>
+
+        <form class="form" id="form-news" novalidate>
+          <div class="form__fila">
+            <div>
+              <label class="sr" for="news-nombre">Nombre</label>
+              <input type="text" id="news-nombre" name="nombre" placeholder="Tu nombre" autocomplete="given-name" required>
+            </div>
+            <div>
+              <label class="sr" for="news-fono">Teléfono</label>
+              <input type="tel" id="news-fono" name="telefono" placeholder="+56 9 ..." autocomplete="tel">
+            </div>
+          </div>
+          <div>
+            <label class="sr" for="news-email">Email</label>
+            <input type="email" id="news-email" name="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email" required>
+          </div>
+          <div>
+            <label class="sr" for="news-proyecto">Proyecto de interés</label>
+            <select id="news-proyecto" name="proyecto"><!-- opciones desde JS --></select>
+          </div>
+          <label class="form__check">
+            <input type="checkbox" id="news-ok" required>
+            <span>Acepto los <a href="terminos.html" style="color:var(--rojo-hondo)">términos y condiciones</a>, recibir información comercial de Compra Tu Parcela y la <a href="terminos.html#datos" style="color:var(--rojo-hondo)">política de privacidad</a>.</span>
+          </label>
+          <button class="btn btn--rojo btn--block" type="submit">Avísenme del lanzamiento</button>
+          <p class="form__msg" id="news-msg" role="status" hidden></p>
+        </form>
+      </div>
+
+      <div class="panel panel--wa rev">
+        <p class="eyebrow">Canal oficial</p>
+        <h3>El grupo de<br>WhatsApp</h3>
+        <p>Ahí se publica todo primero: apertura de la venta, parcelas liberadas y las que se van reservando en vivo.</p>
+
+        <ul class="wa__lista">
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg><span>Aviso con 24 horas de anticipación</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg><span>Planos y valores de cada parcela</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg><span>Respuestas del equipo en vivo</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg><span>Sin spam: solo avisos de la venta</span></li>
+        </ul>
+
+        <a class="btn btn--block" data-wa href="#" target="_blank" rel="noopener" style="background:var(--oro)">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+          Unirme al grupo
+        </a>
+        <span class="wa__cupos">Cupos limitados por grupo</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <a class="logo" href="#top">
+        <span class="logo__mark">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </span>
+        <span class="logo__txt">Compra Tu Parcela<small>Venta Dieciochera</small></span>
+      </a>
+      <nav class="foot__links">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="terminos.html">Términos y Condiciones</a>
+        <a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+
+    <p class="foot__legal">
+      Imágenes y planos referenciales. Los valores, superficies y cuotas publicados son referenciales,
+      están expresados en pesos chilenos y pueden variar según la parcela, su ubicación dentro del loteo
+      y la disponibilidad al momento de la reserva. Esta publicación no constituye oferta ni promesa de
+      compraventa. Las condiciones definitivas se establecen en la cotización y en el contrato respectivo.
+      Promoción Pie $0 válida únicamente durante la Venta Dieciochera y sujeta a stock.
+      Revisa las bases completas en los <a href="terminos.html" style="color:var(--oro)">Términos y Condiciones</a>.
+      <br><br>© <span id="anio">2026</span> Compra Tu Parcela · Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+<!-- Botón flotante WhatsApp -->
+<a class="fab" data-wa href="#" target="_blank" rel="noopener" aria-label="Unirse al grupo de WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+</a>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN — EDITAR AQUÍ
+   ============================================================ */
+const CONFIG = {
+
+  /* Fecha y hora de inicio de la Venta Dieciochera (hora de Chile).
+     >>> CAMBIAR por la fecha real del lanzamiento <<< */
+  inicioVenta: '2026-09-18T09:00:00-03:00',
+
+  /* Fecha de cierre: cuando parte la venta, el contador pasa a
+     descontar hacia el cierre. Dejar en null si no aplica. */
+  cierreVenta: '2026-09-21T23:59:00-03:00',
+
+  /* >>> PLACEHOLDER: pegar el link de invitación real del grupo <<< */
+  whatsappGrupo: 'https://chat.whatsapp.com/REEMPLAZAR-CODIGO-INVITACION',
+
+  /* Endpoint del newsletter (Mailchimp, Klaviyo, HubSpot, Google Forms...).
+     Si queda vacío, el formulario solo muestra el mensaje de éxito. */
+  newsletterEndpoint: '',
+
+  /* >>> PLACEHOLDER: valores referenciales. Reemplazar por los reales <<< */
+  proyectos: [
+    { id:'longavi',   nombre:'Vive Longaví',          comuna:'Longaví, Región del Maule',        m2:5000, precio:28080000, img:'assets/vive-longavi.jpg',           destacado:'El más conveniente' },
+    { id:'cauquenes', nombre:'Praderas de Cauquenes', comuna:'Cauquenes, Región del Maule',      m2:5000, precio:30000000, img:'assets/praderas-cauquenes.jpg',     destacado:null },
+    { id:'danilo',    nombre:'Hacienda Don Danilo',   comuna:'San Javier, Región del Maule',     m2:5000, precio:32400000, img:'assets/hacienda-don-danilo.jpg',    destacado:null },
+    { id:'guillermo', nombre:'Don Guillermo',         comuna:'Parral, Región del Maule',         m2:5000, precio:35880000, img:'assets/don-guillermo.jpg',          destacado:null },
+    { id:'litueche',  nombre:'Jardines de Litueche',  comuna:'Litueche, Región de O’Higgins', m2:5000, precio:38400000, img:'assets/jardines-litueche.jpg',   destacado:'Más cerca de la costa' }
+  ],
+
+  plazoMaximo: 120 /* cuotas — se usa para el "cuota desde" de cada tarjeta */
+};
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+const $  = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+const pesos = n => '$' + Math.round(n).toLocaleString('es-CL');
+const m2fmt = n => n.toLocaleString('es-CL') + ' m²';
+
+/* ============================================================
+   LINKS DE WHATSAPP
+   ============================================================ */
+$$('[data-wa]').forEach(a => { a.href = CONFIG.whatsappGrupo; });
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+(() => {
+  const frases = ['Pie $0', 'Cuotas desde $234.000', 'Sin banco', '5 proyectos', 'Venta online', 'Solo por el 18'];
+  const track = $('#marquee-track');
+  const bloque = frases.map(f => `<span>${f}</span>`).join('');
+  track.innerHTML = bloque + bloque; /* duplicado para loop continuo */
+})();
+
+/* ============================================================
+   CONTADOR REGRESIVO
+   ============================================================ */
+(() => {
+  const inicio = new Date(CONFIG.inicioVenta).getTime();
+  const cierre = CONFIG.cierreVenta ? new Date(CONFIG.cierreVenta).getTime() : null;
+
+  const el = {
+    box:    $('#contador'),
+    titulo: $('#contador-titulo'),
+    d: $('#cd-dias'), h: $('#cd-horas'), m: $('#cd-min'), s: $('#cd-seg')
+  };
+  const pad = n => String(Math.max(0, n)).padStart(2, '0');
+
+  function tick() {
+    const ahora = Date.now();
+    let objetivo = inicio, titulo = 'La venta parte en', vivo = false;
+
+    if (ahora >= inicio) {
+      if (cierre && ahora < cierre) {
+        objetivo = cierre; titulo = '¡Venta en vivo! Cierra en'; vivo = true;
+      } else {
+        el.titulo.textContent = 'La Venta Dieciochera terminó · escríbenos igual';
+        [el.d, el.h, el.m, el.s].forEach(n => n.textContent = '00');
+        clearInterval(timer);
+        return;
+      }
+    }
+
+    el.titulo.textContent = titulo;
+    el.box.classList.toggle('contador--vivo', vivo);
+
+    const dif = Math.max(0, objetivo - ahora);
+    const seg = Math.floor(dif / 1000);
+    el.d.textContent = pad(Math.floor(seg / 86400));
+    el.h.textContent = pad(Math.floor(seg % 86400 / 3600));
+    el.m.textContent = pad(Math.floor(seg % 3600 / 60));
+    el.s.textContent = pad(seg % 60);
+  }
+
+  tick();
+  const timer = setInterval(tick, 1000);
+})();
+
+/* ============================================================
+   GRILLA DE PROYECTOS
+   ============================================================ */
+(() => {
+  const grid = $('#grid-proyectos');
+
+  grid.innerHTML = CONFIG.proyectos.map(p => {
+    const cuota = p.precio / CONFIG.plazoMaximo;
+    return `
+    <article class="proy rev">
+      ${p.destacado ? `<span class="proy__badge">${p.destacado}</span>` : `<span class="proy__badge">Pie $0</span>`}
+
+      <!-- PLACEHOLDER: reemplazar por <img src="${p.img}" alt="${p.nombre}"> -->
+      <div class="ph ph--16x9" role="img" aria-label="Foto del proyecto ${p.nombre}">
+        <span class="ph__tag">Imagen</span>
+        <span class="ph__txt">${p.img} · 1200×750</span>
+      </div>
+
+      <div class="proy__body">
+        <p class="proy__comuna">${p.comuna}</p>
+        <h3>${p.nombre}</h3>
+        <ul class="proy__specs">
+          <li>${m2fmt(p.m2)}</li>
+          <li>Pie $0</li>
+          <li>Rol propio</li>
+        </ul>
+
+        <dl class="proy__precio">
+          <dt>Cuota desde</dt>
+          <dd class="proy__cuota">${pesos(cuota)} <small>/ mes en ${CONFIG.plazoMaximo} cuotas</small></dd>
+          <dt>Valor parcela</dt>
+          <dd class="proy__total">${pesos(p.precio)}</dd>
+        </dl>
+
+        <a class="btn btn--block" href="#calculadora" data-proyecto="${p.id}">Simular mi cuota</a>
+      </div>
+    </article>`;
+  }).join('');
+
+  /* Al hacer clic en "Simular mi cuota" se preselecciona el proyecto */
+  grid.addEventListener('click', e => {
+    const btn = e.target.closest('[data-proyecto]');
+    if (!btn) return;
+    const sel = $('#calc-proyecto');
+    sel.value = btn.dataset.proyecto;
+    sel.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+})();
+
+/* ============================================================
+   CALCULADORA DE FINANCIAMIENTO
+   ============================================================ */
+(() => {
+  const selProy  = $('#calc-proyecto');
+  const selNews  = $('#news-proyecto');
+  const rgPlazo  = $('#calc-plazo');
+  const rgPie    = $('#calc-pie');
+
+  const opciones = CONFIG.proyectos
+    .map(p => `<option value="${p.id}">${p.nombre}</option>`).join('');
+  selProy.innerHTML = opciones;
+  selNews.innerHTML = `<option value="">Proyecto de interés (opcional)</option>` + opciones +
+                      `<option value="todos">Todavía no lo decido</option>`;
+
+  rgPlazo.max = CONFIG.plazoMaximo;
+  rgPlazo.value = CONFIG.plazoMaximo;
+
+  function calcular() {
+    const p = CONFIG.proyectos.find(x => x.id === selProy.value) || CONFIG.proyectos[0];
+    const cuotas   = +rgPlazo.value;
+    const piePct   = +rgPie.value;
+    const pieMonto = Math.round(p.precio * piePct / 100);
+    const financiar = p.precio - pieMonto;
+    const cuota     = financiar / cuotas;
+
+    $('#calc-hint').innerHTML = `${p.comuna} · ${m2fmt(p.m2)} · valor ${pesos(p.precio)}`;
+    $('#calc-plazo-val').textContent = `${cuotas} cuotas`;
+    $('#calc-pie-val').textContent   = piePct === 0 ? '$0' : `${piePct}% · ${pesos(pieMonto)}`;
+
+    $('#calc-cuota').textContent     = pesos(cuota);
+    $('#calc-cuota-sub').textContent = `${cuotas} cuotas · sin interés`;
+    $('#calc-total').textContent     = pesos(p.precio);
+    $('#calc-pie-monto').textContent = pesos(pieMonto);
+    $('#calc-financiar').textContent = pesos(financiar);
+  }
+
+  ['input', 'change'].forEach(ev => {
+    selProy.addEventListener(ev, calcular);
+    rgPlazo.addEventListener(ev, calcular);
+    rgPie.addEventListener(ev, calcular);
+  });
+
+  calcular();
+})();
+
+/* ============================================================
+   NEWSLETTER
+   ============================================================ */
+(() => {
+  const form = $('#form-news');
+  const msg  = $('#news-msg');
+
+  const mostrar = (tipo, texto) => {
+    msg.hidden = false;
+    msg.dataset.tipo = tipo;
+    msg.textContent = texto;
+  };
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const nombre = $('#news-nombre').value.trim();
+    const email  = $('#news-email').value.trim();
+    const ok     = $('#news-ok').checked;
+
+    if (!nombre)  return mostrar('error', 'Nos falta tu nombre.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mostrar('error', 'Revisa tu correo, parece incompleto.');
+    if (!ok)      return mostrar('error', 'Necesitamos que aceptes recibir la información.');
+
+    const datos = {
+      nombre,
+      email,
+      telefono: $('#news-fono').value.trim(),
+      proyecto: $('#news-proyecto').value,
+      origen: 'landing-venta-dieciochera'
+    };
+
+    const boton = form.querySelector('button[type=submit]');
+    boton.disabled = true;
+    boton.textContent = 'Enviando...';
+
+    try {
+      /* >>> PLACEHOLDER: conectar con el proveedor de email marketing <<< */
+      if (CONFIG.newsletterEndpoint) {
+        const r = await fetch(CONFIG.newsletterEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+        if (!r.ok) throw new Error('respuesta ' + r.status);
+      } else {
+        console.info('[newsletter] sin endpoint configurado. Datos:', datos);
+      }
+
+      form.reset();
+      mostrar('ok', '¡Listo! Te avisamos apenas parta la venta.');
+    } catch (err) {
+      console.error(err);
+      mostrar('error', 'No pudimos registrarte. Escríbenos por WhatsApp.');
+    } finally {
+      boton.disabled = false;
+      boton.textContent = 'Avísenme del lanzamiento';
+    }
+  });
+})();
+
+/* ============================================================
+   REVELADO AL HACER SCROLL
+   ============================================================ */
+(() => {
+  const io = new IntersectionObserver((entradas) => {
+    entradas.forEach((en, i) => {
+      if (!en.isIntersecting) return;
+      en.target.style.transitionDelay = (i * 80) + 'ms';
+      en.target.classList.add('on');
+      io.unobserve(en.target);
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+
+  $$('.rev').forEach(el => io.observe(el));
+})();
+
+$('#anio').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
