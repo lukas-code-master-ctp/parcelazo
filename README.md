@@ -2,7 +2,7 @@
 
 Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $234.500** en los cinco proyectos de Compra Tu Parcela.
 
-Sitio estático, sin build ni dependencias. Se publica tal cual en GitHub Pages.
+Sitio estático, sin build ni dependencias. Desplegado en Vercel.
 
 ---
 
@@ -16,7 +16,7 @@ Sitio estático, sin build ni dependencias. Se publica tal cual en GitHub Pages.
 | `terminos.html` | Términos y Condiciones de la promoción |
 | `assets/` | Escudo, logo, favicons y fotos, ya optimizados |
 | `planos/` | Planos de loteo en PDF, para descargar desde cada ficha |
-| `.nojekyll` | Le dice a GitHub Pages que sirva los archivos sin procesarlos con Jekyll |
+| `.nojekyll` | Resto de un despliegue en GitHub Pages. Vercel lo ignora; se deja por si algún día se vuelve a Pages |
 
 Los cinco `id` son: `guillermo`, `cauquenes`, `litueche`, `longavi`, `danilo`.
 
@@ -113,32 +113,32 @@ grep -o 'class="pl">\[[^]]*\]' terminos.html
 
 ---
 
-## Publicar en GitHub Pages
+## Despliegue
+
+El sitio está en **Vercel**, conectado al repositorio. Cada push a `main` dispara un despliegue solo:
 
 ```bash
-git add -A && git commit -m "Actualiza la landing"
+git add -A && git commit -m "Actualiza la landing" && git push
 ```
 
-```bash
-git push
-```
+No hay build: Vercel sirve los archivos tal cual. Si pide configuración, es un proyecto
+estático sin framework, sin comando de build y con la raíz del repo como directorio de salida.
 
-El repositorio ya está en https://github.com/lukas-code-master-ctp/parcelazo
-
-Para publicar el sitio: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**.
-Queda en `https://lukas-code-master-ctp.github.io/parcelazo/` en un par de minutos.
-
-> No lo actives hasta cerrar la fecha de término y la revisión legal de los Términos.
+Repositorio: https://github.com/lukas-code-master-ctp/parcelazo
 
 ### Dominio propio
 
-Para servirlo desde un subdominio de compratuparcela.cl:
+Para servirlo desde un subdominio de compratuparcela.cl (por ejemplo `dieciocho.compratuparcela.cl`),
+se agrega en **Vercel → Settings → Domains** y ahí mismo indica qué registro DNS crear.
+No hace falta el archivo `CNAME` en el repo: eso era para GitHub Pages.
 
-1. Crea un archivo `CNAME` en la raíz del repo con una sola línea: `dieciocho.compratuparcela.cl`
-2. En el DNS del dominio, agrega un registro `CNAME` de `dieciocho` apuntando a `lukas-code-master-ctp.github.io`
-3. En **Settings → Pages**, escribe el dominio y activa **Enforce HTTPS**
+Todas las rutas del sitio son relativas, así que funciona igual en el dominio de Vercel
+que en uno propio, y en un subdirectorio si hiciera falta.
 
-Todas las rutas del sitio son relativas, así que funciona igual en `lukas-code-master-ctp.github.io/parcelazo/` que en un dominio propio.
+### Antes de difundir el link
+
+Todavía quedan datos por cerrar (ver el estado más arriba): la fecha de término,
+el material de dos proyectos y la revisión legal de los Términos.
 
 ---
 
@@ -148,7 +148,7 @@ Todas las rutas del sitio son relativas, así que funciona igual en `lukas-code-
 - Las imágenes se sirven en WebP con respaldo JPG/PNG vía `<picture>`. `assets/` pesa ~6.2 MB y `planos/` ~15 MB.
 - Las fotos de las tarjetas usan `loading="lazy"`; el escudo del hero usa `fetchpriority="high"`.
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
-- El mapa usa el embed de Google Maps sin API key. Cada proyecto tiene `coords: [lat, lng]` del loteo (zoom 15) y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar».
+- El mapa usa el embed de Google Maps sin API key (`maps?q=lat,lng&z=15&output=embed`). Cada proyecto tiene `coords: [lat, lng]` del loteo y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar». Google redirige ese `src` a `/maps/embed?...`, que responde sin `X-Frame-Options` y por eso sí se puede embeber.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - Todas las fechas visibles («Miércoles 16 de septiembre · 19:30 h», el contador, el aviso de las fichas) se generan desde `inicioVenta` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano: al cambiar `inicioVenta` se actualiza todo.
 - En septiembre Chile ya está en horario de verano (parte el primer domingo del mes), por eso el `-03:00` del ISO.
