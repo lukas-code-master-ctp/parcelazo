@@ -25,14 +25,26 @@ Todo está en el objeto `CONFIG`, al inicio del `<script>` de `index.html`:
 
 ```js
 const CONFIG = {
-  inicioVenta:        '2026-09-18T09:00:00-03:00',  // fecha real de apertura
-  cierreVenta:        '2026-09-21T23:59:00-03:00',  // null si no aplica
-  whatsappGrupo:      'https://chat.whatsapp.com/...', // link de invitación real
-  newsletterEndpoint: '',                           // URL del proveedor de email
-  proyectos: [ /* ver más abajo */ ],
-  plazoMaximo: 120
+  inicioVenta:        '2026-09-18T09:00:00-03:00',  // PENDIENTE: fecha real de apertura
+  cierreVenta:        '2026-09-21T23:59:00-03:00',  // PENDIENTE: null si no aplica
+  whatsappGrupo:      'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',  // listo
+  newsletterEndpoint: '',                           // PENDIENTE: URL del proveedor de email
+  proyectos: [ /* precios cargados, ver más abajo */ ],
+  plazoMaximo: 120                                  // PENDIENTE: plazo real
 };
 ```
+
+### Estado de los datos
+
+| Dato | Estado |
+|---|---|
+| Precios «desde» de los 5 proyectos | Cargados |
+| Link del grupo de WhatsApp | Cargado |
+| **Plazo máximo de financiamiento** | **Pendiente** — hoy está en 120 cuotas |
+| Fechas de inicio y cierre | Pendientes |
+| Endpoint del newsletter | Pendiente |
+| Superficies (5.000 m²) | Supuesto, sin confirmar |
+| Comunas de Don Danilo y Don Guillermo | Sin confirmar |
 
 - **`inicioVenta` / `cierreVenta`** — cuando llega `inicioVenta`, el contador se da vuelta solo y empieza a descontar hacia `cierreVenta` con el texto «¡Venta en vivo!». Al pasar `cierreVenta` muestra el mensaje de campaña terminada.
 - **`whatsappGrupo`** — alimenta los 5 botones de WhatsApp de la página de una sola vez.
@@ -57,9 +69,27 @@ Cada proyecto en `CONFIG.proyectos` alimenta a la vez la tarjeta de la grilla, e
 }
 ```
 
-La cuota que aparece en cada tarjeta se calcula sola: `precio ÷ plazoMaximo`.
+La cuota de cada tarjeta se calcula sola: `precio ÷ plazoMaximo`, redondeando **hacia arriba** para que la publicidad nunca prometa una cuota menor que la real.
 
-> **Ojo:** el titular de la landing dice «cuotas desde $234.000». Al cargar precios reales, verifica que la cuota más baja de todos los proyectos siga dando esa cifra, o cambia el titular.
+El titular del hero y el letrero deslizante también se calculan solos, a partir del proyecto más barato:
+
+```js
+const cuotaMinima = () => Math.min(...CONFIG.proyectos.map(p => p.precio)) / CONFIG.plazoMaximo;
+```
+
+Así que **basta cambiar `plazoMaximo` para que toda la página se actualice**, sin cifras escritas a mano en ningún lado.
+
+> Con los precios actuales y 120 cuotas, el «desde» queda en **$66.584** (Don Guillermo). El «$234.000» del brief original no corresponde a estos precios en ningún plazo redondo: harían falta 34,1 cuotas.
+
+Los precios cargados son valores **«desde»** por proyecto:
+
+| Proyecto | Precio desde |
+|---|---|
+| Don Guillermo | $7.990.000 |
+| Praderas de Cauquenes | $8.990.000 |
+| Jardines de Litueche | $12.990.000 |
+| Vive Longaví | $13.500.000 |
+| Hacienda Don Danilo | $14.990.000 |
 
 ### 3. Imágenes
 
@@ -109,7 +139,7 @@ El repositorio ya está en https://github.com/lukas-code-master-ctp/parcelazo
 Para publicar el sitio: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**.
 Queda en `https://lukas-code-master-ctp.github.io/parcelazo/` en un par de minutos.
 
-> No lo actives hasta tener los precios reales, el link de WhatsApp y los Términos revisados: hoy la página muestra valores de ejemplo.
+> No lo actives hasta cerrar el plazo de financiamiento, las fechas y la revisión legal de los Términos.
 
 ### Dominio propio
 

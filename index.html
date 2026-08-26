@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parcelazo Diecio$0 · El evento online con Pie $0 · Compra Tu Parcela</title>
-<meta name="description" content="Venta online dieciochera: parcelas con Pie $0 y cuotas desde $234.000. Vive Longaví, Praderas de Cauquenes, Hacienda Don Danilo, Don Guillermo y Jardines de Litueche.">
+<meta name="description" content="Parcelazo Diecio$0: parcelas con Pie $0 y financiamiento directo, sin banco. Vive Longaví, Praderas de Cauquenes, Hacienda Don Danilo, Don Guillermo y Jardines de Litueche.">
 <meta property="og:title" content="Parcelazo Diecio$0 · El evento online con Pie $0">
-<meta property="og:description" content="Pie $0 y cuotas desde $234.000. Solo por Fiestas Patrias.">
+<meta property="og:description" content="Pie $0 y financiamiento directo, sin banco. Solo por Fiestas Patrias.">
 <meta property="og:image" content="assets/og-parcelazo.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -640,7 +640,7 @@ input[type=range]::-moz-range-thumb{
       </picture>
     </h1>
 
-    <p class="hero__claim">Cuotas desde $234.000</p>
+    <p class="hero__claim" id="hero-claim">Cuotas desde&hellip;</p>
     <p class="hero__nota">Financiamiento directo, sin banco · 5 proyectos</p>
 
     <div class="hero__ctas">
@@ -880,25 +880,30 @@ const CONFIG = {
      descontar hacia el cierre. Dejar en null si no aplica. */
   cierreVenta: '2026-09-21T23:59:00-03:00',
 
-  /* >>> PLACEHOLDER: pegar el link de invitación real del grupo <<< */
-  whatsappGrupo: 'https://chat.whatsapp.com/REEMPLAZAR-CODIGO-INVITACION',
+  /* Grupo de difusión de la campaña */
+  whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
 
   /* Endpoint del newsletter (Mailchimp, Klaviyo, HubSpot, Google Forms...).
      Si queda vacío, el formulario solo muestra el mensaje de éxito. */
   newsletterEndpoint: '',
 
-  /* >>> PLACEHOLDER: valores referenciales. Reemplazar por los reales <<< */
+  /* Precios DESDE, en pesos. Varían según la parcela dentro de cada loteo.
+     OJO: los 5.000 m² son un supuesto, no un dato confirmado. */
   proyectos: [
     /* img: nombre base del archivo en assets/ (se sirve .webp con respaldo .jpg).
        null = todavia no hay foto, se muestra el marcador rayado. */
-    { id:'longavi',   nombre:'Vive Longaví',          comuna:'Longaví, Región del Maule',     m2:5000, precio:28080000, img:'vive-longavi',       destacado:'El más conveniente' },
-    { id:'cauquenes', nombre:'Praderas de Cauquenes', comuna:'Cauquenes, Región del Maule',   m2:5000, precio:30000000, img:'praderas-cauquenes', destacado:null },
-    { id:'danilo',    nombre:'Hacienda Don Danilo',   comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:32400000, img:null,                 destacado:null },
-    { id:'guillermo', nombre:'Don Guillermo',         comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:35880000, img:null,                 destacado:null },
-    { id:'litueche',  nombre:'Jardines de Litueche',  comuna:'Litueche, Región de O’Higgins', m2:5000, precio:38400000, img:'jardines-litueche',  destacado:'Más cerca de la costa' }
+    { id:'longavi',   nombre:'Vive Longaví',          comuna:'Longaví, Región del Maule',     m2:5000, precio:13500000, img:'vive-longavi',       destacado:null },
+    { id:'cauquenes', nombre:'Praderas de Cauquenes', comuna:'Cauquenes, Región del Maule',   m2:5000, precio:8990000,  img:'praderas-cauquenes', destacado:null },
+    { id:'danilo',    nombre:'Hacienda Don Danilo',   comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:14990000, img:null,                 destacado:null },
+    { id:'guillermo', nombre:'Don Guillermo',         comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:7990000,  img:null,                 destacado:'El más conveniente' },
+    { id:'litueche',  nombre:'Jardines de Litueche',  comuna:'Litueche, Región de O’Higgins', m2:5000, precio:12990000, img:'jardines-litueche',  destacado:'Más cerca de la costa' }
   ],
 
-  plazoMaximo: 120 /* cuotas — se usa para el "cuota desde" de cada tarjeta */
+  /* >>> PENDIENTE: plazo maximo real de financiamiento <<<
+     De este numero salen la cuota de cada tarjeta, el tope del slider
+     de la calculadora y el titular "Cuotas desde ..." del hero.
+     Con 120 cuotas el "desde" queda en $66.583 (Don Guillermo). */
+  plazoMaximo: 120
 };
 
 /* ============================================================
@@ -908,6 +913,11 @@ const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
 const pesos = n => '$' + Math.round(n).toLocaleString('es-CL');
+/* Para un valor "desde" nunca redondeamos hacia abajo: la cuota real
+   no puede quedar por debajo de lo que promete la publicidad. */
+const pesosDesde = n => '$' + Math.ceil(n).toLocaleString('es-CL');
+const cuotaMinima = () =>
+  Math.min(...CONFIG.proyectos.map(p => p.precio)) / CONFIG.plazoMaximo;
 const m2fmt = n => n.toLocaleString('es-CL') + ' m²';
 
 /* ============================================================
@@ -916,10 +926,16 @@ const m2fmt = n => n.toLocaleString('es-CL') + ' m²';
 $$('[data-wa]').forEach(a => { a.href = CONFIG.whatsappGrupo; });
 
 /* ============================================================
+   TITULAR "CUOTAS DESDE": sale de los precios, no se escribe a mano
+   ============================================================ */
+$('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
+
+/* ============================================================
    MARQUEE
    ============================================================ */
 (() => {
-  const frases = ['Pie $0', 'Cuotas desde $234.000', 'Sin banco', '5 proyectos', 'Venta online', 'Solo por el 18'];
+  const frases = ['Pie $0', 'Cuotas desde ' + pesosDesde(cuotaMinima()), 'Sin banco',
+                  '5 proyectos', 'Venta online', 'Solo por el 18'];
   const track = $('#marquee-track');
   const bloque = frases.map(f => `<span>${f}</span>`).join('');
   track.innerHTML = bloque + bloque; /* duplicado para loop continuo */
@@ -1003,8 +1019,8 @@ $$('[data-wa]').forEach(a => { a.href = CONFIG.whatsappGrupo; });
 
         <dl class="proy__precio">
           <dt>Cuota desde</dt>
-          <dd class="proy__cuota">${pesos(cuota)} <small>/ mes en ${CONFIG.plazoMaximo} cuotas</small></dd>
-          <dt>Valor parcela</dt>
+          <dd class="proy__cuota">${pesosDesde(cuota)} <small>/ mes en ${CONFIG.plazoMaximo} cuotas</small></dd>
+          <dt>Valor parcela desde</dt>
           <dd class="proy__total">${pesos(p.precio)}</dd>
         </dl>
 
