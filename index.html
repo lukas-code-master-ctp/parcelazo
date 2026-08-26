@@ -331,6 +331,10 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 .proy:nth-child(odd){transform:rotate(-.7deg)}
 .proy:nth-child(even){transform:rotate(.7deg)}
 .proy:hover{transform:rotate(0deg) translateY(-6px);box-shadow:12px 12px 0 var(--tinta)}
+.proy__link{display:block;text-decoration:none}
+.proy__titulo{text-decoration:none;color:inherit}
+.proy__titulo:hover{color:var(--rojo-hondo)}
+.proy:focus-within{outline:3px dashed var(--oro);outline-offset:4px}
 .proy__badge{
   position:absolute;top:-14px;right:-10px;z-index:4;
   background:var(--rojo);color:var(--crema);
@@ -373,7 +377,9 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
   color:var(--tinta-soft);
 }
 .ph--16x9{aspect-ratio:16/10}
-.proy__foto{aspect-ratio:16/10;width:100%;object-fit:cover;border-bottom:3px solid var(--tinta);background:var(--kraft-dark)}
+/* height:auto es obligatorio: sin el, el atributo height="750" del HTML
+   gana sobre aspect-ratio y la foto se dibuja a 750px de alto. */
+.proy__foto{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border-bottom:3px solid var(--tinta);background:var(--kraft-dark)}
 .ph--sq{aspect-ratio:1/1;border:3px dashed var(--tinta);border-radius:0}
 .ph__tag{
   font-family:var(--western);font-size:.74rem;letter-spacing:.16em;
@@ -424,6 +430,24 @@ select{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 7 6-7z' fill='%2323140A'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 12px center;background-size:22px;
 }
+
+/* Botones de plazo */
+.plazos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.plazo{
+  font-family:var(--cond);font-weight:700;font-size:1.28rem;line-height:1;
+  padding:11px 4px 9px;cursor:pointer;
+  background:var(--kraft);color:var(--tinta);
+  border:var(--borde);border-radius:0;
+  display:grid;gap:2px;justify-items:center;
+  transition:background .14s, transform .14s, box-shadow .14s;
+}
+.plazo small{font-family:var(--body);font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.plazo:hover{background:var(--kraft-dark)}
+.plazo.on{
+  background:var(--rojo);color:var(--crema);
+  box-shadow:4px 4px 0 var(--tinta);transform:translate(-2px,-2px);
+}
+.plazo.on small{opacity:.9}
 
 /* Sliders */
 input[type=range]{
@@ -477,6 +501,12 @@ input[type=range]::-moz-range-thumb{
 .calc__detalle li{display:flex;justify-content:space-between;gap:14px;font-size:.95rem}
 .calc__detalle b{font-family:var(--cond);font-weight:700;font-size:1.08rem;font-variant-numeric:tabular-nums}
 .calc__nota{font-size:.78rem;opacity:.85;margin:18px 0 0;line-height:1.45;position:relative;z-index:2}
+.calc__tasa{
+  display:inline-block;margin-top:14px;position:relative;z-index:2;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  font-size:.78rem;background:var(--oro);color:var(--tinta);
+  padding:4px 11px;border:2px solid var(--tinta);
+}
 .calc__out .btn{margin-top:20px;position:relative;z-index:2}
 
 /* ============================================================
@@ -717,7 +747,7 @@ input[type=range]::-moz-range-thumb{
     <div class="sec__head sec__head--c">
       <p class="eyebrow">Saca la cuenta antes del asado</p>
       <h2>Calculadora de<br>financiamiento</h2>
-      <p class="sec__lead">Elige el proyecto, mueve el plazo y mira tu cuota al instante.</p>
+      <p class="sec__lead">Elige el proyecto y el plazo, y mira tu cuota al instante.</p>
     </div>
 
     <div class="calc">
@@ -729,13 +759,8 @@ input[type=range]::-moz-range-thumb{
         </div>
 
         <div class="campo">
-          <label class="campo__label" for="calc-plazo">
-            <span>Plazo</span>
-            <span class="campo__val" id="calc-plazo-val">120 cuotas</span>
-          </label>
-          <input type="range" id="calc-plazo" min="24" max="120" step="12" value="120"
-                 aria-describedby="calc-plazo-ticks">
-          <div class="campo__ticks" id="calc-plazo-ticks"><span>24 cuotas</span><span>120 cuotas</span></div>
+          <span class="campo__label" id="calc-plazo-lbl"><span>Plazo</span></span>
+          <div class="plazos" id="calc-plazos" role="group" aria-labelledby="calc-plazo-lbl"></div>
         </div>
 
         <div class="campo">
@@ -745,7 +770,7 @@ input[type=range]::-moz-range-thumb{
           </label>
           <input type="range" id="calc-pie" min="0" max="30" step="5" value="0"
                  aria-describedby="calc-pie-hint">
-          <p class="campo__hint" id="calc-pie-hint">En la Venta Dieciochera el pie es <b>$0</b>. Si igual quieres abonar, súbelo y baja tu cuota.</p>
+          <p class="campo__hint" id="calc-pie-hint">En el Parcelazo el pie es <b>$0</b>. Si igual quieres abonar, súbelo y baja tu cuota.</p>
         </div>
       </form>
 
@@ -755,17 +780,26 @@ input[type=range]::-moz-range-thumb{
         <p class="calc__cuota-sub" id="calc-cuota-sub">120 cuotas · sin interés</p>
 
         <ul class="calc__detalle">
-          <li><span>Valor parcela</span> <b id="calc-total">$28.080.000</b></li>
+          <li><span>Valor parcela desde</span> <b id="calc-total">&mdash;</b></li>
           <li><span>Pie</span> <b id="calc-pie-monto">$0</b></li>
-          <li><span>Monto a financiar</span> <b id="calc-financiar">$28.080.000</b></li>
+          <li><span>Total a pagar</span> <b id="calc-pagado">&mdash;</b></li>
         </ul>
+
+        <a class="btn btn--block" id="calc-ficha" href="#proyectos" style="background:var(--oro)">
+          Ver la ficha del proyecto
+        </a>
 
         <a class="btn btn--wa btn--block" data-wa href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
           Reservar esta cuota
         </a>
 
-        <p class="calc__nota">Simulación referencial en pesos chilenos, sin interés ni reajuste, calculada como (valor − pie) ÷ número de cuotas. No constituye oferta ni cotización formal. <a href="terminos.html#c11" style="color:var(--oro-claro)">Ver bases</a>.</p>
+        <span class="calc__tasa">Tasa 19,5% anual</span>
+
+        <p class="calc__nota">Simulación referencial en pesos chilenos. La cuota se calcula con
+        financiamiento directo a tasa 19,5% anual sobre el saldo, con el valor «desde» de cada proyecto.
+        No incluye gastos notariales ni de inscripción, y no constituye oferta ni cotización formal.
+        <a href="terminos.html#c11" style="color:var(--oro-claro)">Ver bases</a>.</p>
       </div>
     </div>
   </div>
@@ -866,68 +900,51 @@ input[type=range]::-moz-range-thumb{
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
 </a>
 
+<script src="datos.js"></script>
 <script>
 /* ============================================================
-   CONFIGURACIÓN — EDITAR AQUÍ
+   PARCELAZO DIECIO$0 — Landing
+   Los datos viven en datos.js (fuente unica, compartida con
+   proyecto.html). Aca solo esta el comportamiento.
    ============================================================ */
-const CONFIG = {
+const D = window.PARCELAZO;
 
-  /* Fecha y hora de inicio de la Venta Dieciochera (hora de Chile).
-     >>> CAMBIAR por la fecha real del lanzamiento <<< */
-  inicioVenta: '2026-09-18T09:00:00-03:00',
-
-  /* Fecha de cierre: cuando parte la venta, el contador pasa a
-     descontar hacia el cierre. Dejar en null si no aplica. */
-  cierreVenta: '2026-09-21T23:59:00-03:00',
-
-  /* Grupo de difusión de la campaña */
-  whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
-
-  /* Endpoint del newsletter (Mailchimp, Klaviyo, HubSpot, Google Forms...).
-     Si queda vacío, el formulario solo muestra el mensaje de éxito. */
-  newsletterEndpoint: '',
-
-  /* Precios DESDE, en pesos. Varían según la parcela dentro de cada loteo.
-     OJO: los 5.000 m² son un supuesto, no un dato confirmado. */
-  proyectos: [
-    /* img: nombre base del archivo en assets/ (se sirve .webp con respaldo .jpg).
-       null = todavia no hay foto, se muestra el marcador rayado. */
-    { id:'longavi',   nombre:'Vive Longaví',          comuna:'Longaví, Región del Maule',     m2:5000, precio:13500000, img:'vive-longavi',       destacado:null },
-    { id:'cauquenes', nombre:'Praderas de Cauquenes', comuna:'Cauquenes, Región del Maule',   m2:5000, precio:8990000,  img:'praderas-cauquenes', destacado:null },
-    { id:'danilo',    nombre:'Hacienda Don Danilo',   comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:14990000, img:null,                 destacado:null },
-    { id:'guillermo', nombre:'Don Guillermo',         comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:7990000,  img:null,                 destacado:'El más conveniente' },
-    { id:'litueche',  nombre:'Jardines de Litueche',  comuna:'Litueche, Región de O’Higgins', m2:5000, precio:12990000, img:'jardines-litueche',  destacado:'Más cerca de la costa' }
-  ],
-
-  /* >>> PENDIENTE: plazo maximo real de financiamiento <<<
-     De este numero salen la cuota de cada tarjeta, el tope del slider
-     de la calculadora y el titular "Cuotas desde ..." del hero.
-     Con 120 cuotas el "desde" queda en $66.583 (Don Guillermo). */
-  plazoMaximo: 120
-};
-
-/* ============================================================
-   UTILIDADES
-   ============================================================ */
 const $  = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-const pesos = n => '$' + Math.round(n).toLocaleString('es-CL');
-/* Para un valor "desde" nunca redondeamos hacia abajo: la cuota real
-   no puede quedar por debajo de lo que promete la publicidad. */
+const pesos      = n => '$' + Math.round(n).toLocaleString('es-CL');
+/* Un valor "desde" nunca se redondea hacia abajo: la cuota real no
+   puede quedar por debajo de lo que promete la publicidad. */
 const pesosDesde = n => '$' + Math.ceil(n).toLocaleString('es-CL');
+const m2fmt      = n => n.toLocaleString('es-CL') + ' m²';
+
+/* ============================================================
+   FINANCIAMIENTO
+   tasaAnual es EFECTIVA ANUAL, asi que la mensual equivalente
+   es (1 + tasa)^(1/12) - 1, no tasa/12.
+   ============================================================ */
+const tasaMensual = () => Math.pow(1 + D.tasaAnual / 100, 1 / 12) - 1;
+
+const pmt = (capital, n) => {
+  const i = tasaMensual();
+  return capital * i / (1 - Math.pow(1 + i, -n));
+};
+
+/* Con pie $0 usamos el valor exacto de la planilla; con pie lo
+   recalculamos sobre el saldo. */
+const cuotaDe = (p, plazo, pie = 0) =>
+  pie > 0 ? pmt(p.precio - pie, plazo) : p.cuotas[plazo];
+
 const cuotaMinima = () =>
-  Math.min(...CONFIG.proyectos.map(p => p.precio)) / CONFIG.plazoMaximo;
-const m2fmt = n => n.toLocaleString('es-CL') + ' m²';
+  Math.min(...D.proyectos.map(p => p.cuotas[D.plazoDestacado]));
+
+const urlProyecto = id => 'proyecto.html?id=' + id;
 
 /* ============================================================
-   LINKS DE WHATSAPP
+   WHATSAPP Y TITULARES CALCULADOS
    ============================================================ */
-$$('[data-wa]').forEach(a => { a.href = CONFIG.whatsappGrupo; });
+$$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
 
-/* ============================================================
-   TITULAR "CUOTAS DESDE": sale de los precios, no se escribe a mano
-   ============================================================ */
 $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
 
 /* ============================================================
@@ -936,23 +953,18 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
 (() => {
   const frases = ['Pie $0', 'Cuotas desde ' + pesosDesde(cuotaMinima()), 'Sin banco',
                   '5 proyectos', 'Venta online', 'Solo por el 18'];
-  const track = $('#marquee-track');
   const bloque = frases.map(f => `<span>${f}</span>`).join('');
-  track.innerHTML = bloque + bloque; /* duplicado para loop continuo */
+  $('#marquee-track').innerHTML = bloque + bloque; /* duplicado para loop continuo */
 })();
 
 /* ============================================================
    CONTADOR REGRESIVO
    ============================================================ */
 (() => {
-  const inicio = new Date(CONFIG.inicioVenta).getTime();
-  const cierre = CONFIG.cierreVenta ? new Date(CONFIG.cierreVenta).getTime() : null;
-
-  const el = {
-    box:    $('#contador'),
-    titulo: $('#contador-titulo'),
-    d: $('#cd-dias'), h: $('#cd-horas'), m: $('#cd-min'), s: $('#cd-seg')
-  };
+  const inicio = new Date(D.inicioVenta).getTime();
+  const cierre = D.cierreVenta ? new Date(D.cierreVenta).getTime() : null;
+  const el = { box: $('#contador'), titulo: $('#contador-titulo'),
+               d: $('#cd-dias'), h: $('#cd-horas'), m: $('#cd-min'), s: $('#cd-seg') };
   const pad = n => String(Math.max(0, n)).padStart(2, '0');
 
   function tick() {
@@ -963,24 +975,21 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
       if (cierre && ahora < cierre) {
         objetivo = cierre; titulo = '¡Venta en vivo! Cierra en'; vivo = true;
       } else {
-        el.titulo.textContent = 'La Venta Dieciochera terminó · escríbenos igual';
+        el.titulo.textContent = 'El Parcelazo terminó · escríbenos igual';
         [el.d, el.h, el.m, el.s].forEach(n => n.textContent = '00');
         clearInterval(timer);
         return;
       }
     }
-
     el.titulo.textContent = titulo;
     el.box.classList.toggle('contador--vivo', vivo);
 
-    const dif = Math.max(0, objetivo - ahora);
-    const seg = Math.floor(dif / 1000);
+    const seg = Math.floor(Math.max(0, objetivo - ahora) / 1000);
     el.d.textContent = pad(Math.floor(seg / 86400));
     el.h.textContent = pad(Math.floor(seg % 86400 / 3600));
     el.m.textContent = pad(Math.floor(seg % 3600 / 60));
     el.s.textContent = pad(seg % 60);
   }
-
   tick();
   const timer = setInterval(tick, 1000);
 })();
@@ -989,98 +998,110 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
    GRILLA DE PROYECTOS
    ============================================================ */
 (() => {
-  const grid = $('#grid-proyectos');
-
-  grid.innerHTML = CONFIG.proyectos.map(p => {
-    const cuota = p.precio / CONFIG.plazoMaximo;
+  $('#grid-proyectos').innerHTML = D.proyectos.map(p => {
+    const foto = p.fotos[0];
     return `
     <article class="proy rev">
-      ${p.destacado ? `<span class="proy__badge">${p.destacado}</span>` : `<span class="proy__badge">Pie $0</span>`}
+      <span class="proy__badge">${p.destacado || 'Pie $0'}</span>
 
-      ${p.img ? `
-      <picture>
-        <source srcset="assets/${p.img}.webp" type="image/webp">
-        <img class="proy__foto" src="assets/${p.img}.jpg" alt="Vista aérea del proyecto ${p.nombre}"
-             width="1200" height="750" loading="lazy" decoding="async">
-      </picture>` : `
-      <div class="ph ph--16x9" role="img" aria-label="Todavía no hay foto de ${p.nombre}">
-        <span class="ph__tag">Falta foto</span>
-        <span class="ph__txt">${p.id} · 1200×750</span>
-      </div>`}
+      <a class="proy__link" href="${urlProyecto(p.id)}" aria-label="Ver ${p.nombre}">
+        ${foto ? `
+        <picture>
+          <source srcset="assets/${foto}.webp" type="image/webp">
+          <img class="proy__foto" src="assets/${foto}.jpg" alt="Vista aérea del proyecto ${p.nombre}"
+               width="1200" height="750" loading="lazy" decoding="async">
+        </picture>` : `
+        <div class="ph ph--16x9" role="img" aria-label="Todavía no hay foto de ${p.nombre}">
+          <span class="ph__tag">Falta foto</span>
+          <span class="ph__txt">${p.id} · 1200×750</span>
+        </div>`}
+      </a>
 
       <div class="proy__body">
-        <p class="proy__comuna">${p.comuna}</p>
-        <h3>${p.nombre}</h3>
+        <p class="proy__comuna">${p.comuna}${p.region.startsWith('[') ? '' : ', ' + p.region}</p>
+        <h3><a class="proy__titulo" href="${urlProyecto(p.id)}">${p.nombre}</a></h3>
         <ul class="proy__specs">
           <li>${m2fmt(p.m2)}</li>
           <li>Pie $0</li>
-          <li>Rol propio</li>
+          ${p.fotos.length ? '<li>' + p.fotos.length + ' fotos</li>' : ''}
+          ${p.plano ? '<li>Con plano</li>' : ''}
         </ul>
 
         <dl class="proy__precio">
           <dt>Cuota desde</dt>
-          <dd class="proy__cuota">${pesosDesde(cuota)} <small>/ mes en ${CONFIG.plazoMaximo} cuotas</small></dd>
+          <dd class="proy__cuota">${pesosDesde(p.cuotas[D.plazoDestacado])}
+            <small>/ mes en ${D.plazoDestacado} cuotas</small></dd>
           <dt>Valor parcela desde</dt>
           <dd class="proy__total">${pesos(p.precio)}</dd>
         </dl>
 
-        <a class="btn btn--block" href="#calculadora" data-proyecto="${p.id}">Simular mi cuota</a>
+        <a class="btn btn--block" href="${urlProyecto(p.id)}">Ver el proyecto</a>
       </div>
     </article>`;
   }).join('');
-
-  /* Al hacer clic en "Simular mi cuota" se preselecciona el proyecto */
-  grid.addEventListener('click', e => {
-    const btn = e.target.closest('[data-proyecto]');
-    if (!btn) return;
-    const sel = $('#calc-proyecto');
-    sel.value = btn.dataset.proyecto;
-    sel.dispatchEvent(new Event('input', { bubbles: true }));
-  });
 })();
 
 /* ============================================================
    CALCULADORA DE FINANCIAMIENTO
    ============================================================ */
 (() => {
-  const selProy  = $('#calc-proyecto');
-  const selNews  = $('#news-proyecto');
-  const rgPlazo  = $('#calc-plazo');
-  const rgPie    = $('#calc-pie');
+  const selProy = $('#calc-proyecto');
+  const selNews = $('#news-proyecto');
+  const rgPie   = $('#calc-pie');
+  const plazos  = $('#calc-plazos');
 
-  const opciones = CONFIG.proyectos
-    .map(p => `<option value="${p.id}">${p.nombre}</option>`).join('');
+  const opciones = D.proyectos.map(p => `<option value="${p.id}">${p.nombre}</option>`).join('');
   selProy.innerHTML = opciones;
-  selNews.innerHTML = `<option value="">Proyecto de interés (opcional)</option>` + opciones +
-                      `<option value="todos">Todavía no lo decido</option>`;
+  selNews.innerHTML = '<option value="">Proyecto de interés (opcional)</option>' + opciones +
+                      '<option value="todos">Todavía no lo decido</option>';
 
-  rgPlazo.max = CONFIG.plazoMaximo;
-  rgPlazo.value = CONFIG.plazoMaximo;
+  /* Botones de plazo: son los unicos plazos que ofrece el financiamiento */
+  plazos.innerHTML = D.plazos.map(n =>
+    `<button type="button" class="plazo${n === D.plazoDestacado ? ' on' : ''}"
+             data-plazo="${n}" aria-pressed="${n === D.plazoDestacado}">${n}<small>cuotas</small></button>`
+  ).join('');
+
+  let plazoActivo = D.plazoDestacado;
+
+  plazos.addEventListener('click', e => {
+    const b = e.target.closest('[data-plazo]');
+    if (!b) return;
+    plazoActivo = +b.dataset.plazo;
+    $$('.plazo', plazos).forEach(x => {
+      const on = x === b;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', on);
+    });
+    calcular();
+  });
 
   function calcular() {
-    const p = CONFIG.proyectos.find(x => x.id === selProy.value) || CONFIG.proyectos[0];
-    const cuotas   = +rgPlazo.value;
+    const p        = D.proyectos.find(x => x.id === selProy.value) || D.proyectos[0];
     const piePct   = +rgPie.value;
     const pieMonto = Math.round(p.precio * piePct / 100);
-    const financiar = p.precio - pieMonto;
-    const cuota     = financiar / cuotas;
+    const cuota    = cuotaDe(p, plazoActivo, pieMonto);
+    const totalPagado = cuota * plazoActivo + pieMonto;
 
-    $('#calc-hint').innerHTML = `${p.comuna} · ${m2fmt(p.m2)} · valor ${pesos(p.precio)}`;
-    $('#calc-plazo-val').textContent = `${cuotas} cuotas`;
-    $('#calc-pie-val').textContent   = piePct === 0 ? '$0' : `${piePct}% · ${pesos(pieMonto)}`;
+    $('#calc-hint').textContent =
+      `${p.comuna} · ${m2fmt(p.m2)} · valor desde ${pesos(p.precio)}`;
+    $('#calc-pie-val').textContent = piePct === 0 ? '$0' : `${piePct}% · ${pesos(pieMonto)}`;
 
     $('#calc-cuota').textContent     = pesos(cuota);
-    $('#calc-cuota-sub').textContent = `${cuotas} cuotas · sin interés`;
+    $('#calc-cuota-sub').textContent = `${plazoActivo} cuotas mensuales`;
     $('#calc-total').textContent     = pesos(p.precio);
     $('#calc-pie-monto').textContent = pesos(pieMonto);
-    $('#calc-financiar').textContent = pesos(financiar);
+    $('#calc-pagado').textContent    = pesos(totalPagado);
+    $('#calc-ficha').href            = urlProyecto(p.id);
   }
 
   ['input', 'change'].forEach(ev => {
     selProy.addEventListener(ev, calcular);
-    rgPlazo.addEventListener(ev, calcular);
     rgPie.addEventListener(ev, calcular);
   });
+
+  /* Si llegan con ?id=... desde una ficha, se preselecciona */
+  const id = new URLSearchParams(location.search).get('id');
+  if (id && D.proyectos.some(p => p.id === id)) selProy.value = id;
 
   calcular();
 })();
@@ -1091,40 +1112,32 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
 (() => {
   const form = $('#form-news');
   const msg  = $('#news-msg');
-
   const mostrar = (tipo, texto) => {
-    msg.hidden = false;
-    msg.dataset.tipo = tipo;
-    msg.textContent = texto;
+    msg.hidden = false; msg.dataset.tipo = tipo; msg.textContent = texto;
   };
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-
     const nombre = $('#news-nombre').value.trim();
     const email  = $('#news-email').value.trim();
-    const ok     = $('#news-ok').checked;
 
-    if (!nombre)  return mostrar('error', 'Nos falta tu nombre.');
+    if (!nombre) return mostrar('error', 'Nos falta tu nombre.');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mostrar('error', 'Revisa tu correo, parece incompleto.');
-    if (!ok)      return mostrar('error', 'Necesitamos que aceptes recibir la información.');
+    if (!$('#news-ok').checked) return mostrar('error', 'Necesitamos que aceptes recibir la información.');
 
     const datos = {
-      nombre,
-      email,
+      nombre, email,
       telefono: $('#news-fono').value.trim(),
       proyecto: $('#news-proyecto').value,
-      origen: 'landing-venta-dieciochera'
+      origen: 'landing-parcelazo'
     };
 
     const boton = form.querySelector('button[type=submit]');
-    boton.disabled = true;
-    boton.textContent = 'Enviando...';
+    boton.disabled = true; boton.textContent = 'Enviando...';
 
     try {
-      /* >>> PLACEHOLDER: conectar con el proveedor de email marketing <<< */
-      if (CONFIG.newsletterEndpoint) {
-        const r = await fetch(CONFIG.newsletterEndpoint, {
+      if (D.newsletterEndpoint) {
+        const r = await fetch(D.newsletterEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(datos)
@@ -1133,15 +1146,13 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
       } else {
         console.info('[newsletter] sin endpoint configurado. Datos:', datos);
       }
-
       form.reset();
       mostrar('ok', '¡Listo! Te avisamos apenas parta la venta.');
     } catch (err) {
       console.error(err);
       mostrar('error', 'No pudimos registrarte. Escríbenos por WhatsApp.');
     } finally {
-      boton.disabled = false;
-      boton.textContent = 'Avísenme del lanzamiento';
+      boton.disabled = false; boton.textContent = 'Avísenme del lanzamiento';
     }
   });
 })();
@@ -1150,7 +1161,7 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
    REVELADO AL HACER SCROLL
    ============================================================ */
 (() => {
-  const io = new IntersectionObserver((entradas) => {
+  const io = new IntersectionObserver(entradas => {
     entradas.forEach((en, i) => {
       if (!en.isIntersecting) return;
       en.target.style.transitionDelay = (i * 80) + 'ms';
@@ -1158,11 +1169,11 @@ $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
       io.unobserve(en.target);
     });
   }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
-
   $$('.rev').forEach(el => io.observe(el));
 })();
 
 $('#anio').textContent = new Date().getFullYear();
+
 </script>
 </body>
 </html>

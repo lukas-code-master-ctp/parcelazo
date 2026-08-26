@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proyecto · Parcelazo Diecio$0 · Compra Tu Parcela</title>
+<meta name="description" content="Ficha del proyecto: fotos, ubicación, plano de loteo y simulador de cuotas con Pie $0.">
+<meta property="og:image" content="assets/og-parcelazo.jpg">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B1F45">
+
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Rye&family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   FICHA DE PROYECTO · Parcelazo Diecio$0
+   Misma paleta de afiche que index.html
+   ============================================================ */
+:root{
+  --kraft:#EFDDB9; --kraft-dark:#E2CB9C; --crema:#FBF4E4;
+  --tinta:#23140A; --tinta-soft:#4A3323;
+  --rojo:#C8352F; --rojo-hondo:#8E1F1C;
+  --azul:#14346E; --noche:#0B1F45; --verde:#2E6B43;
+  --oro:#E9A21B; --oro-claro:#F6C556;
+  --borde:3px solid var(--tinta);
+  --sombra-dura:8px 8px 0 var(--tinta);
+  --sombra-dura-sm:5px 5px 0 var(--tinta);
+  --display:'Alfa Slab One',Georgia,serif;
+  --western:'Rye','Alfa Slab One',serif;
+  --cond:'Barlow Condensed','Arial Narrow',sans-serif;
+  --body:'Barlow',system-ui,sans-serif;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--kraft);color:var(--tinta);
+  font-family:var(--body);font-size:17px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:.3;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;letter-spacing:-.01em;margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px dashed var(--oro);outline-offset:3px}
+.eyebrow{font-family:var(--western);font-size:clamp(.72rem,1.6vw,.9rem);letter-spacing:.18em;text-transform:uppercase}
+
+/* ---------- Guirnalda ---------- */
+.guirnalda{display:flex;height:38px;overflow:hidden;position:relative;z-index:5;filter:drop-shadow(0 3px 0 rgba(0,0,0,.25))}
+.guirnalda span{flex:1 0 34px;max-width:56px;height:38px;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
+.guirnalda span:nth-child(5n+1){background:var(--rojo)}
+.guirnalda span:nth-child(5n+2){background:var(--crema)}
+.guirnalda span:nth-child(5n+3){background:var(--azul)}
+.guirnalda span:nth-child(5n+4){background:var(--oro)}
+.guirnalda span:nth-child(5n+5){background:var(--verde)}
+@keyframes sway{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+
+/* ---------- Nav ---------- */
+.nav{position:sticky;top:0;z-index:100;background:var(--noche);border-bottom:3px solid var(--tinta)}
+.nav__in{max-width:var(--max);margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto}
+.logo img{height:42px;width:auto;filter:drop-shadow(2px 3px 0 rgba(0,0,0,.45))}
+@media(max-width:520px){.logo img{height:34px}}
+.nav__links{margin-left:auto;display:flex;gap:24px;align-items:center}
+.nav__links a{font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.95rem;color:var(--crema);text-decoration:none;border-bottom:2px solid transparent;transition:.18s}
+.nav__links a:hover{color:var(--oro);border-color:var(--oro)}
+@media(max-width:760px){.nav__links a:not(.btn){display:none}}
+
+/* ---------- Botones ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.07em;font-size:1.02rem;
+  padding:13px 24px;border:var(--borde);border-radius:2px;text-decoration:none;cursor:pointer;
+  background:var(--oro);color:var(--tinta);box-shadow:var(--sombra-dura-sm);
+  transition:transform .14s cubic-bezier(.2,.8,.3,1),box-shadow .14s;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--tinta)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--tinta)}
+.btn svg{width:19px;height:19px;fill:currentColor;flex:0 0 auto}
+.btn--wa{background:var(--verde);color:var(--crema)}
+.btn--rojo{background:var(--rojo);color:var(--crema)}
+.btn--block{width:100%}
+.btn--sm{padding:10px 18px;font-size:.92rem}
+
+/* ---------- Encabezado del proyecto ---------- */
+.cab{background:var(--noche);color:var(--crema);border-bottom:3px solid var(--tinta);position:relative;overflow:hidden}
+.cab::after{content:'';position:absolute;left:50%;top:-10%;transform:translateX(-50%);width:1000px;height:560px;max-width:150vw;background:radial-gradient(ellipse at center,rgba(233,162,27,.2),transparent 62%);pointer-events:none}
+.cab__in{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:clamp(26px,4vw,48px) 24px clamp(30px,4vw,52px)}
+.migas{font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.84rem;color:#A9BADA;margin:0 0 18px}
+.migas a{color:var(--oro);text-decoration:none}
+.migas a:hover{text-decoration:underline}
+.cab h1{font-size:clamp(2.2rem,6.5vw,4.4rem);color:var(--crema);text-shadow:4px 4px 0 var(--rojo),8px 8px 0 var(--tinta)}
+.cab__ubic{margin:18px 0 0;font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.95rem;color:var(--oro-claro);display:flex;align-items:center;gap:8px}
+.cab__ubic svg{width:17px;height:17px;fill:var(--oro-claro)}
+.cab__chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.chip{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;
+  background:rgba(251,244,228,.1);border:2px solid rgba(251,244,228,.4);color:var(--crema);padding:5px 12px;
+}
+.chip--oro{background:var(--oro);border-color:var(--tinta);color:var(--tinta)}
+
+/* ---------- Layout ---------- */
+.doble{display:grid;grid-template-columns:1fr 380px;gap:44px;align-items:start;padding:clamp(40px,6vw,72px) 0}
+@media(max-width:940px){.doble{grid-template-columns:1fr;gap:36px}}
+
+.bloque{margin:0 0 clamp(38px,5vw,60px)}
+.bloque:last-child{margin-bottom:0}
+.bloque h2{font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 6px}
+.bloque__lead{color:var(--tinta-soft);margin:0 0 22px;font-size:1rem}
+
+/* ---------- Galería ---------- */
+.galeria{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)}
+.galeria a{
+  display:block;border:var(--borde);box-shadow:var(--sombra-dura-sm);
+  overflow:hidden;transition:transform .18s,box-shadow .18s;
+}
+.galeria a:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--tinta)}
+.galeria img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.galeria a:first-child{grid-column:1/-1}
+.galeria a:first-child img{aspect-ratio:2/1}
+@media(max-width:620px){.galeria{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- Marcador sin material ---------- */
+.ph{
+  display:grid;place-content:center;gap:8px;text-align:center;aspect-ratio:2/1;
+  background:repeating-linear-gradient(45deg,var(--kraft-dark) 0 12px,var(--kraft) 12px 24px);
+  border:3px dashed var(--tinta);color:var(--tinta-soft);padding:24px;
+}
+.ph__tag{font-family:var(--western);font-size:.76rem;letter-spacing:.16em;background:var(--tinta);color:var(--kraft);padding:4px 12px;justify-self:center}
+.ph__txt{font-family:var(--cond);font-weight:600;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase}
+
+/* ---------- Mapa ---------- */
+.mapa{border:var(--borde);box-shadow:var(--sombra-dura-sm);overflow:hidden;background:var(--kraft-dark)}
+.mapa iframe{display:block;width:100%;height:380px;border:0;filter:sepia(.16) saturate(1.05)}
+.mapa__pie{
+  display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  background:var(--crema);border-top:3px solid var(--tinta);padding:13px 18px;
+}
+.mapa__nota{font-size:.84rem;color:var(--tinta-soft);margin:0}
+
+/* ---------- Tabla de financiamiento ---------- */
+.tabla-scroll{overflow-x:auto}
+.tabla{width:100%;border-collapse:collapse;background:var(--crema);border:var(--borde);box-shadow:var(--sombra-dura-sm)}
+.tabla th,.tabla td{padding:13px 16px;text-align:left;border-bottom:2px solid var(--kraft-dark)}
+.tabla th{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;background:var(--kraft);border-bottom:3px solid var(--tinta)}
+.tabla td{font-variant-numeric:tabular-nums}
+.tabla tr:last-child td{border-bottom:none}
+.tabla tr.dest td{background:var(--oro);font-weight:600}
+.tabla .cuota{font-family:var(--display);font-size:1.22rem;color:var(--rojo-hondo)}
+.tabla tr.dest .cuota{color:var(--tinta)}
+
+/* ---------- Panel lateral pegajoso ---------- */
+.lado{position:sticky;top:86px;display:grid;gap:20px}
+@media(max-width:940px){.lado{position:static}}
+.tarjeta{background:var(--crema);border:var(--borde);box-shadow:var(--sombra-dura);padding:24px}
+.tarjeta--precio{background:var(--rojo);color:var(--crema);position:relative;overflow:hidden}
+.tarjeta--precio::after{content:'';position:absolute;right:-50px;bottom:-50px;width:180px;height:180px;border:20px solid rgba(251,244,228,.09);border-radius:50%}
+.tarjeta--precio .eyebrow{color:var(--oro-claro)}
+.precio__cuota{font-family:var(--display);font-size:clamp(2.2rem,5vw,3rem);line-height:1;margin:8px 0 2px;text-shadow:3px 3px 0 var(--rojo-hondo);position:relative;z-index:2}
+.precio__sub{font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.86rem;opacity:.92;position:relative;z-index:2}
+.precio__lista{list-style:none;margin:20px 0 0;padding:18px 0 0;border-top:2px dashed rgba(251,244,228,.45);display:grid;gap:8px;position:relative;z-index:2}
+.precio__lista li{display:flex;justify-content:space-between;gap:12px;font-size:.95rem}
+.precio__lista b{font-family:var(--cond);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.tarjeta--precio .btn{margin-top:18px;position:relative;z-index:2}
+
+/* Simulador del panel */
+.tarjeta h3{font-size:1.35rem;margin-bottom:14px}
+.plazos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:18px}
+.plazo{
+  font-family:var(--cond);font-weight:700;font-size:1.2rem;line-height:1;
+  padding:10px 3px 8px;cursor:pointer;background:var(--kraft);color:var(--tinta);
+  border:var(--borde);border-radius:0;display:grid;gap:2px;justify-items:center;
+  transition:background .14s,transform .14s,box-shadow .14s;
+}
+.plazo small{font-family:var(--body);font-size:.6rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.plazo:hover{background:var(--kraft-dark)}
+.plazo.on{background:var(--rojo);color:var(--crema);box-shadow:4px 4px 0 var(--tinta);transform:translate(-2px,-2px)}
+.campo__label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;margin-bottom:8px}
+.campo__val{font-family:var(--display);font-size:1rem;color:var(--rojo-hondo);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;background:var(--kraft);border:3px solid var(--tinta);border-radius:0;cursor:pointer;margin:4px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;background:var(--rojo);border:3px solid var(--tinta);border-radius:0;cursor:grab}
+input[type=range]::-webkit-slider-thumb:active{background:var(--oro)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo);border:3px solid var(--tinta);border-radius:0;cursor:grab}
+.campo__hint{font-size:.8rem;color:var(--tinta-soft);margin:6px 0 0}
+
+/* ---------- Descarga del plano ---------- */
+.plano{
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+  background:var(--noche);color:var(--crema);border:var(--borde);box-shadow:var(--sombra-dura);
+  padding:22px 24px;
+}
+.plano__ico{width:52px;height:52px;flex:0 0 auto;display:grid;place-items:center;background:var(--rojo);border:2px solid var(--crema);transform:rotate(-4deg)}
+.plano__ico svg{width:26px;height:26px;fill:var(--crema)}
+.plano__txt{flex:1;min-width:200px}
+.plano__txt h3{color:var(--crema);font-size:1.2rem;margin-bottom:4px}
+.plano__txt p{margin:0;font-size:.88rem;color:#B9C6DE}
+
+/* ---------- Otros proyectos ---------- */
+.otros{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.otro{
+  background:var(--crema);border:var(--borde);box-shadow:var(--sombra-dura-sm);
+  text-decoration:none;display:block;transition:transform .18s,box-shadow .18s;
+}
+.otro:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--tinta)}
+.otro img,.otro .ph{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;border:0;border-bottom:3px solid var(--tinta)}
+.otro__body{padding:13px 15px 15px}
+.otro__body strong{font-family:var(--display);font-weight:400;font-size:1.05rem;display:block;line-height:1.1}
+.otro__body span{font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;color:var(--rojo-hondo)}
+
+/* ---------- Franja WhatsApp ---------- */
+.franja{background:var(--verde);color:var(--crema);border-top:3px solid var(--tinta);border-bottom:3px solid var(--tinta);padding:clamp(34px,5vw,54px) 0}
+.franja__in{display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.franja h2{color:var(--crema);font-size:clamp(1.6rem,4vw,2.4rem);text-shadow:3px 3px 0 rgba(0,0,0,.3)}
+.franja p{margin:8px 0 0;max-width:52ch}
+
+/* ---------- Footer ---------- */
+.foot{background:var(--noche);color:#B9C6DE;border-top:3px solid var(--tinta);padding:46px 0 30px;font-size:.9rem}
+.foot__top{display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.14)}
+.foot__links{display:flex;gap:20px;flex-wrap:wrap}
+.foot__links a{font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;color:var(--crema)}
+.foot__links a:hover{color:var(--oro)}
+.foot__legal{margin-top:20px;font-size:.78rem;line-height:1.6;color:#8FA0BE;max-width:80ch}
+
+/* ---------- Visor de fotos ---------- */
+.visor{position:fixed;inset:0;z-index:500;background:rgba(11,31,69,.94);display:none;place-items:center;padding:24px}
+.visor[open]{display:grid}
+.visor img{max-width:min(1100px,94vw);max-height:86vh;width:auto;border:var(--borde);box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.visor__cerrar{
+  position:absolute;top:18px;right:20px;width:48px;height:48px;
+  background:var(--rojo);color:var(--crema);border:2px solid var(--crema);cursor:pointer;
+  font-family:var(--cond);font-size:1.6rem;line-height:1;
+}
+.visor__nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:64px;background:var(--oro);color:var(--tinta);border:2px solid var(--tinta);cursor:pointer;font-size:1.5rem;font-family:var(--cond)}
+.visor__nav--prev{left:16px}
+.visor__nav--next{right:16px}
+.visor__pie{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-family:var(--cond);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.86rem;color:var(--crema)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <div class="nav__in">
+    <a class="logo" href="index.html">
+      <img src="assets/logo-compratuparcela.png" alt="Compra Tu Parcela" width="560" height="198">
+      <span class="sr">Compra Tu Parcela · Parcelazo Diecio$0</span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html#proyectos">Todos los proyectos</a>
+      <a href="index.html#calculadora">Calculadora</a>
+      <a class="btn btn--wa btn--sm" data-wa href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="guirnalda" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<header class="cab">
+  <div class="cab__in">
+    <p class="migas"><a href="index.html">Parcelazo Diecio$0</a> › <a href="index.html#proyectos">Proyectos</a> › <span id="miga-nombre">…</span></p>
+    <h1 id="p-nombre">…</h1>
+    <p class="cab__ubic">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
+      <span id="p-ubic">…</span>
+    </p>
+    <div class="cab__chips" id="p-chips"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="doble">
+
+    <!-- ============ COLUMNA PRINCIPAL ============ -->
+    <div>
+      <section class="bloque" id="fotos">
+        <h2>El proyecto</h2>
+        <p class="bloque__lead" id="fotos-lead">Fotos aéreas del loteo.</p>
+        <div class="galeria" id="p-galeria"></div>
+      </section>
+
+      <section class="bloque" id="ubicacion">
+        <h2>Dónde queda</h2>
+        <p class="bloque__lead" id="mapa-lead">Ubicación referencial del sector.</p>
+        <div class="mapa" id="p-mapa"></div>
+      </section>
+
+      <section class="bloque" id="financiamiento">
+        <h2>Las cuotas</h2>
+        <p class="bloque__lead">Financiamiento directo con Pie $0, sin banco. Valores sobre el precio «desde» del proyecto.</p>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead><tr><th>Plazo</th><th>Cuota mensual</th><th>Total a pagar</th></tr></thead>
+            <tbody id="p-tabla"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bloque" id="plano"></section>
+
+      <section class="bloque" id="mas">
+        <h2>Los otros proyectos</h2>
+        <p class="bloque__lead">Todos con Pie $0 durante el Parcelazo.</p>
+        <div class="otros" id="p-otros"></div>
+      </section>
+    </div>
+
+    <!-- ============ PANEL LATERAL ============ -->
+    <aside class="lado">
+      <div class="tarjeta tarjeta--precio">
+        <p class="eyebrow">Tu cuota mensual</p>
+        <p class="precio__cuota" id="s-cuota">—</p>
+        <p class="precio__sub" id="s-sub">—</p>
+        <ul class="precio__lista">
+          <li><span>Valor desde</span> <b id="s-precio">—</b></li>
+          <li><span>Pie</span> <b id="s-pie">$0</b></li>
+          <li><span>Total a pagar</span> <b id="s-pagado">—</b></li>
+        </ul>
+        <a class="btn btn--wa btn--block" data-wa href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+          Reservar por WhatsApp
+        </a>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Simula tu cuota</h3>
+        <span class="campo__label" id="s-plazo-lbl"><span>Plazo</span></span>
+        <div class="plazos" id="s-plazos" role="group" aria-labelledby="s-plazo-lbl"></div>
+
+        <label class="campo__label" for="s-pie-rango">
+          <span>Pie (opcional)</span>
+          <span class="campo__val" id="s-pie-val">$0</span>
+        </label>
+        <input type="range" id="s-pie-rango" min="0" max="30" step="5" value="0">
+        <p class="campo__hint">En el Parcelazo el pie es <b>$0</b>. Si igual quieres abonar, súbelo y baja tu cuota.</p>
+        <p class="campo__hint" style="margin-top:10px">Tasa 19,5% anual sobre el saldo.
+          <a href="terminos.html#c11" style="color:var(--rojo-hondo)">Ver bases</a>.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<section class="franja">
+  <div class="wrap franja__in">
+    <div>
+      <p class="eyebrow" style="color:var(--oro-claro)">Canal oficial</p>
+      <h2>Las parcelas se avisan<br>primero en el grupo</h2>
+      <p>Apertura de la venta, unidades liberadas y las que se van reservando en vivo.</p>
+    </div>
+    <a class="btn" data-wa href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.3.1.5.2.5.4v1z"/></svg>
+      Entrar al grupo
+    </a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <a class="logo" href="index.html">
+        <img src="assets/logo-compratuparcela.png" alt="Compra Tu Parcela" width="560" height="198">
+      </a>
+      <nav class="foot__links">
+        <a href="index.html#proyectos">Proyectos</a>
+        <a href="index.html#calculadora">Calculadora</a>
+        <a href="index.html#newsletter">Newsletter</a>
+        <a href="terminos.html">Términos y Condiciones</a>
+      </nav>
+    </div>
+    <p class="foot__legal">
+      Imágenes, planos y superficies referenciales. Los valores están expresados en pesos chilenos,
+      corresponden a precios «desde» y pueden variar según la parcela y su disponibilidad.
+      La ubicación del mapa es referencial del sector y no corresponde al deslinde exacto del loteo.
+      Esta publicación no constituye oferta ni promesa de compraventa.
+      Revisa las bases en los <a href="terminos.html" style="color:var(--oro)">Términos y Condiciones</a>.
+      <br><br>© <span id="anio">2026</span> Compra Tu Parcela · Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+<!-- Visor de fotos -->
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="visor__cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+  <button class="visor__nav visor__nav--prev" id="visor-prev" aria-label="Foto anterior">‹</button>
+  <img id="visor-img" alt="">
+  <button class="visor__nav visor__nav--next" id="visor-next" aria-label="Foto siguiente">›</button>
+  <p class="visor__pie" id="visor-pie"></p>
+</div>
+
+<script src="datos.js"></script>
+<script>
+/* ============================================================
+   FICHA DE PROYECTO
+   El proyecto se elige con ?id=... y todos los datos salen
+   de datos.js, igual que la portada.
+   ============================================================ */
+const D = window.PARCELAZO;
+const $  = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+const pesos = n => '$' + Math.round(n).toLocaleString('es-CL');
+const m2fmt = n => n.toLocaleString('es-CL') + ' m²';
+
+const tasaMensual = () => Math.pow(1 + D.tasaAnual / 100, 1 / 12) - 1;
+const pmt = (capital, n) => {
+  const i = tasaMensual();
+  return capital * i / (1 - Math.pow(1 + i, -n));
+};
+const cuotaDe = (p, plazo, pie = 0) =>
+  pie > 0 ? pmt(p.precio - pie, plazo) : p.cuotas[plazo];
+
+/* ---------- Qué proyecto mostrar ---------- */
+const id = new URLSearchParams(location.search).get('id');
+const P  = D.proyectos.find(x => x.id === id);
+
+if (!P) {
+  /* Sin id valido, la ficha no tiene nada que mostrar */
+  location.replace('index.html#proyectos');
+} else {
+  arrancar();
+}
+
+function arrancar() {
+  const sinUbic = P.comuna.startsWith('[');
+  const ubic = sinUbic ? 'Ubicación por confirmar' : P.comuna + ', ' + P.region;
+
+  document.title = `${P.nombre} · Parcelazo Diecio$0 · Compra Tu Parcela`;
+  $('meta[name=description]').setAttribute('content',
+    `${P.nombre}${sinUbic ? '' : ' en ' + P.comuna}: parcelas de ${m2fmt(P.m2)} desde ${pesos(P.precio)} ` +
+    `con Pie $0 y cuotas desde ${pesos(P.cuotas[D.plazoDestacado])}.`);
+
+  $('#miga-nombre').textContent = P.nombre;
+  $('#p-nombre').textContent    = P.nombre;
+  $('#p-ubic').textContent      = ubic;
+
+  $$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
+  $('#anio').textContent = new Date().getFullYear();
+
+  /* ---------- Chips ---------- */
+  $('#p-chips').innerHTML = [
+    '<span class="chip chip--oro">Pie $0</span>',
+    `<span class="chip">${m2fmt(P.m2)}</span>`,
+    `<span class="chip">Desde ${pesos(P.precio)}</span>`,
+    P.destacado ? `<span class="chip">${P.destacado}</span>` : ''
+  ].join('');
+
+  /* ---------- Galería ---------- */
+  const g = $('#p-galeria');
+  if (P.fotos.length) {
+    g.innerHTML = P.fotos.map((f, k) => `
+      <a href="assets/${f}.jpg" data-foto="${k}">
+        <picture>
+          <source srcset="assets/${f}.webp" type="image/webp">
+          <img src="assets/${f}.jpg" alt="${P.nombre}, foto ${k + 1} de ${P.fotos.length}"
+               width="1200" height="750" loading="${k === 0 ? 'eager' : 'lazy'}" decoding="async">
+        </picture>
+      </a>`).join('');
+    $('#fotos-lead').textContent =
+      `${P.fotos.length} fotos aéreas del loteo. Haz clic para verlas en grande.`;
+  } else {
+    g.innerHTML = `
+      <div class="ph" style="grid-column:1/-1">
+        <span class="ph__tag">Falta material</span>
+        <span class="ph__txt">Todavía no tenemos fotos de ${P.nombre}</span>
+      </div>`;
+    $('#fotos-lead').textContent = 'Estamos preparando el material de este proyecto.';
+  }
+
+  /* ---------- Mapa ---------- */
+  const consulta = P.coords ? P.coords.join(',') : P.mapaQ;
+  const m = $('#p-mapa');
+  if (consulta) {
+    const q = encodeURIComponent(consulta);
+    m.innerHTML = `
+      <iframe src="https://www.google.com/maps?q=${q}&z=12&output=embed"
+              title="Mapa de ${P.nombre}" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="mapa__pie">
+        <p class="mapa__nota">${P.coords
+          ? 'Ubicación del loteo.'
+          : 'Ubicación referencial de la comuna. El punto exacto del loteo se coordina con un ejecutivo.'}</p>
+        <a class="btn btn--sm" href="https://www.google.com/maps/search/?api=1&query=${q}"
+           target="_blank" rel="noopener">Abrir en Google Maps</a>
+      </div>`;
+    $('#mapa-lead').textContent = P.coords
+      ? 'Ubicación del loteo en el mapa.'
+      : `Sector de ${P.comuna}, ${P.region}.`;
+  } else {
+    m.innerHTML = `
+      <div class="ph" style="border:0;aspect-ratio:16/7">
+        <span class="ph__tag">Por confirmar</span>
+        <span class="ph__txt">Todavía no tenemos la ubicación de este proyecto</span>
+      </div>`;
+    $('#mapa-lead').textContent = 'Escríbenos por WhatsApp y te contamos dónde queda.';
+  }
+
+  /* ---------- Tabla de financiamiento ---------- */
+  $('#p-tabla').innerHTML = D.plazos.map(n => {
+    const c = P.cuotas[n];
+    return `<tr${n === D.plazoDestacado ? ' class="dest"' : ''}>
+      <td>${n} cuotas</td>
+      <td class="cuota">${pesos(c)}</td>
+      <td>${pesos(c * n)}</td>
+    </tr>`;
+  }).join('');
+
+  /* ---------- Plano ---------- */
+  const bp = $('#plano');
+  if (P.plano) {
+    bp.innerHTML = `
+      <h2>El plano</h2>
+      <p class="bloque__lead">Loteo completo con la numeración de cada parcela sobre la imagen satelital.</p>
+      <div class="plano">
+        <span class="plano__ico">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zm-1 7V3.5L18.5 9zM8 13h8v2H8zm0 4h8v2H8z"/></svg>
+        </span>
+        <div class="plano__txt">
+          <h3>Plano de loteo · ${P.nombre}</h3>
+          <p>PDF con la numeración de las parcelas. Ábrelo para ubicar la que te interesa.</p>
+        </div>
+        <a class="btn" href="${P.plano}" target="_blank" rel="noopener">Ver el plano</a>
+      </div>`;
+  } else {
+    bp.innerHTML = `
+      <h2>El plano</h2>
+      <div class="ph" style="aspect-ratio:16/5">
+        <span class="ph__tag">Falta material</span>
+        <span class="ph__txt">El plano de ${P.nombre} todavía no está disponible</span>
+      </div>`;
+  }
+
+  /* ---------- Otros proyectos ---------- */
+  $('#p-otros').innerHTML = D.proyectos.filter(x => x.id !== P.id).map(x => {
+    const f = x.fotos[0];
+    return `
+    <a class="otro" href="proyecto.html?id=${x.id}">
+      ${f ? `<picture><source srcset="assets/${f}.webp" type="image/webp">
+        <img src="assets/${f}.jpg" alt="${x.nombre}" width="1200" height="750" loading="lazy"></picture>`
+        : `<div class="ph" style="aspect-ratio:16/10;padding:12px"><span class="ph__txt">Sin foto</span></div>`}
+      <span class="otro__body">
+        <strong>${x.nombre}</strong>
+        <span>Desde ${pesos(x.cuotas[D.plazoDestacado])} / mes</span>
+      </span>
+    </a>`;
+  }).join('');
+
+  /* ---------- Simulador ---------- */
+  const rango  = $('#s-pie-rango');
+  const cajas  = $('#s-plazos');
+  let plazo = D.plazoDestacado;
+
+  cajas.innerHTML = D.plazos.map(n =>
+    `<button type="button" class="plazo${n === plazo ? ' on' : ''}" data-plazo="${n}"
+             aria-pressed="${n === plazo}">${n}<small>cuotas</small></button>`).join('');
+
+  cajas.addEventListener('click', e => {
+    const b = e.target.closest('[data-plazo]');
+    if (!b) return;
+    plazo = +b.dataset.plazo;
+    $$('.plazo', cajas).forEach(x => {
+      const on = x === b;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', on);
+    });
+    simular();
+  });
+  rango.addEventListener('input', simular);
+
+  function simular() {
+    const piePct   = +rango.value;
+    const pieMonto = Math.round(P.precio * piePct / 100);
+    const cuota    = cuotaDe(P, plazo, pieMonto);
+
+    $('#s-cuota').textContent  = pesos(cuota);
+    $('#s-sub').textContent    = `${plazo} cuotas mensuales`;
+    $('#s-precio').textContent = pesos(P.precio);
+    $('#s-pie').textContent    = pesos(pieMonto);
+    $('#s-pie-val').textContent = piePct === 0 ? '$0' : `${piePct}% · ${pesos(pieMonto)}`;
+    $('#s-pagado').textContent = pesos(cuota * plazo + pieMonto);
+  }
+  simular();
+
+  /* ---------- Visor de fotos ---------- */
+  (() => {
+    if (!P.fotos.length) return;
+    const visor = $('#visor'), img = $('#visor-img'), pie = $('#visor-pie');
+    let actual = 0;
+
+    const pintar = () => {
+      img.src = `assets/${P.fotos[actual]}.jpg`;
+      img.alt = `${P.nombre}, foto ${actual + 1} de ${P.fotos.length}`;
+      pie.textContent = `${actual + 1} / ${P.fotos.length}`;
+    };
+    const abrir = k => { actual = k; pintar(); visor.setAttribute('open',''); document.body.style.overflow='hidden'; };
+    const cerrar = () => { visor.removeAttribute('open'); document.body.style.overflow=''; };
+    const mover = d => { actual = (actual + d + P.fotos.length) % P.fotos.length; pintar(); };
+
+    $('#p-galeria').addEventListener('click', e => {
+      const a = e.target.closest('[data-foto]');
+      if (!a) return;
+      e.preventDefault();
+      abrir(+a.dataset.foto);
+    });
+    $('#visor-cerrar').addEventListener('click', cerrar);
+    $('#visor-prev').addEventListener('click', () => mover(-1));
+    $('#visor-next').addEventListener('click', () => mover(1));
+    visor.addEventListener('click', e => { if (e.target === visor) cerrar(); });
+    document.addEventListener('keydown', e => {
+      if (!visor.hasAttribute('open')) return;
+      if (e.key === 'Escape') cerrar();
+      if (e.key === 'ArrowLeft') mover(-1);
+      if (e.key === 'ArrowRight') mover(1);
+    });
+  })();
+}
+</script>
+</body>
+</html>

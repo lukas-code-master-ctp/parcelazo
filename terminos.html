@@ -245,8 +245,9 @@ a{color:var(--rojo-hondo)}
       <div class="aviso">
         <p><strong>Borrador para revisión legal</strong>
         Este documento es una base redactada para la campaña y <b>debe ser revisada y aprobada por el abogado de la empresa antes de publicarse</b>.
-        Todos los campos marcados con fondo rayado son datos que debes completar. Los plazos, tasas y condiciones de financiamiento
-        indicados son referenciales y tienen que coincidir exactamente con lo que dicen tus contratos de promesa y compraventa.</p>
+        Todos los campos marcados con fondo rayado son datos que debes completar. Los precios, plazos y la tasa del 19,5% anual
+        provienen de la planilla de financiamiento de la campaña y tienen que coincidir exactamente con lo que digan los contratos
+        de promesa y compraventa.</p>
       </div>
 
       <!-- 1 -->
@@ -332,10 +333,10 @@ a{color:var(--rojo-hondo)}
             en la fecha que se indique en el respectivo contrato.
           </li>
           <li>
-            <b>Cuotas desde <span class="pl">[CUOTA MÍNIMA]</span>:</b> valor de la cuota mensual más baja
-            disponible en la campaña, correspondiente a <span class="pl">[PROYECTO DE REFERENCIA]</span>
-            en <span class="pl">[N.º DE CUOTAS]</span> cuotas. El valor efectivo de la cuota varía según
-            el proyecto, la parcela específica, su superficie y el plazo escogido.
+            <b>Cuotas desde $234.500:</b> valor de la cuota mensual más baja disponible en la campaña,
+            correspondiente al proyecto <b>Don Guillermo</b> en <b>48 cuotas</b>, sobre su precio «desde»
+            de $7.990.000 y con pie $0. El valor efectivo de la cuota varía según el proyecto, la parcela
+            específica, su superficie y el plazo escogido, conforme a la tabla de la cláusula 7.
           </li>
         </ol>
         <div class="dest">
@@ -385,13 +386,35 @@ a{color:var(--rojo-hondo)}
           <table class="tabla">
             <tbody>
               <tr><th>Pie</th><td>$0 durante la vigencia de la Promoción</td></tr>
-              <tr><th>Plazo</th><td>Desde <span class="pl">[N.º]</span> hasta <span class="pl">[N.º]</span> cuotas mensuales</td></tr>
-              <tr><th>Interés</th><td><span class="pl">[SIN INTERÉS / TASA APLICABLE]</span></td></tr>
+              <tr><th>Plazos disponibles</th><td>12, 24, 36 o 48 cuotas mensuales</td></tr>
+              <tr><th>Interés</th><td><b>Tasa del 19,5% anual efectiva</b>, aplicada sobre el saldo insoluto.
+                  La cuota se determina con el método de cuota fija (sistema francés), usando la tasa mensual
+                  equivalente (1 + 0,195)<sup>1/12</sup> − 1.</td></tr>
               <tr><th>Reajuste</th><td><span class="pl">[SIN REAJUSTE / REAJUSTE SEGÚN UF O IPC]</span></td></tr>
-              <tr><th>Moneda</th><td>Pesos chilenos <span class="pl">[O UF, SEGÚN CORRESPONDA]</span></td></tr>
+              <tr><th>Moneda</th><td>Pesos chilenos</td></tr>
               <tr><th>Prepago</th><td><span class="pl">[CONDICIONES DE PREPAGO / PAGO ANTICIPADO]</span></td></tr>
               <tr><th>Mora</th><td><span class="pl">[INTERÉS POR MORA Y CONSECUENCIAS DEL NO PAGO]</span></td></tr>
               <tr><th>Escrituración</th><td><span class="pl">[MOMENTO EN QUE SE ESCRITURA: AL PAGO TOTAL U OTRO]</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Cuota mensual por proyecto y plazo</h3>
+        <p>
+          Valores calculados sobre el precio «desde» de cada proyecto, con pie $0. Si la parcela escogida
+          tiene un precio mayor, la cuota sube en la misma proporción.
+        </p>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead>
+              <tr><th>Proyecto</th><th>Precio desde</th><th>12 cuotas</th><th>24 cuotas</th><th>36 cuotas</th><th>48 cuotas</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Don Guillermo</td><td>$7.990.000</td><td>$732.164</td><td>$398.654</td><td>$288.649</td><td>$234.500</td></tr>
+              <tr><td>Praderas de Cauquenes</td><td>$8.990.000</td><td>$823.799</td><td>$448.548</td><td>$324.776</td><td>$263.850</td></tr>
+              <tr><td>Jardines de Litueche</td><td>$12.990.000</td><td>$1.190.340</td><td>$648.125</td><td>$469.281</td><td>$381.247</td></tr>
+              <tr><td>Vive Longaví</td><td>$13.500.000</td><td>$1.237.074</td><td>$673.571</td><td>$487.706</td><td>$396.215</td></tr>
+              <tr><td>Hacienda Don Danilo</td><td>$14.990.000</td><td>$1.373.610</td><td>$747.913</td><td>$541.534</td><td>$439.945</td></tr>
             </tbody>
           </table>
         </div>
@@ -407,7 +430,9 @@ a{color:var(--rojo-hondo)}
         <h2><span class="num">8</span> Valores, cuotas y reajuste</h2>
         <p>
           Todos los valores publicados en el sitio están expresados en pesos chilenos, incluyen los
-          impuestos que resulten aplicables cuando corresponda, y son <b>referenciales</b>.
+          impuestos que resulten aplicables cuando corresponda, y son <b>referenciales</b>. Los precios
+          se publican como valores <b>«desde»</b>: corresponden a la parcela de menor valor disponible
+          en cada proyecto y no al precio de todas sus unidades.
         </p>
         <p>
           El precio definitivo de cada parcela, el número de cuotas, su monto y su forma de reajuste
@@ -457,9 +482,11 @@ a{color:var(--rojo-hondo)}
         <h2><span class="num">11</span> Calculadora de financiamiento</h2>
         <p>
           La calculadora disponible en el sitio es una <b>herramienta de simulación referencial</b>,
-          entregada como orientación general. Sus resultados se obtienen dividiendo el valor de la
-          parcela, menos el pie ingresado por el usuario, por el número de cuotas seleccionado, sin
-          considerar intereses, reajustes, seguros ni gastos operacionales.
+          entregada como orientación general. Sus resultados se obtienen aplicando el método de cuota
+          fija sobre el precio «desde» del proyecto menos el pie ingresado por el usuario, con la tasa
+          del 19,5% anual efectiva señalada en la cláusula 7. <b>No considera</b> reajustes, seguros,
+          gastos operacionales ni los gastos enumerados en la cláusula 10, ni el precio específico de
+          la parcela que finalmente se escoja.
         </p>
         <p>
           Los resultados <b>no constituyen una oferta, cotización, promesa ni aprobación de
