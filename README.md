@@ -1,6 +1,6 @@
 # Parcelazo Diecio$0 — Compra Tu Parcela
 
-Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $234.000** en los cinco proyectos de Compra Tu Parcela.
+Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $234.500** en los cinco proyectos de Compra Tu Parcela.
 
 Sitio estático, sin build ni dependencias. Se publica tal cual en GitHub Pages.
 
@@ -145,7 +145,7 @@ Todas las rutas del sitio son relativas, así que funciona igual en `lukas-code-
 ## Notas técnicas
 
 - CSS y JS embebidos en cada página; los datos van aparte en `datos.js`. La única dependencia externa es Google Fonts (Alfa Slab One, Rye, Barlow, Barlow Condensed).
-- Las imágenes se sirven en WebP con respaldo JPG/PNG vía `<picture>`. Total de `assets/`: ~1,8 MB.
+- Las imágenes se sirven en WebP con respaldo JPG/PNG vía `<picture>`. `assets/` pesa ~6.2 MB y `planos/` ~15 MB.
 - Las fotos de las tarjetas usan `loading="lazy"`; el escudo del hero usa `fetchpriority="high"`.
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
 - El mapa usa el embed de Google Maps sin API key. Cada proyecto tiene `coords: [lat, lng]` del loteo (zoom 15) y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar».
