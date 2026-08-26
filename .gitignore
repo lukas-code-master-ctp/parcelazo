@@ -6,9 +6,14 @@ Desktop.ini
 
 # Editores
 .vscode/
+.claude/
 .idea/
 *.swp
 *~
+
+# Material original: fotos RAW (.DNG), PNG sin comprimir y PDFs de planos.
+# Son ~350 MB; al repo solo van las versiones optimizadas de assets/
+/Material/
 
 # Planillas y material de trabajo (no publicar en el repo)
 *.xlsx

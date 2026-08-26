@@ -3,13 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Venta Dieciochera Pie $0 · Compra Tu Parcela</title>
+<title>Parcelazo Diecio$0 · El evento online con Pie $0 · Compra Tu Parcela</title>
 <meta name="description" content="Venta online dieciochera: parcelas con Pie $0 y cuotas desde $234.000. Vive Longaví, Praderas de Cauquenes, Hacienda Don Danilo, Don Guillermo y Jardines de Litueche.">
-<meta property="og:title" content="Venta Dieciochera Pie $0 · Compra Tu Parcela">
+<meta property="og:title" content="Parcelazo Diecio$0 · El evento online con Pie $0">
 <meta property="og:description" content="Pie $0 y cuotas desde $234.000. Solo por Fiestas Patrias.">
-<!-- PLACEHOLDER: reemplazar por la imagen real para compartir en redes (1200x630) -->
-<meta property="og:image" content="assets/og-venta-dieciochera.jpg">
+<meta property="og:image" content="assets/og-parcelazo.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B1F45">
+
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,13 +124,8 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
   display:flex;align-items:center;gap:20px;
 }
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto}
-.logo__mark{
-  width:38px;height:38px;flex:0 0 auto;
-  background:var(--rojo);border:2px solid var(--crema);
-  display:grid;place-items:center;
-  transform:rotate(-4deg);
-}
-.logo__mark svg{width:20px;height:20px;fill:var(--crema)}
+.logo img{height:44px;width:auto;flex:0 0 auto;filter:drop-shadow(2px 3px 0 rgba(0,0,0,.45))}
+@media(max-width:520px){.logo img{height:36px}}
 .logo__txt{
   font-family:var(--cond);font-weight:700;
   text-transform:uppercase;letter-spacing:.06em;
@@ -173,7 +173,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
   position:relative;overflow:hidden;
   background:var(--noche);
   color:var(--crema);
-  padding:0 0 clamp(56px,8vw,96px);
+  padding:0 0 clamp(38px,5vw,64px);
   border-bottom:3px solid var(--tinta);
 }
 .hero::after{ /* halo de fonda */
@@ -193,7 +193,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 }
 @keyframes girar{to{transform:rotate(360deg)}}
 
-.hero__in{position:relative;z-index:3;max-width:var(--max);margin:0 auto;padding:clamp(38px,6vw,64px) 24px 0;text-align:center}
+.hero__in{position:relative;z-index:3;max-width:var(--max);margin:0 auto;padding:clamp(24px,4vw,42px) 24px 0;text-align:center}
 
 .cinta{
   display:inline-block;
@@ -205,32 +205,33 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
   box-shadow:4px 4px 0 rgba(0,0,0,.45);
 }
 
-.hero h1{
-  margin:26px 0 0;
-  font-size:clamp(3.1rem,13vw,9.5rem);
-  color:var(--crema);
-  text-shadow:
-     4px 4px 0 var(--rojo),
-     8px 8px 0 var(--tinta);
-  line-height:.82;
+.hero h1{margin:clamp(10px,2vw,18px) 0 0;line-height:0}
+.hero h1 img{
+  width:min(520px,76vw);height:auto;margin:0 auto;
+  filter:drop-shadow(0 14px 26px rgba(0,0,0,.55));
 }
-.hero h1 .pie0{
-  display:block;
-  color:var(--oro-claro);
-  font-size:clamp(4.6rem,22vw,16rem);
-  letter-spacing:-.04em;
-  text-shadow:
-     5px 5px 0 var(--rojo),
-    10px 10px 0 var(--tinta);
+/* En pantallas bajas (laptops 1366x768) el escudo cede altura
+   para que el claim y los botones entren sin scroll */
+@media(max-height:820px) and (min-width:820px){
+  .hero h1 img{width:min(400px,44vw)}
+  .hero__in{padding-top:18px}
+  .contador{margin-top:22px}
 }
-.hero__sub{
-  max-width:640px;margin:22px auto 0;
-  font-size:clamp(1.02rem,2.3vw,1.28rem);
-  color:#DCE4F2;
-}
-.hero__sub b{color:var(--oro-claro);font-weight:600}
 
-.hero__ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.hero__claim{
+  margin:14px auto 0;
+  font-family:var(--display);
+  font-size:clamp(1.5rem,4.6vw,2.9rem);
+  line-height:1.02;color:var(--oro-claro);
+  text-shadow:3px 3px 0 var(--rojo-hondo),6px 6px 0 var(--tinta);
+}
+
+.hero__nota{
+  margin:10px auto 0;color:#C3CFE6;
+  font-family:var(--cond);font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;font-size:clamp(.8rem,2vw,.95rem);
+}
+.hero__ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:24px}
 
 /* Volantines */
 .volantin{position:absolute;z-index:2;pointer-events:none;opacity:.9}
@@ -245,23 +246,23 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 @media(max-width:860px){.volantin--1,.volantin--3{display:none}}
 
 /* ---------- Contador ---------- */
-.contador{margin-top:44px}
+.contador{margin-top:30px}
 .contador__label{
   font-family:var(--cond);font-weight:700;text-transform:uppercase;
-  letter-spacing:.2em;font-size:.86rem;color:var(--oro);margin-bottom:14px;
+  letter-spacing:.2em;font-size:.86rem;color:var(--oro);margin-bottom:11px;
 }
 .contador__grid{display:flex;gap:clamp(8px,2vw,18px);justify-content:center;flex-wrap:wrap}
 .cd{
   background:var(--crema);color:var(--tinta);
   border:var(--borde);box-shadow:var(--sombra-dura-sm);
-  min-width:clamp(72px,17vw,116px);
-  padding:12px 6px 9px;
+  min-width:clamp(66px,15vw,100px);
+  padding:9px 6px 7px;
 }
 .cd:nth-child(odd){transform:rotate(-1.2deg)}
 .cd:nth-child(even){transform:rotate(1.2deg)}
 .cd__n{
   font-family:var(--display);
-  font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;
+  font-size:clamp(1.8rem,6vw,2.8rem);line-height:1;
   font-variant-numeric:tabular-nums;
   display:block;
 }
@@ -372,6 +373,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
   color:var(--tinta-soft);
 }
 .ph--16x9{aspect-ratio:16/10}
+.proy__foto{aspect-ratio:16/10;width:100%;object-fit:cover;border-bottom:3px solid var(--tinta);background:var(--kraft-dark)}
 .ph--sq{aspect-ratio:1/1;border:3px dashed var(--tinta);border-radius:0}
 .ph__tag{
   font-family:var(--western);font-size:.74rem;letter-spacing:.16em;
@@ -544,11 +546,11 @@ input[type=range]::-moz-range-thumb{
 .rev{opacity:0;translate:0 26px;transition:opacity .7s ease, translate .7s cubic-bezier(.2,.8,.3,1)}
 .rev.on{opacity:1;translate:0 0}
 
-.hero .cinta,.hero h1,.hero__sub,.hero__ctas,.contador{
+.hero .cinta,.hero h1,.hero__claim,.hero__ctas,.contador{
   animation:sube .85s cubic-bezier(.2,.8,.3,1) both;
 }
 .hero h1{animation-delay:.08s}
-.hero__sub{animation-delay:.2s}
+.hero__claim{animation-delay:.16s}
 .hero__ctas{animation-delay:.3s}
 .contador{animation-delay:.4s}
 @keyframes sube{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
@@ -579,11 +581,8 @@ input[type=range]::-moz-range-thumb{
 <nav class="nav">
   <div class="nav__in">
     <a class="logo" href="#top">
-      <span class="logo__mark">
-        <!-- PLACEHOLDER: reemplazar por el isotipo real de Compra Tu Parcela (SVG) -->
-        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-      </span>
-      <span class="logo__txt">Compra Tu Parcela<small>Venta Dieciochera</small></span>
+      <img src="assets/logo-compratuparcela.png" alt="Compra Tu Parcela" width="560" height="198">
+      <span class="sr">Compra Tu Parcela · Parcelazo Diecio$0</span>
     </a>
     <div class="nav__links">
       <a href="#proyectos">Proyectos</a>
@@ -633,14 +632,16 @@ input[type=range]::-moz-range-thumb{
     <p class="cinta">Venta online · Fiestas Patrias 2026 · 5 proyectos</p>
 
     <h1>
-      Este dieciocho<br>tu parcela con
-      <span class="pie0">Pie $0</span>
+      <picture>
+        <source srcset="assets/escudo-parcelazo.webp" type="image/webp">
+        <img src="assets/escudo-parcelazo.png" width="1000" height="871"
+             alt="Parcelazo Diecio$0 — el evento online con Pie $0. Este 18, tu parcela puede ser tuya sin pie."
+             fetchpriority="high">
+      </picture>
     </h1>
 
-    <p class="hero__sub">
-      Sin pie, sin banco y sin letra chica. Cuotas <b>desde $234.000</b> mensuales
-      en los cinco proyectos de Compra Tu Parcela. Solo durante la Venta Dieciochera.
-    </p>
+    <p class="hero__claim">Cuotas desde $234.000</p>
+    <p class="hero__nota">Financiamiento directo, sin banco · 5 proyectos</p>
 
     <div class="hero__ctas">
       <a class="btn btn--lg" href="#proyectos">Ver los 5 proyectos</a>
@@ -836,10 +837,8 @@ input[type=range]::-moz-range-thumb{
   <div class="wrap">
     <div class="foot__top">
       <a class="logo" href="#top">
-        <span class="logo__mark">
-          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
-        </span>
-        <span class="logo__txt">Compra Tu Parcela<small>Venta Dieciochera</small></span>
+        <img src="assets/logo-compratuparcela.png" alt="Compra Tu Parcela" width="560" height="198">
+        <span class="sr">Compra Tu Parcela</span>
       </a>
       <nav class="foot__links">
         <a href="#proyectos">Proyectos</a>
@@ -890,11 +889,13 @@ const CONFIG = {
 
   /* >>> PLACEHOLDER: valores referenciales. Reemplazar por los reales <<< */
   proyectos: [
-    { id:'longavi',   nombre:'Vive Longaví',          comuna:'Longaví, Región del Maule',        m2:5000, precio:28080000, img:'assets/vive-longavi.jpg',           destacado:'El más conveniente' },
-    { id:'cauquenes', nombre:'Praderas de Cauquenes', comuna:'Cauquenes, Región del Maule',      m2:5000, precio:30000000, img:'assets/praderas-cauquenes.jpg',     destacado:null },
-    { id:'danilo',    nombre:'Hacienda Don Danilo',   comuna:'San Javier, Región del Maule',     m2:5000, precio:32400000, img:'assets/hacienda-don-danilo.jpg',    destacado:null },
-    { id:'guillermo', nombre:'Don Guillermo',         comuna:'Parral, Región del Maule',         m2:5000, precio:35880000, img:'assets/don-guillermo.jpg',          destacado:null },
-    { id:'litueche',  nombre:'Jardines de Litueche',  comuna:'Litueche, Región de O’Higgins', m2:5000, precio:38400000, img:'assets/jardines-litueche.jpg',   destacado:'Más cerca de la costa' }
+    /* img: nombre base del archivo en assets/ (se sirve .webp con respaldo .jpg).
+       null = todavia no hay foto, se muestra el marcador rayado. */
+    { id:'longavi',   nombre:'Vive Longaví',          comuna:'Longaví, Región del Maule',     m2:5000, precio:28080000, img:'vive-longavi',       destacado:'El más conveniente' },
+    { id:'cauquenes', nombre:'Praderas de Cauquenes', comuna:'Cauquenes, Región del Maule',   m2:5000, precio:30000000, img:'praderas-cauquenes', destacado:null },
+    { id:'danilo',    nombre:'Hacienda Don Danilo',   comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:32400000, img:null,                 destacado:null },
+    { id:'guillermo', nombre:'Don Guillermo',         comuna:'[COMUNA POR CONFIRMAR]',        m2:5000, precio:35880000, img:null,                 destacado:null },
+    { id:'litueche',  nombre:'Jardines de Litueche',  comuna:'Litueche, Región de O’Higgins', m2:5000, precio:38400000, img:'jardines-litueche',  destacado:'Más cerca de la costa' }
   ],
 
   plazoMaximo: 120 /* cuotas — se usa para el "cuota desde" de cada tarjeta */
@@ -980,11 +981,16 @@ $$('[data-wa]').forEach(a => { a.href = CONFIG.whatsappGrupo; });
     <article class="proy rev">
       ${p.destacado ? `<span class="proy__badge">${p.destacado}</span>` : `<span class="proy__badge">Pie $0</span>`}
 
-      <!-- PLACEHOLDER: reemplazar por <img src="${p.img}" alt="${p.nombre}"> -->
-      <div class="ph ph--16x9" role="img" aria-label="Foto del proyecto ${p.nombre}">
-        <span class="ph__tag">Imagen</span>
-        <span class="ph__txt">${p.img} · 1200×750</span>
-      </div>
+      ${p.img ? `
+      <picture>
+        <source srcset="assets/${p.img}.webp" type="image/webp">
+        <img class="proy__foto" src="assets/${p.img}.jpg" alt="Vista aérea del proyecto ${p.nombre}"
+             width="1200" height="750" loading="lazy" decoding="async">
+      </picture>` : `
+      <div class="ph ph--16x9" role="img" aria-label="Todavía no hay foto de ${p.nombre}">
+        <span class="ph__tag">Falta foto</span>
+        <span class="ph__txt">${p.id} · 1200×750</span>
+      </div>`}
 
       <div class="proy__body">
         <p class="proy__comuna">${p.comuna}</p>

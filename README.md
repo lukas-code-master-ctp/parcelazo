@@ -1,4 +1,4 @@
-# Venta Dieciochera Pie $0 — Compra Tu Parcela
+# Parcelazo Diecio$0 — Compra Tu Parcela
 
 Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $234.000** en los cinco proyectos de Compra Tu Parcela.
 
@@ -12,7 +12,7 @@ Sitio estático, sin build ni dependencias. Se publica tal cual en GitHub Pages.
 |---|---|
 | `index.html` | La landing completa: hero, contador, proyectos, calculadora, newsletter y WhatsApp |
 | `terminos.html` | Términos y Condiciones de la promoción |
-| `assets/` | Imágenes de los proyectos y de redes sociales |
+| `assets/` | Escudo de campaña, logo, favicons y fotos de los proyectos, ya optimizados |
 | `.nojekyll` | Le dice a GitHub Pages que sirva los archivos sin procesarlos con Jekyll |
 
 ---
@@ -52,7 +52,7 @@ Cada proyecto en `CONFIG.proyectos` alimenta a la vez la tarjeta de la grilla, e
   comuna:    'Longaví, Región del Maule',
   m2:        5000,                            // número, sin puntos
   precio:    28080000,                        // pesos, número entero sin puntos ni símbolo
-  img:       'assets/vive-longavi.jpg',
+  img:       'vive-longavi',                  // nombre base en assets/, sin extension (null si no hay foto)
   destacado: 'El más conveniente'             // texto del sticker, o null
 }
 ```
@@ -63,18 +63,24 @@ La cuota que aparece en cada tarjeta se calcula sola: `precio ÷ plazoMaximo`.
 
 ### 3. Imágenes
 
-Reemplaza los placeholders rayados por fotos reales. Cada uno tiene al lado un comentario HTML con el `<img>` de reemplazo.
+Ya están cargadas y optimizadas en `assets/`, generadas desde la carpeta `Material/` (que no se sube al repo por peso: ~350 MB de RAW y planos).
 
-| Archivo esperado | Tamaño sugerido | Dónde se usa |
-|---|---|---|
-| `assets/vive-longavi.jpg` | 1200 × 750 | Tarjeta del proyecto |
-| `assets/praderas-cauquenes.jpg` | 1200 × 750 | Tarjeta del proyecto |
-| `assets/hacienda-don-danilo.jpg` | 1200 × 750 | Tarjeta del proyecto |
-| `assets/don-guillermo.jpg` | 1200 × 750 | Tarjeta del proyecto |
-| `assets/jardines-litueche.jpg` | 1200 × 750 | Tarjeta del proyecto |
-| `assets/og-venta-dieciochera.jpg` | 1200 × 630 | Vista previa al compartir en redes |
+| Proyecto | Estado |
+|---|---|
+| Vive Longaví | Listo — `vive-longavi.webp/.jpg` (desde `DJI_0016.DNG`) |
+| Praderas de Cauquenes | Listo — `praderas-cauquenes.webp/.jpg` |
+| Jardines de Litueche | Listo — `jardines-litueche.webp/.jpg` |
+| **Hacienda Don Danilo** | **Falta foto** — la carpeta del material venía vacía |
+| **Don Guillermo** | **Falta foto** — la carpeta del material venía vacía |
 
-También hay que cambiar el isotipo: es el `<svg>` de estrella dentro de `.logo__mark`, aparece en el nav y en el footer de ambas páginas.
+Los dos últimos muestran un marcador rayado que dice «Falta foto». Para agregarlas:
+
+1. Deja la foto en `assets/` como `hacienda-don-danilo.jpg` + `.webp` (1200 × 750, recorte 16:10)
+2. En `CONFIG.proyectos`, cambia `img:null` por `img:'hacienda-don-danilo'`
+
+> El campo `img` es el **nombre base sin extensión**. La página sirve el `.webp` y usa el `.jpg` como respaldo.
+
+Otros assets ya resueltos: escudo del hero (`escudo-parcelazo`), letrero del logo (`logo-compratuparcela`), favicons (`favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`, `icono-512.png`) e imagen para redes (`og-parcelazo.jpg`).
 
 ### 4. Términos y Condiciones
 
@@ -91,34 +97,37 @@ grep -o 'class="pl">\[[^]]*\]' terminos.html
 ## Publicar en GitHub Pages
 
 ```bash
-git add -A && git commit -m "Landing Venta Dieciochera Pie $0"
+git add -A && git commit -m "Actualiza la landing"
 ```
-
-Crea el repositorio en GitHub y súbelo:
 
 ```bash
-git remote add origin https://github.com/USUARIO/REPO.git && git branch -M main && git push -u origin main
+git push
 ```
 
-Luego, en el repo: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**.
+El repositorio ya está en https://github.com/lukas-code-master-ctp/parcelazo
 
-Queda publicado en `https://USUARIO.github.io/REPO/` en un par de minutos.
+Para publicar el sitio: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**.
+Queda en `https://lukas-code-master-ctp.github.io/parcelazo/` en un par de minutos.
+
+> No lo actives hasta tener los precios reales, el link de WhatsApp y los Términos revisados: hoy la página muestra valores de ejemplo.
 
 ### Dominio propio
 
 Para servirlo desde un subdominio de compratuparcela.cl:
 
 1. Crea un archivo `CNAME` en la raíz del repo con una sola línea: `dieciocho.compratuparcela.cl`
-2. En el DNS del dominio, agrega un registro `CNAME` de `dieciocho` apuntando a `USUARIO.github.io`
+2. En el DNS del dominio, agrega un registro `CNAME` de `dieciocho` apuntando a `lukas-code-master-ctp.github.io`
 3. En **Settings → Pages**, escribe el dominio y activa **Enforce HTTPS**
 
-Todas las rutas del sitio son relativas, así que funciona igual en `usuario.github.io/repo/` que en un dominio propio.
+Todas las rutas del sitio son relativas, así que funciona igual en `lukas-code-master-ctp.github.io/parcelazo/` que en un dominio propio.
 
 ---
 
 ## Notas técnicas
 
 - Un solo archivo por página, CSS y JS embebidos. La única dependencia externa es Google Fonts (Alfa Slab One, Rye, Barlow, Barlow Condensed).
+- Las imágenes se sirven en WebP con respaldo JPG/PNG vía `<picture>`. Total de `assets/`: ~1,8 MB.
+- Las fotos de las tarjetas usan `loading="lazy"`; el escudo del hero usa `fetchpriority="high"`.
 - La calculadora simula `(precio − pie) ÷ cuotas`, sin interés ni reajuste. Si el financiamiento real lleva interés o reajuste en UF, hay que cambiar la función `calcular()` y también la cláusula 11 de los Términos.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - El contador usa hora de Chile (`-03:00`) codificada en la fecha, así que muestra lo mismo sin importar la zona horaria del visitante.
