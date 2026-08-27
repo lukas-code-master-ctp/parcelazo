@@ -2,7 +2,7 @@
 
 Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $234.500** en los cinco proyectos de Compra Tu Parcela.
 
-Sitio estático, sin build ni dependencias. Desplegado en Vercel.
+Sitio estático, sin build ni dependencias. En producción: **https://parcelazo.cl**
 
 ---
 
@@ -115,6 +115,9 @@ grep -o 'class="pl">\[[^]]*\]' terminos.html
 
 ## Despliegue
 
+En producción: **https://parcelazo.cl** (el apex redirige con 308 a `www.parcelazo.cl`,
+que es el dominio canónico y el que usan las etiquetas Open Graph).
+
 El sitio está en **Vercel**, conectado al repositorio. Cada push a `main` dispara un despliegue solo:
 
 ```bash
@@ -125,6 +128,10 @@ No hay build: Vercel sirve los archivos tal cual. Si pide configuración, es un 
 estático sin framework, sin comando de build y con la raíz del repo como directorio de salida.
 
 Repositorio: https://github.com/lukas-code-master-ctp/parcelazo
+
+> **Si algún día cambia el dominio**, hay que actualizar las etiquetas `og:image`, `og:url`
+> y `canonical` de las tres páginas, más la constante `BASE` implícita en `proyecto.html`.
+> Open Graph exige URLs absolutas, así que el dominio va escrito en el HTML.
 
 ### Dominio propio
 
@@ -152,4 +159,6 @@ el material de dos proyectos y la revisión legal de los Términos.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - Todas las fechas visibles («Miércoles 16 de septiembre · 19:30 h», el contador, el aviso de las fichas) se generan desde `inicioVenta` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano: al cambiar `inicioVenta` se actualiza todo.
 - En septiembre Chile ya está en horario de verano (parte el primer domingo del mes), por eso el `-03:00` del ISO.
+- Las etiquetas Open Graph usan **URLs absolutas** (`https://www.parcelazo.cl/...`). WhatsApp y Facebook no resuelven rutas relativas al generar la vista previa del enlace, y WhatsApp es el canal principal de la campaña.
+- Los crawlers no ejecutan JS, así que las fichas de proyecto comparten la imagen genérica de la campaña, no la foto del proyecto. Su `og:url` y `canonical` sí se completan con el `id` real al cargar, para los navegadores.
 - `terminos.html` tiene hoja de estilos de impresión: se puede exportar a PDF desde el navegador sin el nav ni el índice.

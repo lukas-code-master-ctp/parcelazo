@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Proyecto · Parcelazo Diecio$0 · Compra Tu Parcela</title>
 <meta name="description" content="Ficha del proyecto: fotos, ubicación, plano de loteo y simulador de cuotas con Pie $0.">
-<meta property="og:image" content="assets/og-parcelazo.jpg">
+<!-- Absolutas por la vista previa de WhatsApp. Los crawlers no ejecutan
+     JS, asi que la ficha comparte la imagen generica de la campana. -->
+<meta property="og:image" content="https://www.parcelazo.cl/assets/og-parcelazo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Compra Tu Parcela">
+<meta property="og:locale" content="es_CL">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B1F45">
@@ -486,6 +492,15 @@ function arrancar() {
              : (P.sector ? P.sector + ' · ' : '') + P.comuna + ', ' + P.region;
 
   document.title = `${P.nombre} · Parcelazo Diecio$0 · Compra Tu Parcela`;
+  /* og:url y canonical con el id real de la ficha */
+  const urlFicha = 'https://www.parcelazo.cl/proyecto.html?id=' + P.id;
+  let og = $('meta[property="og:url"]');
+  if (!og) { og = document.createElement('meta'); og.setAttribute('property','og:url'); document.head.appendChild(og); }
+  og.setAttribute('content', urlFicha);
+  let can = $('link[rel=canonical]');
+  if (!can) { can = document.createElement('link'); can.rel = 'canonical'; document.head.appendChild(can); }
+  can.href = urlFicha;
+
   $('meta[name=description]').setAttribute('content',
     `${P.nombre}${sinUbic ? '' : ' en ' + P.comuna}: parcelas de ${m2fmt(P.m2)} desde ${pesos(P.precio)} ` +
     `con Pie $0 y cuotas desde ${pesos(P.cuotas[D.plazoDestacado])}.`);
