@@ -180,6 +180,20 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 /* ============================================================
    HERO
    ============================================================ */
+/* Rayos de afiche.
+   El segundo color va como rgba(233,162,27,0) y NO como transparent:
+   en CSS transparent es rgba(0,0,0,0), asi que el navegador interpola
+   hacia negro y los bordes de cada franja salen sucios sobre el azul. */
+.hero__rayos{
+  position:absolute;inset:0;pointer-events:none;opacity:.13;
+  background:repeating-conic-gradient(from 0deg at 50% 24%,
+    rgba(233,162,27,.9) 0deg 6deg, rgba(233,162,27,0) 6deg 12deg);
+  mask-image:radial-gradient(ellipse at 50% 24%,#000 5%,rgba(0,0,0,0) 65%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 24%,#000 5%,rgba(0,0,0,0) 65%);
+  animation:girar 90s linear infinite;
+}
+@keyframes girar{to{transform:rotate(360deg)}}
+
 .hero{
   position:relative;overflow:hidden;
   background:var(--noche);
@@ -622,6 +636,8 @@ input[type=range]::-moz-range-thumb{
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
+  <div class="hero__rayos" aria-hidden="true"></div>
+
   <!-- Volantines decorativos -->
   <svg class="volantin volantin--1" viewBox="0 0 100 170" aria-hidden="true">
     <g><path d="M50 2 L96 52 L50 118 L4 52 Z" fill="#C8352F" stroke="#23140A" stroke-width="4"/>
@@ -656,7 +672,7 @@ input[type=range]::-moz-range-thumb{
     <h1>
       <picture>
         <source srcset="assets/escudo-parcelazo.webp" type="image/webp">
-        <img src="assets/escudo-parcelazo.png" width="1000" height="871"
+        <img src="assets/escudo-parcelazo.png" width="1000" height="882"
              alt="Parcelazo Diecio$0 — el evento online con Pie $0. Este 18, tu parcela puede ser tuya sin pie."
              fetchpriority="high">
       </picture>
