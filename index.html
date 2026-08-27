@@ -190,20 +190,9 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 .hero::after{ /* halo de fonda */
   content:'';position:absolute;left:50%;top:8%;transform:translateX(-50%);
   width:1100px;height:700px;max-width:150vw;
-  background:radial-gradient(ellipse at center,rgba(233,162,27,.22),transparent 62%);
+  background:radial-gradient(ellipse at center,rgba(233,162,27,.26),rgba(233,162,27,0) 64%);
   pointer-events:none;
 }
-/* Rayos de afiche */
-.hero__rayos{
-  position:absolute;inset:0;pointer-events:none;opacity:.13;
-  background:repeating-conic-gradient(from 0deg at 50% 24%,
-    var(--oro) 0deg 6deg, transparent 6deg 12deg);
-  mask-image:radial-gradient(ellipse at 50% 24%,#000 5%,transparent 65%);
-  -webkit-mask-image:radial-gradient(ellipse at 50% 24%,#000 5%,transparent 65%);
-  animation:girar 90s linear infinite;
-}
-@keyframes girar{to{transform:rotate(360deg)}}
-
 .hero__in{position:relative;z-index:3;max-width:var(--max);margin:0 auto;padding:clamp(24px,4vw,42px) 24px 0;text-align:center}
 
 .cinta{
@@ -633,8 +622,6 @@ input[type=range]::-moz-range-thumb{
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
-  <div class="hero__rayos" aria-hidden="true"></div>
-
   <!-- Volantines decorativos -->
   <svg class="volantin volantin--1" viewBox="0 0 100 170" aria-hidden="true">
     <g><path d="M50 2 L96 52 L50 118 L4 52 Z" fill="#C8352F" stroke="#23140A" stroke-width="4"/>
