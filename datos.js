@@ -5,14 +5,18 @@
    ============================================================ */
 window.PARCELAZO = {
 
-  /* Apertura del Parcelazo: el live del miercoles 16 de septiembre a
-     las 19:30. En esa fecha Chile continental ya esta en UTC-3, porque
-     el horario de verano parte el primer domingo de septiembre.
-     De aqui salen el contador y todas las fechas que se muestran. */
-  inicioVenta: '2026-09-16T19:30:00-03:00',
+  /* El Parcelazo corre durante todo septiembre. De estas dos fechas
+     salen el sello del hero, el aviso de las fichas y los Terminos.
+     OJO CON EL OFFSET: el horario de verano de Chile parte el primer
+     domingo de septiembre (el 6 en 2026), asi que el dia 1 todavia va
+     en -04:00 y el 16 y el 30 ya van en -03:00. Con -03:00 el dia 1,
+     la fecha se corre al 31 de agosto. */
+  inicioVenta: '2026-09-01T00:00:00-04:00',
+  cierreVenta: '2026-09-30T23:59:00-03:00',
 
-  /* >>> PENDIENTE: fecha real de cierre de la venta <<< */
-  cierreVenta: '2026-09-21T23:59:00-03:00',
+  /* Transmision de apertura. Se muestra como dato aparte, no como
+     inicio de la venta. Poner null para no mencionarla. */
+  live: '2026-09-16T19:30:00-03:00',
 
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
 

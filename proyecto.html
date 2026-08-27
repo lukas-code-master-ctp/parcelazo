@@ -499,6 +499,15 @@ const fechaLarga = iso => mayus(new Intl.DateTimeFormat('es-CL', {
 const horaChile = iso => new Intl.DateTimeFormat('es-CL', {
   hour: '2-digit', minute: '2-digit', hour12: false, timeZone: CHILE
 }).format(new Date(iso));
+const rangoLargo = (desde, hasta) => {
+  const f = (iso, conMes) => new Intl.DateTimeFormat('es-CL',
+    conMes ? { day: 'numeric', month: 'long', timeZone: CHILE }
+           : { day: 'numeric', timeZone: CHILE }).format(new Date(iso));
+  const mes = iso => new Intl.DateTimeFormat('es-CL', { month: 'long', timeZone: CHILE }).format(new Date(iso));
+  return mes(desde) === mes(hasta)
+    ? `Del ${f(desde, false)} al ${f(hasta, true)}`
+    : `Del ${f(desde, true)} al ${f(hasta, true)}`;
+};
 
 /* ---------- Qué proyecto mostrar ---------- */
 const id = new URLSearchParams(location.search).get('id');
@@ -537,21 +546,21 @@ function arrancar() {
   $$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
   $('#anio').textContent = new Date().getFullYear();
 
-  /* ---------- Aviso del live ---------- */
+  /* ---------- Aviso del periodo ---------- */
   (() => {
-    const caja = $('#aviso-live');
+    const caja   = $('#aviso-live');
     const inicio = new Date(D.inicioVenta).getTime();
-    const cierre = D.cierreVenta ? new Date(D.cierreVenta).getTime() : null;
-    const ahora = Date.now();
+    const cierre = new Date(D.cierreVenta).getTime();
+    const ahora  = Date.now();
+    const rango  = rangoLargo(D.inicioVenta, D.cierreVenta);
 
     if (ahora < inicio) {
-      $('#aviso-live-tit').textContent = 'El live parte';
-      $('#aviso-live-txt').textContent =
-        `${fechaLarga(D.inicioVenta)} · ${horaChile(D.inicioVenta)} h`;
-    } else if (cierre && ahora < cierre) {
-      $('#aviso-live-tit').textContent = '¡Estamos en vivo!';
-      $('#aviso-live-txt').textContent =
-        `La venta cierra el ${fechaLarga(D.cierreVenta).toLowerCase()}`;
+      $('#aviso-live-tit').textContent = 'El Parcelazo es';
+      $('#aviso-live-txt').textContent = rango;
+    } else if (ahora <= cierre) {
+      $('#aviso-live-tit').textContent = 'Estamos en vivo';
+      $('#aviso-live-txt').textContent = 'Hasta el ' + new Intl.DateTimeFormat('es-CL',
+        { day: 'numeric', month: 'long', timeZone: CHILE }).format(new Date(D.cierreVenta));
     } else {
       $('#aviso-live-tit').textContent = 'El Parcelazo terminó';
       $('#aviso-live-txt').textContent = 'Escríbenos igual por WhatsApp';

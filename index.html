@@ -229,7 +229,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 @media(max-height:820px) and (min-width:820px){
   .hero h1 img{width:min(400px,44vw)}
   .hero__in{padding-top:18px}
-  .contador{margin-top:22px}
+  .periodo{margin-top:22px}
 }
 
 .hero__claim{
@@ -259,33 +259,28 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 }
 @media(max-width:860px){.volantin--1,.volantin--3{display:none}}
 
-/* ---------- Contador ---------- */
-.contador{margin-top:30px}
-.contador__label{
-  font-family:var(--cond);font-weight:700;text-transform:uppercase;
-  letter-spacing:.2em;font-size:.86rem;color:var(--oro);margin-bottom:11px;
-}
-.contador__grid{display:flex;gap:clamp(8px,2vw,18px);justify-content:center;flex-wrap:wrap}
-.cd{
+/* ---------- Sello del periodo ---------- */
+.periodo{
+  margin-top:30px;display:inline-grid;gap:4px;justify-items:center;
   background:var(--crema);color:var(--tinta);
   border:var(--borde);box-shadow:var(--sombra-dura-sm);
-  min-width:clamp(66px,15vw,100px);
-  padding:9px 6px 7px;
+  padding:16px clamp(22px,5vw,44px) 14px;
+  transform:rotate(-1deg);
 }
-.cd:nth-child(odd){transform:rotate(-1.2deg)}
-.cd:nth-child(even){transform:rotate(1.2deg)}
-.cd__n{
-  font-family:var(--display);
-  font-size:clamp(1.8rem,6vw,2.8rem);line-height:1;
-  font-variant-numeric:tabular-nums;
-  display:block;
+.periodo__label{
+  margin:0;font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.2em;font-size:.8rem;color:var(--rojo-hondo);
 }
-.cd__u{
-  font-family:var(--cond);font-weight:700;text-transform:uppercase;
-  letter-spacing:.14em;font-size:.72rem;color:var(--tinta-soft);
+.periodo__dias{
+  margin:0;font-family:var(--display);
+  font-size:clamp(1.5rem,4.6vw,2.5rem);line-height:1.02;
 }
-.contador--vivo .cd{background:var(--oro);animation:latido 1.4s ease-in-out infinite}
-@keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.periodo__live{
+  margin:6px 0 0;font-family:var(--cond);font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;font-size:.82rem;
+  color:var(--tinta-soft);border-top:2px dashed var(--kraft-dark);padding-top:8px;
+}
+.periodo--vivo .periodo__label{color:var(--verde)}
 
 /* ============================================================
    MARQUEE
@@ -603,13 +598,13 @@ input[type=range]::-moz-range-thumb{
 .rev{opacity:0;translate:0 26px;transition:opacity .7s ease, translate .7s cubic-bezier(.2,.8,.3,1)}
 .rev.on{opacity:1;translate:0 0}
 
-.hero .cinta,.hero h1,.hero__claim,.hero__ctas,.contador{
+.hero .cinta,.hero h1,.hero__claim,.hero__ctas,.periodo{
   animation:sube .85s cubic-bezier(.2,.8,.3,1) both;
 }
 .hero h1{animation-delay:.08s}
 .hero__claim{animation-delay:.16s}
 .hero__ctas{animation-delay:.3s}
-.contador{animation-delay:.4s}
+.periodo{animation-delay:.4s}
 @keyframes sube{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 
 @media(prefers-reduced-motion:reduce){
@@ -708,14 +703,10 @@ input[type=range]::-moz-range-thumb{
       </a>
     </div>
 
-    <div class="contador" id="contador">
-      <p class="contador__label" id="contador-titulo">Arrancamos en</p>
-      <div class="contador__grid" role="timer" aria-live="polite" aria-atomic="true" aria-labelledby="contador-titulo">
-        <div class="cd"><span class="cd__n" id="cd-dias">00</span><span class="cd__u">Días</span></div>
-        <div class="cd"><span class="cd__n" id="cd-horas">00</span><span class="cd__u">Horas</span></div>
-        <div class="cd"><span class="cd__n" id="cd-min">00</span><span class="cd__u">Minutos</span></div>
-        <div class="cd"><span class="cd__n" id="cd-seg">00</span><span class="cd__u">Segundos</span></div>
-      </div>
+    <div class="periodo" id="periodo">
+      <p class="periodo__label" id="periodo-label">&mdash;</p>
+      <p class="periodo__dias" id="periodo-dias">&mdash;</p>
+      <p class="periodo__live" id="periodo-live" hidden>&mdash;</p>
     </div>
   </div>
 </header>
@@ -992,7 +983,19 @@ const horaChile = iso => new Intl.DateTimeFormat('es-CL', {
   hour: '2-digit', minute: '2-digit', hour12: false, timeZone: CHILE
 }).format(new Date(iso));
 
-const cuandoParte = () => `${fechaLarga(D.inicioVenta)} · ${horaChile(D.inicioVenta)} h`;
+/* "Del 1 al 30 de septiembre", o con los dos meses si cruza de mes */
+const hastaCuando = iso => new Intl.DateTimeFormat('es-CL',
+  { day: 'numeric', month: 'long', timeZone: CHILE }).format(new Date(iso));
+
+const rangoLargo = (desde, hasta) => {
+  const f = (iso, conMes) => new Intl.DateTimeFormat('es-CL',
+    conMes ? { day: 'numeric', month: 'long', timeZone: CHILE }
+           : { day: 'numeric', timeZone: CHILE }).format(new Date(iso));
+  const mes = iso => new Intl.DateTimeFormat('es-CL', { month: 'long', timeZone: CHILE }).format(new Date(iso));
+  return mes(desde) === mes(hasta)
+    ? `Del ${f(desde, false)} al ${f(hasta, true)}`
+    : `Del ${f(desde, true)} al ${f(hasta, true)}`;
+};
 
 /* ============================================================
    WHATSAPP Y TITULARES CALCULADOS
@@ -1000,54 +1003,50 @@ const cuandoParte = () => `${fechaLarga(D.inicioVenta)} · ${horaChile(D.inicioV
 $$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
 
 $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
-$('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
+$('#hero-fecha').textContent = 'Evento online · ' + rangoLargo(D.inicioVenta, D.cierreVenta);
 
 /* ============================================================
    MARQUEE
    ============================================================ */
 (() => {
   const frases = ['Pie $0', 'Cuotas desde ' + pesosDesde(cuotaMinima()), 'Sin banco',
-                  '5 proyectos', fechaLarga(D.inicioVenta) + ' · ' + horaChile(D.inicioVenta) + ' h',
-                  'Evento online'];
+                  '5 proyectos', rangoLargo(D.inicioVenta, D.cierreVenta), 'Evento online'];
   const bloque = frases.map(f => `<span>${f}</span>`).join('');
   $('#marquee-track').innerHTML = bloque + bloque; /* duplicado para loop continuo */
 })();
 
 /* ============================================================
-   CONTADOR REGRESIVO
+   PERIODO DEL EVENTO
+   Sin cuenta regresiva: el Parcelazo dura todo septiembre, asi que
+   solo se muestra el rango y en que parte del mes estamos.
    ============================================================ */
 (() => {
   const inicio = new Date(D.inicioVenta).getTime();
-  const cierre = D.cierreVenta ? new Date(D.cierreVenta).getTime() : null;
-  const el = { box: $('#contador'), titulo: $('#contador-titulo'),
-               d: $('#cd-dias'), h: $('#cd-horas'), m: $('#cd-min'), s: $('#cd-seg') };
-  const pad = n => String(Math.max(0, n)).padStart(2, '0');
+  const cierre = new Date(D.cierreVenta).getTime();
+  const ahora  = Date.now();
 
-  function tick() {
-    const ahora = Date.now();
-    let objetivo = inicio, titulo = 'El live parte en', vivo = false;
+  const caja  = $('#periodo');
+  const rango = rangoLargo(D.inicioVenta, D.cierreVenta);
 
-    if (ahora >= inicio) {
-      if (cierre && ahora < cierre) {
-        objetivo = cierre; titulo = '¡Estamos en vivo! La venta cierra en'; vivo = true;
-      } else {
-        el.titulo.textContent = 'El Parcelazo terminó · escríbenos igual';
-        [el.d, el.h, el.m, el.s].forEach(n => n.textContent = '00');
-        clearInterval(timer);
-        return;
-      }
-    }
-    el.titulo.textContent = titulo;
-    el.box.classList.toggle('contador--vivo', vivo);
-
-    const seg = Math.floor(Math.max(0, objetivo - ahora) / 1000);
-    el.d.textContent = pad(Math.floor(seg / 86400));
-    el.h.textContent = pad(Math.floor(seg % 86400 / 3600));
-    el.m.textContent = pad(Math.floor(seg % 3600 / 60));
-    el.s.textContent = pad(seg % 60);
+  if (ahora < inicio) {
+    $('#periodo-label').textContent = 'El Parcelazo es';
+    $('#periodo-dias').textContent  = rango;
+  } else if (ahora <= cierre) {
+    caja.classList.add('periodo--vivo');
+    $('#periodo-label').textContent = 'Estamos en vivo';
+    $('#periodo-dias').textContent  = 'Hasta el ' + hastaCuando(D.cierreVenta);
+  } else {
+    $('#periodo-label').textContent = 'El Parcelazo fue';
+    $('#periodo-dias').textContent  = rango;
   }
-  tick();
-  const timer = setInterval(tick, 1000);
+
+  if (D.live) {
+    const live = new Date(D.live).getTime();
+    const el = $('#periodo-live');
+    el.textContent = (ahora < live ? 'Live de apertura: ' : 'Live de apertura fue el ') +
+      fechaLarga(D.live).toLowerCase() + ' · ' + horaChile(D.live) + ' h';
+    el.hidden = false;
+  }
 })();
 
 /* ============================================================

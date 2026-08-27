@@ -30,8 +30,9 @@ Todo vive en **`datos.js`**. Al cambiar algo ahí se actualizan la portada y las
 
 ```js
 window.PARCELAZO = {
-  inicioVenta: '2026-09-16T19:30:00-03:00',  // live de apertura, miercoles 16
-  cierreVenta: '2026-09-21T23:59:00-03:00',  // PENDIENTE: fecha real de cierre
+  inicioVenta: '2026-09-01T00:00:00-04:00',  // ojo: el dia 1 aun va en -04:00
+  cierreVenta: '2026-09-30T23:59:00-03:00',
+  live:        '2026-09-16T19:30:00-03:00',  // transmision de apertura; null para ocultarla
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
   newsletterEndpoint: '',                    // PENDIENTE: URL del proveedor de email
   tasaAnual: 19.5,
@@ -52,8 +53,8 @@ window.PARCELAZO = {
 | Link del grupo de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
 | Fotos | 3 de 5 proyectos |
-| Fecha de apertura (live) | Cargada: mié 16 de sept, 19:30 |
-| Fecha de cierre | Pendiente |
+| Periodo del evento | Cargado: 1 al 30 de septiembre |
+| Live de apertura | Cargado: mié 16, 19:30 |
 | Endpoint del newsletter | Pendiente |
 | Superficies (5.000 m²) | Supuesto, sin confirmar |
 | Comunas de los 5 proyectos | Confirmadas por coordenadas |
@@ -177,8 +178,9 @@ el material de dos proyectos y la revisión legal de los Términos.
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
 - El mapa usa el embed de Google Maps sin API key (`maps?q=lat,lng&z=15&output=embed`). Cada proyecto tiene `coords: [lat, lng]` del loteo y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar». Google redirige ese `src` a `/maps/embed?...`, que responde sin `X-Frame-Options` y por eso sí se puede embeber.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
-- Todas las fechas visibles («Miércoles 16 de septiembre · 19:30 h», el contador, el aviso de las fichas) se generan desde `inicioVenta` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano: al cambiar `inicioVenta` se actualiza todo.
-- En septiembre Chile ya está en horario de verano (parte el primer domingo del mes), por eso el `-03:00` del ISO.
+- **No hay cuenta regresiva.** El Parcelazo dura todo septiembre, así que el hero muestra un sello con el rango y el aviso de las fichas hace lo mismo. Ambos tienen tres estados: antes, durante y después.
+- Todas las fechas visibles se generan desde `inicioVenta` / `cierreVenta` / `live` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano.
+- **Cuidado con el offset horario.** El horario de verano de Chile parte el primer domingo de septiembre (el 6 en 2026): el día 1 va en `-04:00` y el 16 y el 30 en `-03:00`. Con `-03:00` el día 1, la fecha se corre al 31 de agosto — pasó al cargar estos datos.
 - Las etiquetas Open Graph usan **URLs absolutas** (`https://www.parcelazo.cl/...`). WhatsApp y Facebook no resuelven rutas relativas al generar la vista previa del enlace, y WhatsApp es el canal principal de la campaña.
 - Los crawlers no ejecutan JS, así que las fichas de proyecto comparten la imagen genérica de la campaña, no la foto del proyecto. Su `og:url` y `canonical` sí se completan con el `id` real al cargar, para los navegadores.
 - `terminos.html` tiene hoja de estilos de impresión: se puede exportar a PDF desde el navegador sin el nav ni el índice.
