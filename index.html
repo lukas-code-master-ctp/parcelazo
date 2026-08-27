@@ -445,6 +445,22 @@ select{
   background-repeat:no-repeat;background-position:right 12px center;background-size:22px;
 }
 
+/* Botones de variante de precio */
+.variantes{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.variante{
+  flex:1 1 auto;min-width:120px;
+  font-family:var(--cond);font-weight:700;font-size:1.05rem;
+  padding:11px 14px;cursor:pointer;
+  background:var(--kraft);color:var(--tinta);
+  border:var(--borde);border-radius:0;
+  transition:background .14s, transform .14s, box-shadow .14s;
+}
+.variante:hover{background:var(--kraft-dark)}
+.variante.on{
+  background:var(--azul);color:var(--crema);
+  box-shadow:4px 4px 0 var(--tinta);transform:translate(-2px,-2px);
+}
+
 /* Botones de plazo */
 .plazos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
 .plazo{
@@ -763,7 +779,13 @@ input[type=range]::-moz-range-thumb{
         <div class="campo">
           <label class="campo__label" for="calc-proyecto">Proyecto</label>
           <select id="calc-proyecto"><!-- opciones desde JS --></select>
-          <p class="campo__hint" id="calc-hint">—</p>
+          <p class="campo__hint" id="calc-hint">&mdash;</p>
+        </div>
+
+        <div class="campo" id="calc-variantes-campo" hidden>
+          <span class="campo__label" id="calc-var-lbl"><span>Valor de la parcela</span></span>
+          <div class="variantes" id="calc-variantes" role="group" aria-labelledby="calc-var-lbl"></div>
+          <p class="campo__hint">Este loteo tiene parcelas de distinto valor. Elige la que te interese.</p>
         </div>
 
         <div class="campo">
@@ -788,7 +810,7 @@ input[type=range]::-moz-range-thumb{
         <p class="calc__cuota-sub" id="calc-cuota-sub">120 cuotas · sin interés</p>
 
         <ul class="calc__detalle">
-          <li><span>Valor parcela desde</span> <b id="calc-total">&mdash;</b></li>
+          <li><span>Valor parcela</span> <b id="calc-total">&mdash;</b></li>
           <li><span>Pie</span> <b id="calc-pie-monto">$0</b></li>
           <li><span>Total a pagar</span> <b id="calc-pagado">&mdash;</b></li>
         </ul>
@@ -936,13 +958,18 @@ const pmt = (capital, n) => {
   return capital * i / (1 - Math.pow(1 + i, -n));
 };
 
+/* Un proyecto puede tener varias variantes de precio dentro del
+   mismo loteo. La primera del array es siempre la mas barata. */
+const varDe   = (p, i = 0) => p.variantes[Math.min(i, p.variantes.length - 1)];
+const desdeDe = p => p.variantes[0];
+
 /* Con pie $0 usamos el valor exacto de la planilla; con pie lo
    recalculamos sobre el saldo. */
-const cuotaDe = (p, plazo, pie = 0) =>
-  pie > 0 ? pmt(p.precio - pie, plazo) : p.cuotas[plazo];
+const cuotaDe = (v, plazo, pie = 0) =>
+  pie > 0 ? pmt(v.precio - pie, plazo) : v.cuotas[plazo];
 
 const cuotaMinima = () =>
-  Math.min(...D.proyectos.map(p => p.cuotas[D.plazoDestacado]));
+  Math.min(...D.proyectos.flatMap(p => p.variantes.map(v => v.cuotas[D.plazoDestacado])));
 
 const urlProyecto = id => 'proyecto.html?id=' + id;
 
@@ -1049,16 +1076,17 @@ $('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
         <ul class="proy__specs">
           <li>${m2fmt(p.m2)}</li>
           <li>Pie $0</li>
+          ${p.variantes.length > 1 ? '<li>' + p.variantes.length + ' precios</li>' : ''}
           ${p.fotos.length ? '<li>' + p.fotos.length + ' fotos</li>' : ''}
           ${p.plano ? '<li>Con plano</li>' : ''}
         </ul>
 
         <dl class="proy__precio">
           <dt>Cuota desde</dt>
-          <dd class="proy__cuota">${pesosDesde(p.cuotas[D.plazoDestacado])}
+          <dd class="proy__cuota">${pesosDesde(desdeDe(p).cuotas[D.plazoDestacado])}
             <small>/ mes en ${D.plazoDestacado} cuotas</small></dd>
           <dt>Valor parcela desde</dt>
-          <dd class="proy__total">${pesos(p.precio)}</dd>
+          <dd class="proy__total">${pesos(desdeDe(p).precio)}</dd>
         </dl>
 
         <a class="btn btn--block" href="${urlProyecto(p.id)}">Ver el proyecto</a>
@@ -1088,6 +1116,7 @@ $('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
   ).join('');
 
   let plazoActivo = D.plazoDestacado;
+  let varActiva   = 0;
 
   plazos.addEventListener('click', e => {
     const b = e.target.closest('[data-plazo]');
@@ -1101,27 +1130,57 @@ $('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
     calcular();
   });
 
+  const cajaVar = $('#calc-variantes');
+  cajaVar.addEventListener('click', e => {
+    const b = e.target.closest('[data-var]');
+    if (!b) return;
+    varActiva = +b.dataset.var;
+    $$('.variante', cajaVar).forEach(x => {
+      const on = x === b;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-pressed', on);
+    });
+    calcular();
+  });
+
+  /* Los botones de variante solo aparecen si el loteo tiene mas de un precio */
+  function pintarVariantes(p) {
+    const hay = p.variantes.length > 1;
+    $('#calc-variantes-campo').hidden = !hay;
+    if (!hay) { varActiva = 0; cajaVar.innerHTML = ''; return; }
+    cajaVar.innerHTML = p.variantes.map((v, k) =>
+      `<button type="button" class="variante${k === varActiva ? ' on' : ''}"
+               data-var="${k}" aria-pressed="${k === varActiva}">${v.etiqueta}</button>`).join('');
+  }
+
   function calcular() {
     const p        = D.proyectos.find(x => x.id === selProy.value) || D.proyectos[0];
+    const v        = varDe(p, varActiva);
     const piePct   = +rgPie.value;
-    const pieMonto = Math.round(p.precio * piePct / 100);
-    const cuota    = cuotaDe(p, plazoActivo, pieMonto);
+    const pieMonto = Math.round(v.precio * piePct / 100);
+    const cuota    = cuotaDe(v, plazoActivo, pieMonto);
     const totalPagado = cuota * plazoActivo + pieMonto;
 
-    $('#calc-hint').textContent =
-      `${p.comuna} · ${m2fmt(p.m2)} · valor desde ${pesos(p.precio)}`;
+    $('#calc-hint').textContent = `${p.comuna} · ${m2fmt(p.m2)} · ` +
+      (p.variantes.length > 1
+        ? `parcelas desde ${pesos(desdeDe(p).precio)}`
+        : `valor desde ${pesos(v.precio)}`);
     $('#calc-pie-val').textContent = piePct === 0 ? '$0' : `${piePct}% · ${pesos(pieMonto)}`;
 
     $('#calc-cuota').textContent     = pesos(cuota);
     $('#calc-cuota-sub').textContent = `${plazoActivo} cuotas mensuales`;
-    $('#calc-total').textContent     = pesos(p.precio);
+    $('#calc-total').textContent     = pesos(v.precio);
     $('#calc-pie-monto').textContent = pesos(pieMonto);
     $('#calc-pagado').textContent    = pesos(totalPagado);
     $('#calc-ficha').href            = urlProyecto(p.id);
   }
 
   ['input', 'change'].forEach(ev => {
-    selProy.addEventListener(ev, calcular);
+    selProy.addEventListener(ev, () => {
+      varActiva = 0;
+      pintarVariantes(D.proyectos.find(x => x.id === selProy.value) || D.proyectos[0]);
+      calcular();
+    });
     rgPie.addEventListener(ev, calcular);
   });
 
@@ -1129,6 +1188,7 @@ $('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
   const id = new URLSearchParams(location.search).get('id');
   if (id && D.proyectos.some(p => p.id === id)) selProy.value = id;
 
+  pintarVariantes(D.proyectos.find(x => x.id === selProy.value) || D.proyectos[0]);
   calcular();
 })();
 

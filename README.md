@@ -46,7 +46,8 @@ window.PARCELAZO = {
 | Dato | Estado |
 |---|---|
 | Precios «desde» de los 5 proyectos | Cargados |
-| Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0.xlsx` |
+| Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0 (1).xlsx` |
+| Variantes de precio | Vive Longaví con dos valores |
 | Tasa 19,5% anual | Cargada |
 | Link del grupo de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
@@ -72,13 +73,32 @@ Cada proyecto trae sus cuotas **precargadas desde la planilla**, así que con pi
 exactamente los valores del Excel. Si el visitante agrega pie, la cuota se recalcula con la misma fórmula
 sobre el saldo.
 
-| Proyecto | Precio desde | 12 cuotas | 24 | 36 | 48 |
+| Proyecto | Precio | 12 cuotas | 24 | 36 | 48 |
 |---|---|---|---|---|---|
 | Don Guillermo | $7.990.000 | $732.164 | $398.654 | $288.649 | **$234.500** |
 | Praderas de Cauquenes | $8.990.000 | $823.799 | $448.548 | $324.776 | $263.850 |
 | Jardines de Litueche | $12.990.000 | $1.190.340 | $648.125 | $469.281 | $381.247 |
-| Vive Longaví | $13.500.000 | $1.237.074 | $673.571 | $487.706 | $396.215 |
 | Hacienda Don Danilo | $14.990.000 | $1.373.610 | $747.913 | $541.534 | $439.945 |
+| Vive Longaví | $13.500.000 | $1.237.074 | $673.571 | $487.706 | $396.215 |
+| Vive Longaví | $16.500.000 | $1.511.979 | $823.253 | $596.085 | $484.263 |
+
+### Variantes de precio
+
+Un proyecto puede ofrecer parcelas de distinto valor. Por eso cada uno lleva un array `variantes`:
+
+```js
+variantes: [
+  { etiqueta: '$13.500.000', precio: 13500000, cuotas: { 12: …, 24: …, 36: …, 48: … } },
+  { etiqueta: '$16.500.000', precio: 16500000, cuotas: { … } }
+]
+```
+
+**La primera del array debe ser siempre la más barata**: es la que alimenta el «desde» de la tarjeta.
+Si hay más de una, la calculadora y la ficha muestran botones para elegir; con una sola no aparecen.
+Hoy solo Vive Longaví tiene dos.
+
+> Las etiquetas son el precio a secas porque no sé qué distingue una parcela de otra.
+> Si es superficie o ubicación dentro del loteo, conviene cambiarlas por algo descriptivo.
 
 El «cuotas desde» del hero sale solo: es la cuota más baja de la tabla con `plazoDestacado`.
 No hay ninguna cifra escrita a mano en el HTML.

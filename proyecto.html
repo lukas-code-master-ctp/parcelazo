@@ -199,6 +199,17 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;letter-spacing
 .aviso-live span{font-family:var(--display);font-size:1.02rem;line-height:1.15;display:block;margin-top:2px}
 
 .tarjeta h3{font-size:1.35rem;margin-bottom:14px}
+.variantes{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.variante{
+  flex:1 1 auto;min-width:112px;
+  font-family:var(--cond);font-weight:700;font-size:1rem;
+  padding:10px 12px;cursor:pointer;background:var(--kraft);color:var(--tinta);
+  border:var(--borde);border-radius:0;
+  transition:background .14s,transform .14s,box-shadow .14s;
+}
+.variante:hover{background:var(--kraft-dark)}
+.variante.on{background:var(--azul);color:var(--crema);box-shadow:4px 4px 0 var(--tinta);transform:translate(-2px,-2px)}
+
 .plazos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:18px}
 .plazo{
   font-family:var(--cond);font-weight:700;font-size:1.2rem;line-height:1;
@@ -337,7 +348,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo
 
       <section class="bloque" id="financiamiento">
         <h2>Las cuotas</h2>
-        <p class="bloque__lead">Financiamiento directo con Pie $0, sin banco. Valores sobre el precio «desde» del proyecto.</p>
+        <p class="bloque__lead" id="tabla-lead">Financiamiento directo con Pie $0, sin banco.</p>
         <div class="tabla-scroll">
           <table class="tabla">
             <thead><tr><th>Plazo</th><th>Cuota mensual</th><th>Total a pagar</th></tr></thead>
@@ -370,7 +381,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo
         <p class="precio__cuota" id="s-cuota">—</p>
         <p class="precio__sub" id="s-sub">—</p>
         <ul class="precio__lista">
-          <li><span>Valor desde</span> <b id="s-precio">—</b></li>
+          <li><span>Valor parcela</span> <b id="s-precio">—</b></li>
           <li><span>Pie</span> <b id="s-pie">$0</b></li>
           <li><span>Total a pagar</span> <b id="s-pagado">—</b></li>
         </ul>
@@ -382,6 +393,12 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo
 
       <div class="tarjeta">
         <h3>Simula tu cuota</h3>
+
+        <div id="s-variantes-campo" hidden>
+          <span class="campo__label" id="s-var-lbl"><span>Valor de la parcela</span></span>
+          <div class="variantes" id="s-variantes" role="group" aria-labelledby="s-var-lbl"></div>
+        </div>
+
         <span class="campo__label" id="s-plazo-lbl"><span>Plazo</span></span>
         <div class="plazos" id="s-plazos" role="group" aria-labelledby="s-plazo-lbl"></div>
 
@@ -462,8 +479,12 @@ const pmt = (capital, n) => {
   const i = tasaMensual();
   return capital * i / (1 - Math.pow(1 + i, -n));
 };
-const cuotaDe = (p, plazo, pie = 0) =>
-  pie > 0 ? pmt(p.precio - pie, plazo) : p.cuotas[plazo];
+/* Un loteo puede tener varias variantes de precio; la primera es la mas barata */
+const varDe   = (p, i = 0) => p.variantes[Math.min(i, p.variantes.length - 1)];
+const desdeDe = p => p.variantes[0];
+
+const cuotaDe = (v, plazo, pie = 0) =>
+  pie > 0 ? pmt(v.precio - pie, plazo) : v.cuotas[plazo];
 
 /* Fechas siempre en hora de Chile, no en la del visitante */
 const CHILE = 'America/Santiago';
@@ -502,8 +523,8 @@ function arrancar() {
   can.href = urlFicha;
 
   $('meta[name=description]').setAttribute('content',
-    `${P.nombre}${sinUbic ? '' : ' en ' + P.comuna}: parcelas de ${m2fmt(P.m2)} desde ${pesos(P.precio)} ` +
-    `con Pie $0 y cuotas desde ${pesos(P.cuotas[D.plazoDestacado])}.`);
+    `${P.nombre}${sinUbic ? '' : ' en ' + P.comuna}: parcelas de ${m2fmt(P.m2)} desde ${pesos(desdeDe(P).precio)} ` +
+    `con Pie $0 y cuotas desde ${pesos(desdeDe(P).cuotas[D.plazoDestacado])}.`);
 
   $('#miga-nombre').textContent = P.nombre;
   $('#p-nombre').textContent    = P.nombre;
@@ -538,7 +559,8 @@ function arrancar() {
   $('#p-chips').innerHTML = [
     '<span class="chip chip--oro">Pie $0</span>',
     `<span class="chip">${m2fmt(P.m2)}</span>`,
-    `<span class="chip">Desde ${pesos(P.precio)}</span>`,
+    `<span class="chip">Desde ${pesos(desdeDe(P).precio)}</span>`,
+    P.variantes.length > 1 ? `<span class="chip">${P.variantes.length} valores de parcela</span>` : '',
     P.destacado ? `<span class="chip">${P.destacado}</span>` : ''
   ].join('');
 
@@ -595,15 +617,21 @@ function arrancar() {
     $('#mapa-lead').textContent = 'Escríbenos por WhatsApp y te contamos dónde queda.';
   }
 
-  /* ---------- Tabla de financiamiento ---------- */
-  $('#p-tabla').innerHTML = D.plazos.map(n => {
-    const c = P.cuotas[n];
-    return `<tr${n === D.plazoDestacado ? ' class="dest"' : ''}>
-      <td>${n} cuotas</td>
-      <td class="cuota">${pesos(c)}</td>
-      <td>${pesos(c * n)}</td>
-    </tr>`;
-  }).join('');
+  /* ---------- Tabla de financiamiento ----------
+     Se vuelve a pintar cada vez que cambia la variante elegida. */
+  function pintarTabla(v) {
+    $('#p-tabla').innerHTML = D.plazos.map(n => {
+      const c = v.cuotas[n];
+      return `<tr${n === D.plazoDestacado ? ' class="dest"' : ''}>
+        <td>${n} cuotas</td>
+        <td class="cuota">${pesos(c)}</td>
+        <td>${pesos(c * n)}</td>
+      </tr>`;
+    }).join('');
+    $('#tabla-lead').textContent = P.variantes.length > 1
+      ? `Valores para la parcela de ${v.etiqueta}. Cambia el valor en el simulador para ver el otro plan.`
+      : 'Financiamiento directo con Pie $0, sin banco. Valores sobre el precio «desde» del proyecto.';
+  }
 
   /* ---------- Plano ---------- */
   const bp = $('#plano');
@@ -640,7 +668,7 @@ function arrancar() {
         : `<div class="ph" style="aspect-ratio:16/10;padding:12px"><span class="ph__txt">Sin foto</span></div>`}
       <span class="otro__body">
         <strong>${x.nombre}</strong>
-        <span>Desde ${pesos(x.cuotas[D.plazoDestacado])} / mes</span>
+        <span>Desde ${pesos(desdeDe(x).cuotas[D.plazoDestacado])} / mes</span>
       </span>
     </a>`;
   }).join('');
@@ -648,7 +676,27 @@ function arrancar() {
   /* ---------- Simulador ---------- */
   const rango  = $('#s-pie-rango');
   const cajas  = $('#s-plazos');
+  const cajaV  = $('#s-variantes');
   let plazo = D.plazoDestacado;
+  let iVar  = 0;
+
+  if (P.variantes.length > 1) {
+    $('#s-variantes-campo').hidden = false;
+    cajaV.innerHTML = P.variantes.map((v, k) =>
+      `<button type="button" class="variante${k === iVar ? ' on' : ''}"
+               data-var="${k}" aria-pressed="${k === iVar}">${v.etiqueta}</button>`).join('');
+    cajaV.addEventListener('click', e => {
+      const b = e.target.closest('[data-var]');
+      if (!b) return;
+      iVar = +b.dataset.var;
+      [...cajaV.querySelectorAll('.variante')].forEach(x => {
+        const on = x === b;
+        x.classList.toggle('on', on);
+        x.setAttribute('aria-pressed', on);
+      });
+      simular();
+    });
+  }
 
   cajas.innerHTML = D.plazos.map(n =>
     `<button type="button" class="plazo${n === plazo ? ' on' : ''}" data-plazo="${n}"
@@ -668,16 +716,18 @@ function arrancar() {
   rango.addEventListener('input', simular);
 
   function simular() {
+    const v        = varDe(P, iVar);
     const piePct   = +rango.value;
-    const pieMonto = Math.round(P.precio * piePct / 100);
-    const cuota    = cuotaDe(P, plazo, pieMonto);
+    const pieMonto = Math.round(v.precio * piePct / 100);
+    const cuota    = cuotaDe(v, plazo, pieMonto);
 
     $('#s-cuota').textContent  = pesos(cuota);
     $('#s-sub').textContent    = `${plazo} cuotas mensuales`;
-    $('#s-precio').textContent = pesos(P.precio);
+    $('#s-precio').textContent = pesos(v.precio);
     $('#s-pie').textContent    = pesos(pieMonto);
     $('#s-pie-val').textContent = piePct === 0 ? '$0' : `${piePct}% · ${pesos(pieMonto)}`;
     $('#s-pagado').textContent = pesos(cuota * plazo + pieMonto);
+    pintarTabla(v);
   }
   simular();
 
