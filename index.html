@@ -448,13 +448,16 @@ select{
 /* Botones de variante de precio */
 .variantes{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .variante{
-  flex:1 1 auto;min-width:120px;
-  font-family:var(--cond);font-weight:700;font-size:1.05rem;
-  padding:11px 14px;cursor:pointer;
+  flex:1 1 0;min-width:130px;
+  font-family:var(--cond);font-weight:700;font-size:1.02rem;line-height:1.1;
+  padding:10px 12px 9px;cursor:pointer;
   background:var(--kraft);color:var(--tinta);
   border:var(--borde);border-radius:0;
+  display:grid;gap:3px;justify-items:center;text-align:center;
   transition:background .14s, transform .14s, box-shadow .14s;
 }
+.variante small{font-family:var(--display);font-size:.86rem;font-weight:400;color:var(--rojo-hondo)}
+.variante.on small{color:var(--oro-claro)}
 .variante:hover{background:var(--kraft-dark)}
 .variante.on{
   background:var(--azul);color:var(--crema);
@@ -785,7 +788,7 @@ input[type=range]::-moz-range-thumb{
         <div class="campo" id="calc-variantes-campo" hidden>
           <span class="campo__label" id="calc-var-lbl"><span>Valor de la parcela</span></span>
           <div class="variantes" id="calc-variantes" role="group" aria-labelledby="calc-var-lbl"></div>
-          <p class="campo__hint">Este loteo tiene parcelas de distinto valor. Elige la que te interese.</p>
+          <p class="campo__hint" id="calc-var-hint">Este loteo tiene parcelas de distinto valor según dónde queden dentro del proyecto.</p>
         </div>
 
         <div class="campo">
@@ -1150,7 +1153,7 @@ $('#hero-fecha').textContent = 'En vivo · ' + cuandoParte();
     if (!hay) { varActiva = 0; cajaVar.innerHTML = ''; return; }
     cajaVar.innerHTML = p.variantes.map((v, k) =>
       `<button type="button" class="variante${k === varActiva ? ' on' : ''}"
-               data-var="${k}" aria-pressed="${k === varActiva}">${v.etiqueta}</button>`).join('');
+               data-var="${k}" aria-pressed="${k === varActiva}">${v.etiqueta}<small>${pesos(v.precio)}</small></button>`).join('');
   }
 
   function calcular() {

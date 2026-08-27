@@ -36,8 +36,8 @@ window.PARCELAZO = {
     region: "Región del Maule",
     m2: 5000,                    /* supuesto, sin confirmar */
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
-    /* Variantes de precio del loteo. La primera es la mas barata
-       y es la que alimenta el "desde" de la tarjeta. */
+    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
+       cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
       { etiqueta: '$7.990.000', precio: 7990000, cuotas: { 12: 732164, 24: 398654, 36: 288649, 48: 234500 } }
     ],
@@ -57,8 +57,8 @@ window.PARCELAZO = {
     region: "Región del Maule",
     m2: 5000,                    /* supuesto, sin confirmar */
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
-    /* Variantes de precio del loteo. La primera es la mas barata
-       y es la que alimenta el "desde" de la tarjeta. */
+    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
+       cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
       { etiqueta: '$8.990.000', precio: 8990000, cuotas: { 12: 823799, 24: 448548, 36: 324776, 48: 263850 } }
     ],
@@ -77,8 +77,8 @@ window.PARCELAZO = {
     region: "Región de O’Higgins",
     m2: 5000,                    /* supuesto, sin confirmar */
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
-    /* Variantes de precio del loteo. La primera es la mas barata
-       y es la que alimenta el "desde" de la tarjeta. */
+    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
+       cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
       { etiqueta: '$12.990.000', precio: 12990000, cuotas: { 12: 1190340, 24: 648125, 36: 469281, 48: 381247 } }
     ],
@@ -97,8 +97,8 @@ window.PARCELAZO = {
     region: "Región de O’Higgins",
     m2: 5000,                    /* supuesto, sin confirmar */
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
-    /* Variantes de precio del loteo. La primera es la mas barata
-       y es la que alimenta el "desde" de la tarjeta. */
+    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
+       cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
       { etiqueta: '$14.990.000', precio: 14990000, cuotas: { 12: 1373610, 24: 747913, 36: 541534, 48: 439945 } }
     ],
@@ -118,11 +118,11 @@ window.PARCELAZO = {
     region: "Región del Maule",
     m2: 5000,                    /* supuesto, sin confirmar */
     /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
-    /* Variantes de precio del loteo. La primera es la mas barata
-       y es la que alimenta el "desde" de la tarjeta. */
+    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
+       cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
-      { etiqueta: '$13.500.000', precio: 13500000, cuotas: { 12: 1237074, 24: 673571, 36: 487706, 48: 396215 } },
-      { etiqueta: '$16.500.000', precio: 16500000, cuotas: { 12: 1511979, 24: 823253, 36: 596085, 48: 484263 } }
+      { etiqueta: 'Más al interior', precio: 13500000, cuotas: { 12: 1237074, 24: 673571, 36: 487706, 48: 396215 } },
+      { etiqueta: 'Cerca del acceso', precio: 16500000, cuotas: { 12: 1511979, 24: 823253, 36: 596085, 48: 484263 } }
     ],
     fotos: ["vive-longavi", "vive-longavi-2", "vive-longavi-3", "vive-longavi-4", "vive-longavi-5"],
     plano: 'planos/vive-longavi-plano.pdf',

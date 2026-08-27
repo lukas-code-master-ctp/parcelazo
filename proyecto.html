@@ -201,12 +201,15 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;letter-spacing
 .tarjeta h3{font-size:1.35rem;margin-bottom:14px}
 .variantes{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
 .variante{
-  flex:1 1 auto;min-width:112px;
-  font-family:var(--cond);font-weight:700;font-size:1rem;
-  padding:10px 12px;cursor:pointer;background:var(--kraft);color:var(--tinta);
+  flex:1 1 0;min-width:120px;
+  font-family:var(--cond);font-weight:700;font-size:.98rem;line-height:1.1;
+  padding:10px 10px 9px;cursor:pointer;background:var(--kraft);color:var(--tinta);
   border:var(--borde);border-radius:0;
+  display:grid;gap:3px;justify-items:center;text-align:center;
   transition:background .14s,transform .14s,box-shadow .14s;
 }
+.variante small{font-family:var(--display);font-size:.84rem;font-weight:400;color:var(--rojo-hondo)}
+.variante.on small{color:var(--oro-claro)}
 .variante:hover{background:var(--kraft-dark)}
 .variante.on{background:var(--azul);color:var(--crema);box-shadow:4px 4px 0 var(--tinta);transform:translate(-2px,-2px)}
 
@@ -395,8 +398,9 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo
         <h3>Simula tu cuota</h3>
 
         <div id="s-variantes-campo" hidden>
-          <span class="campo__label" id="s-var-lbl"><span>Valor de la parcela</span></span>
+          <span class="campo__label" id="s-var-lbl"><span>Qué parcela</span></span>
           <div class="variantes" id="s-variantes" role="group" aria-labelledby="s-var-lbl"></div>
+          <p class="campo__hint" style="margin:-8px 0 16px">Las más cercanas al acceso tienen un valor mayor.</p>
         </div>
 
         <span class="campo__label" id="s-plazo-lbl"><span>Plazo</span></span>
@@ -560,7 +564,7 @@ function arrancar() {
     '<span class="chip chip--oro">Pie $0</span>',
     `<span class="chip">${m2fmt(P.m2)}</span>`,
     `<span class="chip">Desde ${pesos(desdeDe(P).precio)}</span>`,
-    P.variantes.length > 1 ? `<span class="chip">${P.variantes.length} valores de parcela</span>` : '',
+    P.variantes.length > 1 ? `<span class="chip">${P.variantes.length} opciones de parcela</span>` : '',
     P.destacado ? `<span class="chip">${P.destacado}</span>` : ''
   ].join('');
 
@@ -629,8 +633,8 @@ function arrancar() {
       </tr>`;
     }).join('');
     $('#tabla-lead').textContent = P.variantes.length > 1
-      ? `Valores para la parcela de ${v.etiqueta}. Cambia el valor en el simulador para ver el otro plan.`
-      : 'Financiamiento directo con Pie $0, sin banco. Valores sobre el precio «desde» del proyecto.';
+      ? `Parcela ${v.etiqueta.toLowerCase()} · ${pesos(v.precio)}. Cambia la opción en el simulador para ver la otra.`
+      : 'Financiamiento directo con Pie $0, sin banco.';
   }
 
   /* ---------- Plano ---------- */
@@ -684,7 +688,7 @@ function arrancar() {
     $('#s-variantes-campo').hidden = false;
     cajaV.innerHTML = P.variantes.map((v, k) =>
       `<button type="button" class="variante${k === iVar ? ' on' : ''}"
-               data-var="${k}" aria-pressed="${k === iVar}">${v.etiqueta}</button>`).join('');
+               data-var="${k}" aria-pressed="${k === iVar}">${v.etiqueta}<small>${pesos(v.precio)}</small></button>`).join('');
     cajaV.addEventListener('click', e => {
       const b = e.target.closest('[data-var]');
       if (!b) return;

@@ -79,8 +79,8 @@ sobre el saldo.
 | Praderas de Cauquenes | $8.990.000 | $823.799 | $448.548 | $324.776 | $263.850 |
 | Jardines de Litueche | $12.990.000 | $1.190.340 | $648.125 | $469.281 | $381.247 |
 | Hacienda Don Danilo | $14.990.000 | $1.373.610 | $747.913 | $541.534 | $439.945 |
-| Vive Longaví | $13.500.000 | $1.237.074 | $673.571 | $487.706 | $396.215 |
-| Vive Longaví | $16.500.000 | $1.511.979 | $823.253 | $596.085 | $484.263 |
+| Vive Longaví · más al interior | $13.500.000 | $1.237.074 | $673.571 | $487.706 | $396.215 |
+| Vive Longaví · cerca del acceso | $16.500.000 | $1.511.979 | $823.253 | $596.085 | $484.263 |
 
 ### Variantes de precio
 
@@ -88,8 +88,8 @@ Un proyecto puede ofrecer parcelas de distinto valor. Por eso cada uno lleva un 
 
 ```js
 variantes: [
-  { etiqueta: '$13.500.000', precio: 13500000, cuotas: { 12: …, 24: …, 36: …, 48: … } },
-  { etiqueta: '$16.500.000', precio: 16500000, cuotas: { … } }
+  { etiqueta: 'Más al interior',  precio: 13500000, cuotas: { 12: …, 24: …, 36: …, 48: … } },
+  { etiqueta: 'Cerca del acceso', precio: 16500000, cuotas: { … } }
 ]
 ```
 
@@ -97,8 +97,8 @@ variantes: [
 Si hay más de una, la calculadora y la ficha muestran botones para elegir; con una sola no aparecen.
 Hoy solo Vive Longaví tiene dos.
 
-> Las etiquetas son el precio a secas porque no sé qué distingue una parcela de otra.
-> Si es superficie o ubicación dentro del loteo, conviene cambiarlas por algo descriptivo.
+La etiqueta describe la parcela y el precio va debajo, como segunda línea del botón.
+En Vive Longaví la diferencia es la ubicación dentro del loteo: las más cercanas al acceso valen más.
 
 El «cuotas desde» del hero sale solo: es la cuota más baja de la tabla con `plazoDestacado`.
 No hay ninguna cifra escrita a mano en el HTML.
