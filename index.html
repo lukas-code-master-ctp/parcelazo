@@ -4,7 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parcelazo Diecio$0 · El evento online con Pie $0 · Compra Tu Parcela</title>
-<meta name="description" content="Parcelazo Diecio$0: parcelas con Pie $0 y financiamiento directo, sin banco. Vive Longaví, Praderas de Cauquenes, Hacienda Don Danilo, Don Guillermo y Jardines de Litueche.">
+<meta name="description" content="Parcelas de 5.000 m² con Pie $0 y cuotas desde $234.500, sin banco. Cinco loteos en Hualañé, Cauquenes, Longaví y Litueche. Todo septiembre de 2026.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Compra Tu Parcela">
+<meta name="geo.region" content="CL">
+<meta name="geo.placename" content="Región del Maule, Región de O’Higgins">
 <meta property="og:title" content="Parcelazo Diecio$0 · El evento online con Pie $0">
 <meta property="og:description" content="Pie $0 y financiamiento directo, sin banco. Solo por Fiestas Patrias.">
 <!-- og:image e og:url deben ser absolutas: WhatsApp y Facebook no
@@ -21,6 +25,10 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://www.parcelazo.cl/">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+<!-- Los datos estructurados se arman desde datos.js al final del documento,
+     asi no hay precios ni fechas escritos a mano en dos lugares. -->
 <meta name="theme-color" content="#0B1F45">
 
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -1271,6 +1279,107 @@ $('#wa-numero').textContent  = D.whatsappVisible;
 })();
 
 $('#anio').textContent = new Date().getFullYear();
+
+/* ============================================================
+   DATOS ESTRUCTURADOS (schema.org)
+   Se generan desde D para que nunca contradigan lo que se ve en
+   pantalla. Sirven para los resultados enriquecidos de Google y para
+   que los motores generativos citen precios y ubicaciones correctos.
+   ============================================================ */
+(() => {
+  const URL_BASE = 'https://www.parcelazo.cl';
+  const dinero = v => ({
+    '@type': 'Offer',
+    price: v.precio,
+    priceCurrency: 'CLP',
+    availability: 'https://schema.org/InStock',
+    priceValidUntil: D.cierreVenta.slice(0, 10)
+  });
+
+  const empresa = {
+    '@type': 'RealEstateAgent',
+    '@id': URL_BASE + '/#empresa',
+    name: 'Compra Tu Parcela',
+    url: URL_BASE,
+    telephone: '+' + D.whatsapp,
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Región del Maule' },
+      { '@type': 'AdministrativeArea', name: 'Región del Libertador General Bernardo O\u2019Higgins' }
+    ],
+    logo: URL_BASE + '/assets/logo-compratuparcela.png'
+  };
+
+  /* Cada loteo va como Place con coordenadas: es lo que permite que
+     aparezca en busquedas del tipo "parcelas en <comuna>". */
+  const proyectos = D.proyectos.map((p, i) => {
+    const sinUbic = p.comuna.startsWith('[');
+    const item = {
+      '@type': 'Product',
+      '@id': `${URL_BASE}/proyecto.html?id=${p.id}#producto`,
+      name: p.nombre,
+      url: `${URL_BASE}/proyecto.html?id=${p.id}`,
+      category: 'Parcela de agrado',
+      brand: { '@id': URL_BASE + '/#empresa' },
+      description: `Parcela de ${m2fmt(p.m2)}${sinUbic ? '' : ' en ' + p.comuna + ', ' + p.region}` +
+                   `, con Pie $0 y cuotas desde ${pesos(desdeDe(p).cuotas[D.plazoDestacado])}.`,
+      offers: p.variantes.length > 1
+        ? { '@type': 'AggregateOffer', priceCurrency: 'CLP',
+            lowPrice: p.variantes[0].precio,
+            highPrice: p.variantes[p.variantes.length - 1].precio,
+            offerCount: p.variantes.length,
+            offers: p.variantes.map(dinero) }
+        : dinero(p.variantes[0])
+    };
+    if (p.fotos.length) item.image = `${URL_BASE}/assets/${p.fotos[0]}.jpg`;
+    if (!sinUbic && p.coords) {
+      item.areaServed = {
+        '@type': 'Place',
+        name: `${p.comuna}, ${p.region}`,
+        geo: { '@type': 'GeoCoordinates', latitude: p.coords[0], longitude: p.coords[1] },
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: p.comuna,
+          addressRegion: p.region,
+          addressCountry: 'CL'
+        }
+      };
+    }
+    return { '@type': 'ListItem', position: i + 1, item };
+  });
+
+  const grafo = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      empresa,
+      {
+        '@type': 'WebSite',
+        '@id': URL_BASE + '/#sitio',
+        url: URL_BASE,
+        name: 'Parcelazo Diecio$0',
+        inLanguage: 'es-CL',
+        publisher: { '@id': URL_BASE + '/#empresa' }
+      },
+      {
+        '@type': 'SaleEvent',
+        name: 'Parcelazo Diecio$0',
+        description: 'Venta online de parcelas de agrado con Pie $0 y financiamiento directo.',
+        startDate: D.inicioVenta,
+        endDate: D.cierreVenta,
+        eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
+        location: { '@type': 'VirtualLocation', url: URL_BASE },
+        organizer: { '@id': URL_BASE + '/#empresa' },
+        image: URL_BASE + '/assets/og-parcelazo.jpg'
+      },
+      { '@type': 'ItemList', name: 'Proyectos del Parcelazo', itemListElement: proyectos }
+    ]
+  };
+
+  const et = document.createElement('script');
+  et.type = 'application/ld+json';
+  et.textContent = JSON.stringify(grafo);
+  document.head.appendChild(et);
+})();
 
 </script>
 </body>

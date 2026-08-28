@@ -16,6 +16,10 @@ Sitio estático, sin build ni dependencias. En producción: **https://parcelazo.
 | `terminos.html` | Términos y Condiciones de la promoción |
 | `assets/` | Escudo, logo, favicons y fotos, ya optimizados |
 | `planos/` | Planos de loteo en PDF, para descargar desde cada ficha |
+| `robots.txt` | Permite el rastreo, bloquea `/planos/` y declara el sitemap |
+| `sitemap.xml` | Las 7 URLs del sitio. **Generado** por `seo.py` |
+| `llms.txt` | Resumen en texto plano para motores generativos. **Generado** por `seo.py` |
+| `seo.py` | Regenera `sitemap.xml` y `llms.txt` desde `datos.js` |
 | `.nojekyll` | Resto de un despliegue en GitHub Pages. Vercel lo ignora; se deja por si algún día se vuelve a Pages |
 
 Los cinco `id` son: `guillermo`, `cauquenes`, `litueche`, `longavi`, `danilo`.
@@ -170,6 +174,35 @@ que en uno propio, y en un subdirectorio si hiciera falta.
 
 Todavía quedan datos por cerrar (ver el estado más arriba): el endpoint del newsletter,
 el material de dos proyectos y la revisión legal de los Términos.
+
+---
+
+## SEO y GEO
+
+### Qué hay
+
+- **`robots.txt`** — permite todo salvo `/planos/` (PDFs pesados que no aportan al índice) y declara el sitemap. Los rastreadores de IA (GPTBot, PerplexityBot, ClaudeBot, Google-Extended y otros) están **permitidos a propósito**: la idea es que puedan citar precios y ubicaciones correctas en vez de inventarlos.
+- **`sitemap.xml`** — portada, las cinco fichas y los Términos.
+- **`llms.txt`** — resumen en texto plano con precios, cuotas, coordenadas y advertencias de cómo citar los datos. Es el formato que están adoptando los motores generativos.
+- **Datos estructurados (schema.org)** en JSON-LD, generados desde `datos.js` para que nunca contradigan lo que se ve en pantalla:
+  - Portada: `RealEstateAgent`, `WebSite`, `SaleEvent` (con el periodo del evento) e `ItemList` con los cinco proyectos.
+  - Fichas: `Product` con `AggregateOffer` cuando hay variantes, `Place` con coordenadas, y `BreadcrumbList`.
+- **Metas geográficas** por ficha: `geo.position`, `ICBM` y `geo.placename` con las coordenadas del loteo.
+- **Canonical** en las tres páginas y `max-image-preview:large` para que Google muestre la foto grande.
+
+### Al cambiar proyectos, precios o fechas
+
+```bash
+python seo.py
+```
+
+Regenera `sitemap.xml` y `llms.txt`. El JSON-LD no hace falta tocarlo: sale de `datos.js` en tiempo de carga.
+
+### Limitación conocida
+
+Las fichas de proyecto se arman con JavaScript a partir de `?id=`. **Google ejecuta JS y las indexa bien**, pero los rastreadores que no lo hacen (algunos de IA, y previsualizadores como el de WhatsApp) ven la plantilla vacía. Por eso la vista previa al compartir una ficha muestra la imagen genérica de la campaña.
+
+Si el SEO orgánico de cada proyecto pasa a importar, la solución es generar cinco HTML estáticos desde una plantilla. Se puede hacer con un script parecido a `seo.py`, a costa de tener que regenerarlos cada vez que cambien los datos.
 
 ---
 

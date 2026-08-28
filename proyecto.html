@@ -16,6 +16,9 @@
 <meta property="og:locale" content="es_CL">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="geo.region" content="CL">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <meta name="theme-color" content="#0B1F45">
 
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -570,6 +573,73 @@ function arrancar() {
       $('#aviso-live-txt').textContent = 'Escríbenos igual por WhatsApp';
     }
     caja.hidden = false;
+  })();
+
+  /* ---------- Datos estructurados y geo ----------
+     Google ejecuta JS y lee esto; queda igual de completo que si
+     estuviera escrito en el HTML. */
+  (() => {
+    const URL_BASE = 'https://www.parcelazo.cl';
+    const url = `${URL_BASE}/proyecto.html?id=${P.id}`;
+
+    if (P.coords) {
+      const [lat, lng] = P.coords;
+      const meta = (n, c) => {
+        const m = document.createElement('meta');
+        m.name = n; m.content = c; document.head.appendChild(m);
+      };
+      meta('geo.position', `${lat};${lng}`);
+      meta('ICBM', `${lat}, ${lng}`);
+      meta('geo.placename', `${P.comuna}, ${P.region}`);
+    }
+
+    const oferta = v => ({
+      '@type': 'Offer', price: v.precio, priceCurrency: 'CLP',
+      availability: 'https://schema.org/InStock',
+      priceValidUntil: D.cierreVenta.slice(0, 10),
+      url
+    });
+
+    const producto = {
+      '@type': 'Product',
+      name: P.nombre,
+      url,
+      category: 'Parcela de agrado',
+      description: $('meta[name=description]').getAttribute('content'),
+      brand: { '@type': 'RealEstateAgent', name: 'Compra Tu Parcela', url: URL_BASE },
+      offers: P.variantes.length > 1
+        ? { '@type': 'AggregateOffer', priceCurrency: 'CLP',
+            lowPrice: P.variantes[0].precio,
+            highPrice: P.variantes[P.variantes.length - 1].precio,
+            offerCount: P.variantes.length,
+            offers: P.variantes.map(oferta) }
+        : oferta(P.variantes[0])
+    };
+    if (P.fotos.length) producto.image = P.fotos.map(f => `${URL_BASE}/assets/${f}.jpg`);
+    if (!sinUbic && P.coords) {
+      producto.areaServed = {
+        '@type': 'Place',
+        name: `${P.comuna}, ${P.region}`,
+        geo: { '@type': 'GeoCoordinates', latitude: P.coords[0], longitude: P.coords[1] },
+        address: { '@type': 'PostalAddress', addressLocality: P.comuna,
+                   addressRegion: P.region, addressCountry: 'CL' }
+      };
+    }
+
+    const migas = {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Parcelazo Diecio$0', item: URL_BASE + '/' },
+        { '@type': 'ListItem', position: 2, name: 'Proyectos', item: URL_BASE + '/#proyectos' },
+        { '@type': 'ListItem', position: 3, name: P.nombre, item: url }
+      ]
+    };
+
+    const et = document.createElement('script');
+    et.type = 'application/ld+json';
+    et.textContent = JSON.stringify({ '@context': 'https://schema.org',
+                                      '@graph': [producto, migas] });
+    document.head.appendChild(et);
   })();
 
   /* ---------- Chips ---------- */
