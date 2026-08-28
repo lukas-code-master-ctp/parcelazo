@@ -35,7 +35,8 @@ window.PARCELAZO = {
   live:        '2026-09-04T12:00:00-04:00',  // ojo: el dia 4 tambien va en -04:00
   liveCanal:   '@compratuparcela',           // null para no nombrar el canal
   liveUrl:     'https://www.instagram.com/compratuparcela/',
-  whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
+  whatsapp:        '56950997410',        // formato wa.me: sin + ni espacios
+  whatsappVisible: '+56 9 5099 7410',    // como se muestra en pantalla
   newsletterEndpoint: '',                    // PENDIENTE: URL del proveedor de email
   tasaAnual: 19.5,
   plazos: [12, 24, 36, 48],
@@ -52,7 +53,7 @@ window.PARCELAZO = {
 | Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0 (1).xlsx` |
 | Variantes de precio | Vive Longaví con dos valores |
 | Tasa 19,5% anual | Cargada |
-| Link del grupo de WhatsApp | Cargado |
+| Número de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
 | Fotos | 3 de 5 proyectos |
 | Periodo del evento | Cargado: 1 al 30 de septiembre |
@@ -179,6 +180,7 @@ el material de dos proyectos y la revisión legal de los Términos.
 - Las fotos de las tarjetas usan `loading="lazy"`; el escudo del hero usa `fetchpriority="high"`.
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
 - El mapa usa el embed de Google Maps sin API key (`maps?q=lat,lng&z=15&output=embed`). Cada proyecto tiene `coords: [lat, lng]` del loteo y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar». Google redirige ese `src` a `/maps/embed?...`, que responde sin `X-Frame-Options` y por eso sí se puede embeber.
+- **Los botones de WhatsApp abren una conversación directa** con un mensaje ya redactado, vía `wa.me`. El texto cambia según el contexto: genérico en el nav y el hero; con el nombre del proyecto en las fichas; y con proyecto, variante, plazo y cuota en las dos calculadoras, para que el ejecutivo sepa de qué se está hablando sin preguntar.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - **No hay cuenta regresiva.** El Parcelazo dura todo septiembre, así que el hero muestra un sello con el rango y el aviso de las fichas hace lo mismo. Ambos tienen tres estados: antes, durante y después.
 - Todas las fechas visibles se generan desde `inicioVenta` / `cierreVenta` / `live` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano.

@@ -21,7 +21,10 @@ window.PARCELAZO = {
   liveCanal: '@compratuparcela',
   liveUrl: 'https://www.instagram.com/compratuparcela/',
 
-  whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
+  /* Contacto directo por WhatsApp. El numero va en formato
+     internacional sin + ni espacios, como lo pide wa.me. */
+  whatsapp: '56950997410',
+  whatsappVisible: '+56 9 5099 7410',
 
   /* >>> PENDIENTE: endpoint del proveedor de email marketing <<< */
   newsletterEndpoint: '',
