@@ -209,16 +209,6 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
 }
 .hero__in{position:relative;z-index:3;max-width:var(--max);margin:0 auto;padding:clamp(24px,4vw,42px) 24px 0;text-align:center}
 
-.cinta{
-  display:inline-block;
-  background:var(--rojo);color:var(--crema);
-  font-family:var(--western);font-size:clamp(.74rem,1.7vw,.94rem);
-  letter-spacing:.16em;text-transform:uppercase;
-  padding:9px 22px;border:2px solid var(--crema);
-  transform:rotate(-1.6deg);
-  box-shadow:4px 4px 0 rgba(0,0,0,.45);
-}
-
 .hero h1{margin:clamp(10px,2vw,18px) 0 0;line-height:0}
 .hero h1 img{
   width:min(520px,76vw);height:auto;margin:0 auto;
@@ -280,6 +270,8 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spaci
   text-transform:uppercase;letter-spacing:.1em;font-size:.82rem;
   color:var(--tinta-soft);border-top:2px dashed var(--kraft-dark);padding-top:8px;
 }
+.periodo__live a{color:var(--rojo-hondo);text-decoration:none;border-bottom:2px solid currentColor}
+.periodo__live a:hover{color:var(--rojo)}
 .periodo--vivo .periodo__label{color:var(--verde)}
 
 /* ============================================================
@@ -598,7 +590,7 @@ input[type=range]::-moz-range-thumb{
 .rev{opacity:0;translate:0 26px;transition:opacity .7s ease, translate .7s cubic-bezier(.2,.8,.3,1)}
 .rev.on{opacity:1;translate:0 0}
 
-.hero .cinta,.hero h1,.hero__claim,.hero__ctas,.periodo{
+.hero h1,.hero__claim,.hero__ctas,.periodo{
   animation:sube .85s cubic-bezier(.2,.8,.3,1) both;
 }
 .hero h1{animation-delay:.08s}
@@ -681,8 +673,6 @@ input[type=range]::-moz-range-thumb{
   </div>
 
   <div class="hero__in">
-    <p class="cinta" id="hero-fecha">Venta online · Fiestas Patrias 2026</p>
-
     <h1>
       <picture>
         <source srcset="assets/escudo-parcelazo.webp" type="image/webp">
@@ -1003,7 +993,6 @@ const rangoLargo = (desde, hasta) => {
 $$('[data-wa]').forEach(a => { a.href = D.whatsappGrupo; });
 
 $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
-$('#hero-fecha').textContent = 'Evento online · ' + rangoLargo(D.inicioVenta, D.cierreVenta);
 
 /* ============================================================
    MARQUEE
@@ -1041,10 +1030,13 @@ $('#hero-fecha').textContent = 'Evento online · ' + rangoLargo(D.inicioVenta, D
   }
 
   if (D.live) {
-    const live = new Date(D.live).getTime();
-    const el = $('#periodo-live');
-    el.textContent = (ahora < live ? 'Live de apertura: ' : 'Live de apertura fue el ') +
-      fechaLarga(D.live).toLowerCase() + ' · ' + horaChile(D.live) + ' h';
+    const live  = new Date(D.live).getTime();
+    const el    = $('#periodo-live');
+    const cuando = fechaLarga(D.live).toLowerCase() + ' · ' + horaChile(D.live) + ' h';
+    const canal = D.liveCanal
+      ? ` por <a href="${D.liveUrl}" target="_blank" rel="noopener">${D.liveCanal}</a>`
+      : '';
+    el.innerHTML = (ahora < live ? 'Live de apertura: ' : 'El live fue el ') + cuando + canal;
     el.hidden = false;
   }
 })();

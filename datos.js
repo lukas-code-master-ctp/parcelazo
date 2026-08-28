@@ -14,9 +14,12 @@ window.PARCELAZO = {
   inicioVenta: '2026-09-01T00:00:00-04:00',
   cierreVenta: '2026-09-30T23:59:00-03:00',
 
-  /* Transmision de apertura. Se muestra como dato aparte, no como
-     inicio de la venta. Poner null para no mencionarla. */
-  live: '2026-09-16T19:30:00-03:00',
+  /* Transmision de apertura por Instagram. Se muestra como dato
+     aparte, no como inicio de la venta. Poner live en null para no
+     mencionarla. El 4 de septiembre aun va en -04:00. */
+  live: '2026-09-04T12:00:00-04:00',
+  liveCanal: '@compratuparcela',
+  liveUrl: 'https://www.instagram.com/compratuparcela/',
 
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
 

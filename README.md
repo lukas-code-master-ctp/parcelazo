@@ -11,7 +11,7 @@ Sitio estático, sin build ni dependencias. En producción: **https://parcelazo.
 | Archivo | Qué es |
 |---|---|
 | **`datos.js`** | **Fuente única de datos.** Precios, cuotas, fotos, planos, fechas y enlaces. Lo usan las dos páginas |
-| `index.html` | Portada: hero, contador, proyectos, calculadora, newsletter y WhatsApp |
+| `index.html` | Portada: hero, proyectos, calculadora, newsletter y WhatsApp |
 | `proyecto.html` | Ficha de proyecto. Se abre con `?id=` (por ejemplo `proyecto.html?id=longavi`) |
 | `terminos.html` | Términos y Condiciones de la promoción |
 | `assets/` | Escudo, logo, favicons y fotos, ya optimizados |
@@ -32,7 +32,9 @@ Todo vive en **`datos.js`**. Al cambiar algo ahí se actualizan la portada y las
 window.PARCELAZO = {
   inicioVenta: '2026-09-01T00:00:00-04:00',  // ojo: el dia 1 aun va en -04:00
   cierreVenta: '2026-09-30T23:59:00-03:00',
-  live:        '2026-09-16T19:30:00-03:00',  // transmision de apertura; null para ocultarla
+  live:        '2026-09-04T12:00:00-04:00',  // ojo: el dia 4 tambien va en -04:00
+  liveCanal:   '@compratuparcela',           // null para no nombrar el canal
+  liveUrl:     'https://www.instagram.com/compratuparcela/',
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
   newsletterEndpoint: '',                    // PENDIENTE: URL del proveedor de email
   tasaAnual: 19.5,
@@ -54,7 +56,7 @@ window.PARCELAZO = {
 | Planos de loteo | 3 de 5 |
 | Fotos | 3 de 5 proyectos |
 | Periodo del evento | Cargado: 1 al 30 de septiembre |
-| Live de apertura | Cargado: mié 16, 19:30 |
+| Live de apertura | Cargado: vie 4 de sept, 12:00, por Instagram |
 | Endpoint del newsletter | Pendiente |
 | Superficies (5.000 m²) | Supuesto, sin confirmar |
 | Comunas de los 5 proyectos | Confirmadas por coordenadas |
@@ -165,7 +167,7 @@ que en uno propio, y en un subdirectorio si hiciera falta.
 
 ### Antes de difundir el link
 
-Todavía quedan datos por cerrar (ver el estado más arriba): la fecha de término,
+Todavía quedan datos por cerrar (ver el estado más arriba): el endpoint del newsletter,
 el material de dos proyectos y la revisión legal de los Términos.
 
 ---
@@ -180,7 +182,7 @@ el material de dos proyectos y la revisión legal de los Términos.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - **No hay cuenta regresiva.** El Parcelazo dura todo septiembre, así que el hero muestra un sello con el rango y el aviso de las fichas hace lo mismo. Ambos tienen tres estados: antes, durante y después.
 - Todas las fechas visibles se generan desde `inicioVenta` / `cierreVenta` / `live` con `Intl.DateTimeFormat` y `timeZone: 'America/Santiago'`. No hay fechas escritas a mano.
-- **Cuidado con el offset horario.** El horario de verano de Chile parte el primer domingo de septiembre (el 6 en 2026): el día 1 va en `-04:00` y el 16 y el 30 en `-03:00`. Con `-03:00` el día 1, la fecha se corre al 31 de agosto — pasó al cargar estos datos.
+- **Cuidado con el offset horario.** El horario de verano de Chile parte el primer domingo de septiembre (el 6 en 2026): los días 1 y 4 van en `-04:00`, y el 30 en `-03:00`. Con `-03:00` el día 1, la fecha se corre al 31 de agosto — pasó al cargar estos datos.
 - Las etiquetas Open Graph usan **URLs absolutas** (`https://www.parcelazo.cl/...`). WhatsApp y Facebook no resuelven rutas relativas al generar la vista previa del enlace, y WhatsApp es el canal principal de la campaña.
 - Los crawlers no ejecutan JS, así que las fichas de proyecto comparten la imagen genérica de la campaña, no la foto del proyecto. Su `og:url` y `canonical` sí se completan con el `id` real al cargar, para los navegadores.
 - `terminos.html` tiene hoja de estilos de impresión: se puede exportar a PDF desde el navegador sin el nav ni el índice.
