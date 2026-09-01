@@ -1,6 +1,6 @@
 # Parcelazo Diecio$0 — Compra Tu Parcela
 
-> Venta online de parcelas de agrado en Chile con pie $0 y financiamiento directo, sin banco. Del 1 de septiembre de 2026 al 30 de septiembre de 2026. Cuotas desde $234.500 en 48 cuotas.
+> Venta online de parcelas de agrado en Chile con pie $0 y financiamiento directo, sin banco. Del 1 de septiembre de 2026 al 30 de septiembre de 2026. Cuotas desde $235.000 en 48 cuotas.
 
 ## Qué es
 
@@ -23,7 +23,7 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Ubicación: Sector Quilico, Hualañé, Región del Maule
 - Coordenadas: -34.877248, -71.913388
 - Superficie: 5.000 m² (referencial)
-- Precio: $7.990.000 — 12 cuotas de $732.164 · 24 cuotas de $398.654 · 36 cuotas de $288.649 · 48 cuotas de $234.500
+- Precio: $7.990.000 — 12 cuotas de $730.000 · 24 cuotas de $400.000 · 36 cuotas de $290.000 · 48 cuotas de $235.000
 - Ficha: https://www.parcelazo.cl/proyecto.html?id=guillermo
 
 ### Praderas de Cauquenes
@@ -31,7 +31,7 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Ubicación: Cauquenes, Región del Maule
 - Coordenadas: -35.86625, -72.273528
 - Superficie: 5.000 m² (referencial)
-- Precio: $8.990.000 — 12 cuotas de $823.799 · 24 cuotas de $448.548 · 36 cuotas de $324.776 · 48 cuotas de $263.850
+- Precio: $8.990.000 — 12 cuotas de $820.000 · 24 cuotas de $445.000 · 36 cuotas de $325.000 · 48 cuotas de $265.000
 - Ficha: https://www.parcelazo.cl/proyecto.html?id=cauquenes
 
 ### Jardines de Litueche
@@ -39,25 +39,24 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Ubicación: Litueche, Región de O’Higgins
 - Coordenadas: -34.107009, -71.712509
 - Superficie: 5.000 m² (referencial)
-- Precio: $12.990.000 — 12 cuotas de $1.190.340 · 24 cuotas de $648.125 · 36 cuotas de $469.281 · 48 cuotas de $381.247
+- Precio: $12.990.000 — 12 cuotas de $1.190.000 · 24 cuotas de $650.000 · 36 cuotas de $470.000 · 48 cuotas de $380.000
 - Ficha: https://www.parcelazo.cl/proyecto.html?id=litueche
-
-### Hacienda Don Danilo
-
-- Ubicación: Sector El Cuzco, Litueche, Región de O’Higgins
-- Coordenadas: -34.134905, -71.600353
-- Superficie: 5.000 m² (referencial)
-- Precio: $14.990.000 — 12 cuotas de $1.373.610 · 24 cuotas de $747.913 · 36 cuotas de $541.534 · 48 cuotas de $439.945
-- Ficha: https://www.parcelazo.cl/proyecto.html?id=danilo
 
 ### Vive Longaví
 
 - Ubicación: Longaví, Región del Maule
 - Coordenadas: -36.125343, -71.534417
 - Superficie: 5.000 m² (referencial)
-- Precio (Más al interior): $13.500.000 — 12 cuotas de $1.237.074 · 24 cuotas de $673.571 · 36 cuotas de $487.706 · 48 cuotas de $396.215
-- Precio (Cerca del acceso): $16.500.000 — 12 cuotas de $1.511.979 · 24 cuotas de $823.253 · 36 cuotas de $596.085 · 48 cuotas de $484.263
+- Precio: $13.500.000 — 12 cuotas de $1.230.000 · 24 cuotas de $675.000 · 36 cuotas de $490.000 · 48 cuotas de $400.000
 - Ficha: https://www.parcelazo.cl/proyecto.html?id=longavi
+
+### Hacienda Don Danilo
+
+- Ubicación: Sector El Cuzco, Litueche, Región de O’Higgins
+- Coordenadas: -34.134905, -71.600353
+- Superficie: 5.000 m² (referencial)
+- Precio: $14.990.000 — 12 cuotas de $1.370.000 · 24 cuotas de $750.000 · 36 cuotas de $540.000 · 48 cuotas de $440.000
+- Ficha: https://www.parcelazo.cl/proyecto.html?id=danilo
 
 ## Contacto
 
@@ -75,5 +74,5 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Nada de esto constituye oferta ni promesa de compraventa: las condiciones
   definitivas quedan en la cotización y en el contrato.
 
-Última actualización: 2026-08-28.
+Última actualización: 2026-09-01.
 

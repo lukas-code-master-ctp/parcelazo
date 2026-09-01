@@ -957,8 +957,14 @@ const desdeDe = p => p.variantes[0];
 
 /* Con pie $0 usamos el valor exacto de la planilla; con pie lo
    recalculamos sobre el saldo. */
+/* Las cuotas de la planilla vienen redondeadas a miles. Cuando el
+   visitante agrega pie recalculamos con PMT, y redondeamos igual
+   (hacia arriba, para no prometer una cuota menor a la real) para
+   que no convivan cifras redondas con cifras al peso. */
+const aMiles = v => Math.ceil(v / 1000) * 1000;
+
 const cuotaDe = (v, plazo, pie = 0) =>
-  pie > 0 ? pmt(v.precio - pie, plazo) : v.cuotas[plazo];
+  pie > 0 ? aMiles(pmt(v.precio - pie, plazo)) : v.cuotas[plazo];
 
 const cuotaMinima = () =>
   Math.min(...D.proyectos.flatMap(p => p.variantes.map(v => v.cuotas[D.plazoDestacado])));

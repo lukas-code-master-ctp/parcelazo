@@ -45,11 +45,12 @@ window.PARCELAZO = {
     comuna: "Hualañé",
     region: "Región del Maule",
     m2: 5000,                    /* supuesto, sin confirmar */
-    /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
+    /* Cuota mensual segun Financiamiento_pie0.xlsx (valores comerciales
+       ya redondeados en la planilla, no el PMT exacto) */
     /* Variantes de parcela dentro del loteo, de la mas barata a la mas
        cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
-      { etiqueta: '$7.990.000', precio: 7990000, cuotas: { 12: 732164, 24: 398654, 36: 288649, 48: 234500 } }
+      { etiqueta: '$7.990.000', precio: 7990000, cuotas: { 12: 730000, 24: 400000, 36: 290000, 48: 235000 } }
     ],
     fotos: [],
     plano: null,
@@ -66,11 +67,12 @@ window.PARCELAZO = {
     comuna: "Cauquenes",
     region: "Región del Maule",
     m2: 5000,                    /* supuesto, sin confirmar */
-    /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
+    /* Cuota mensual segun Financiamiento_pie0.xlsx (valores comerciales
+       ya redondeados en la planilla, no el PMT exacto) */
     /* Variantes de parcela dentro del loteo, de la mas barata a la mas
        cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
-      { etiqueta: '$8.990.000', precio: 8990000, cuotas: { 12: 823799, 24: 448548, 36: 324776, 48: 263850 } }
+      { etiqueta: '$8.990.000', precio: 8990000, cuotas: { 12: 820000, 24: 445000, 36: 325000, 48: 265000 } }
     ],
     fotos: ["praderas-cauquenes", "praderas-cauquenes-2", "praderas-cauquenes-3", "praderas-cauquenes-4", "praderas-cauquenes-5"],
     plano: 'planos/praderas-cauquenes-plano.pdf',
@@ -86,11 +88,12 @@ window.PARCELAZO = {
     comuna: "Litueche",
     region: "Región de O’Higgins",
     m2: 5000,                    /* supuesto, sin confirmar */
-    /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
+    /* Cuota mensual segun Financiamiento_pie0.xlsx (valores comerciales
+       ya redondeados en la planilla, no el PMT exacto) */
     /* Variantes de parcela dentro del loteo, de la mas barata a la mas
        cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
-      { etiqueta: '$12.990.000', precio: 12990000, cuotas: { 12: 1190340, 24: 648125, 36: 469281, 48: 381247 } }
+      { etiqueta: '$12.990.000', precio: 12990000, cuotas: { 12: 1190000, 24: 650000, 36: 470000, 48: 380000 } }
     ],
     fotos: ["jardines-litueche", "jardines-litueche-2", "jardines-litueche-3", "jardines-litueche-4", "jardines-litueche-5"],
     plano: 'planos/jardines-litueche-plano.pdf',
@@ -101,16 +104,38 @@ window.PARCELAZO = {
     destacado: "Más cerca de la costa"
   },
   {
+    id: 'longavi',
+    nombre: "Vive Longaví",
+    comuna: "Longaví",
+    region: "Región del Maule",
+    m2: 5000,                    /* supuesto, sin confirmar */
+    /* Cuota mensual segun Financiamiento_pie0.xlsx (valores comerciales
+       ya redondeados en la planilla, no el PMT exacto) */
+    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
+       cara: la primera alimenta el "desde" de la tarjeta. */
+    variantes: [
+      { etiqueta: '$13.500.000', precio: 13500000, cuotas: { 12: 1230000, 24: 675000, 36: 490000, 48: 400000 } }
+    ],
+    fotos: ["vive-longavi", "vive-longavi-2", "vive-longavi-3", "vive-longavi-4", "vive-longavi-5"],
+    plano: 'planos/vive-longavi-plano.pdf',
+
+    coords: [-36.125343, -71.534417],
+    mapsUrl: 'https://maps.app.goo.gl/Gd1qQSAArA5Kb5CXA',
+    sector: null,
+    destacado: null
+  },
+  {
     id: 'danilo',
     nombre: "Hacienda Don Danilo",
     comuna: "Litueche",
     region: "Región de O’Higgins",
     m2: 5000,                    /* supuesto, sin confirmar */
-    /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
+    /* Cuota mensual segun Financiamiento_pie0.xlsx (valores comerciales
+       ya redondeados en la planilla, no el PMT exacto) */
     /* Variantes de parcela dentro del loteo, de la mas barata a la mas
        cara: la primera alimenta el "desde" de la tarjeta. */
     variantes: [
-      { etiqueta: '$14.990.000', precio: 14990000, cuotas: { 12: 1373610, 24: 747913, 36: 541534, 48: 439945 } }
+      { etiqueta: '$14.990.000', precio: 14990000, cuotas: { 12: 1370000, 24: 750000, 36: 540000, 48: 440000 } }
     ],
     fotos: [],
     plano: null,
@@ -119,27 +144,6 @@ window.PARCELAZO = {
     coords: [-34.134905, -71.600353],
     mapsUrl: 'https://maps.app.goo.gl/LLbrzpsJ9EWataZu5',
     sector: 'Sector El Cuzco',
-    destacado: null
-  },
-  {
-    id: 'longavi',
-    nombre: "Vive Longaví",
-    comuna: "Longaví",
-    region: "Región del Maule",
-    m2: 5000,                    /* supuesto, sin confirmar */
-    /* Cuota mensual exacta segun la planilla Financiamiento_pie0.xlsx */
-    /* Variantes de parcela dentro del loteo, de la mas barata a la mas
-       cara: la primera alimenta el "desde" de la tarjeta. */
-    variantes: [
-      { etiqueta: 'Más al interior', precio: 13500000, cuotas: { 12: 1237074, 24: 673571, 36: 487706, 48: 396215 } },
-      { etiqueta: 'Cerca del acceso', precio: 16500000, cuotas: { 12: 1511979, 24: 823253, 36: 596085, 48: 484263 } }
-    ],
-    fotos: ["vive-longavi", "vive-longavi-2", "vive-longavi-3", "vive-longavi-4", "vive-longavi-5"],
-    plano: 'planos/vive-longavi-plano.pdf',
-
-    coords: [-36.125343, -71.534417],
-    mapsUrl: 'https://maps.app.goo.gl/Gd1qQSAArA5Kb5CXA',
-    sector: null,
     destacado: null
   }
   ]

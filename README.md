@@ -1,6 +1,6 @@
 # Parcelazo Diecio$0 — Compra Tu Parcela
 
-Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $234.500** en los cinco proyectos de Compra Tu Parcela.
+Landing de campaña para la venta online de Fiestas Patrias: parcelas con **Pie $0** y **cuotas desde $235.000** en los cinco proyectos de Compra Tu Parcela.
 
 Sitio estático, sin build ni dependencias. En producción: **https://parcelazo.cl**
 
@@ -54,8 +54,8 @@ window.PARCELAZO = {
 | Dato | Estado |
 |---|---|
 | Precios «desde» de los 5 proyectos | Cargados |
-| Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0 (1).xlsx` |
-| Variantes de precio | Vive Longaví con dos valores |
+| Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0.xlsx` (1 sept) |
+| Variantes de precio | Ninguna activa; la estructura queda lista |
 | Tasa 19,5% anual | Cargada |
 | Número de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
@@ -83,12 +83,15 @@ sobre el saldo.
 
 | Proyecto | Precio | 12 cuotas | 24 | 36 | 48 |
 |---|---|---|---|---|---|
-| Don Guillermo | $7.990.000 | $732.164 | $398.654 | $288.649 | **$234.500** |
-| Praderas de Cauquenes | $8.990.000 | $823.799 | $448.548 | $324.776 | $263.850 |
-| Jardines de Litueche | $12.990.000 | $1.190.340 | $648.125 | $469.281 | $381.247 |
-| Hacienda Don Danilo | $14.990.000 | $1.373.610 | $747.913 | $541.534 | $439.945 |
-| Vive Longaví · más al interior | $13.500.000 | $1.237.074 | $673.571 | $487.706 | $396.215 |
-| Vive Longaví · cerca del acceso | $16.500.000 | $1.511.979 | $823.253 | $596.085 | $484.263 |
+| Don Guillermo | $7.990.000 | $730.000 | $400.000 | $290.000 | **$235.000** |
+| Praderas de Cauquenes | $8.990.000 | $820.000 | $445.000 | $325.000 | $265.000 |
+| Jardines de Litueche | $12.990.000 | $1.190.000 | $650.000 | $470.000 | $380.000 |
+| Vive Longaví | $13.500.000 | $1.230.000 | $675.000 | $490.000 | $400.000 |
+| Hacienda Don Danilo | $14.990.000 | $1.370.000 | $750.000 | $540.000 | $440.000 |
+
+> **Las cuotas de la planilla vienen redondeadas a miles**, no son el PMT exacto. Cuando el visitante
+> agrega pie, la web recalcula con PMT y redondea igual, hacia arriba, para no mezclar cifras redondas
+> con cifras al peso ni prometer una cuota menor a la real.
 
 ### Variantes de precio
 
@@ -103,10 +106,10 @@ variantes: [
 
 **La primera del array debe ser siempre la más barata**: es la que alimenta el «desde» de la tarjeta.
 Si hay más de una, la calculadora y la ficha muestran botones para elegir; con una sola no aparecen.
-Hoy solo Vive Longaví tiene dos.
 
-La etiqueta describe la parcela y el precio va debajo, como segunda línea del botón.
-En Vive Longaví la diferencia es la ubicación dentro del loteo: las más cercanas al acceso valen más.
+**Hoy los cinco proyectos tienen una sola variante**, así que los botones no se ven en ninguna parte.
+La estructura queda lista por si vuelve a haber parcelas de distinto valor: basta agregar un segundo
+objeto al array. La etiqueta describe la parcela y el precio va debajo, como segunda línea del botón.
 
 El «cuotas desde» del hero sale solo: es la cuota más baja de la tabla con `plazoDestacado`.
 No hay ninguna cifra escrita a mano en el HTML.
