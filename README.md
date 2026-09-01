@@ -63,6 +63,8 @@ window.PARCELAZO = {
 | Periodo del evento | Cargado: 1 al 30 de septiembre |
 | Live de apertura | Cargado: vie 4 de sept, 12:00, por Instagram |
 | Endpoint del newsletter | Pendiente |
+| Datos de la empresa en los Términos | Cargados |
+| Costo de la reserva | Cargado: ~$300.000 |
 | Superficies (5.000 m²) | Supuesto, sin confirmar |
 | Comunas de los 5 proyectos | Confirmadas por coordenadas |
 | Coordenadas de los loteos | Cargadas |
@@ -134,13 +136,24 @@ manteniendo legible la numeración de los lotes. Los otros dos se copiaron tal c
 
 ### 4. Términos y Condiciones
 
-`terminos.html` es un **borrador que debe revisar el abogado antes de publicarse**. Todos los datos por completar están marcados con fondo rayado y borde rojo (clase `.pl`), así que se ven a simple vista al abrir la página.
+`terminos.html` sigue siendo un **borrador que debe revisar el abogado antes de publicarse**, pero
+ya no le faltan datos: los marcadores rayados llegaron a cero.
 
-Para encontrarlos todos:
+Están cargados la razón social, el RUT, el domicilio, el correo, las superficies, el proceso de
+reserva y su costo. Las cuatro condiciones del crédito —reajuste, prepago, mora y escrituración—
+quedaron como **remisión al contrato** («Según lo que establezca el contrato de promesa de
+compraventa»), porque se definen con los abogados. Es válido, pero conviene reemplazarlas por las
+condiciones concretas cuando existan: un cliente que quiere saber qué pasa si se atrasa hoy no lo
+encuentra en la web.
 
-```bash
-grep -o 'class="pl">\[[^]]*\]' terminos.html
-```
+### La reserva y el «Pie $0»
+
+Al reservar se pagan los **gastos notariales**, unos **$300.000**, que se imputan al valor de la
+parcela. Es el único desembolso inicial. Como la campaña se llama «Pie $0», eso se declara en tres
+lugares: el bloque de beneficios, la nota de las dos calculadoras y las cláusulas 5, 9, 10 y 11.
+
+El monto vive en `datos.js` (`reserva: 300000`) y las notas se arman desde ahí. Con `reserva: 0`
+o `null` desaparecen solas.
 
 ---
 

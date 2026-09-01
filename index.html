@@ -726,7 +726,8 @@ input[type=range]::-moz-range-thumb{
       <article class="bene rev">
         <div class="bene__ico"><svg viewBox="0 0 24 24"><path d="M12 1l3 6 6.5.9-4.7 4.6 1.1 6.5L12 16l-5.9 3 1.1-6.5L2.5 7.9 9 7z"/></svg></div>
         <h3>Pie $0 de verdad</h3>
-        <p>Firmas y empiezas a pagar recién en tu primera cuota. Cero desembolso inicial, cero pie diferido escondido.</p>
+        <p>Sin pie ni cuota inicial: empiezas a pagar en tu primera cuota mensual. Solo se pagan
+        los gastos notariales al reservar, y van a cuenta del valor de la parcela.</p>
       </article>
 
       <article class="bene rev">
@@ -816,10 +817,7 @@ input[type=range]::-moz-range-thumb{
           Consultar por WhatsApp
         </a>
 
-        <p class="calc__nota">Simulación referencial en pesos chilenos. La cuota se calcula con
-        financiamiento directo sobre el valor «desde» de cada proyecto. No incluye gastos notariales
-        ni de inscripción, y no constituye oferta ni cotización formal.
-        <a href="terminos.html#c11" style="color:var(--oro-claro)">Ver bases</a>.</p>
+        <p class="calc__nota" id="calc-nota">&mdash;</p>
       </div>
     </div>
   </div>
@@ -1019,6 +1017,12 @@ $$('[data-wa]').forEach(a => { a.href = waLink(a.dataset.wa || WA_GENERICO); });
 
 $('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
 $('#wa-numero').textContent  = D.whatsappVisible;
+$('#calc-nota').innerHTML =
+  'Simulación referencial en pesos chilenos, sobre el valor «desde» de cada proyecto. ' +
+  (D.reserva ? `Al reservar se pagan los gastos notariales, alrededor de ${pesos(D.reserva)}, ` +
+               'que se imputan al valor de la parcela. ' : '') +
+  'No constituye oferta ni cotización formal. ' +
+  '<a href="terminos.html#c11" style="color:var(--oro-claro)">Ver bases</a>.';
 
 /* ============================================================
    MARQUEE

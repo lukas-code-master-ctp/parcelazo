@@ -34,6 +34,11 @@ window.PARCELAZO = {
      mensual equivalente: (1 + tasaAnual/100)^(1/12) - 1.
      Las cuotas con pie $0 vienen precargadas por proyecto; si el
      visitante agrega pie, se recalculan con la misma formula. */
+  /* Al reservar se pagan los gastos notariales. Es el unico desembolso
+     inicial y se imputa al valor de la parcela, asi que no es un pie.
+     El monto es aproximado porque depende de la notaria. */
+  reserva: 300000,
+
   tasaAnual: 19.5,
   plazos: [12, 24, 36, 48],
   plazoDestacado: 48,            /* el que define el "cuotas desde" del hero */
