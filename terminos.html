@@ -215,7 +215,7 @@ a{color:var(--rojo-hondo)}
     <h1>Términos y<br>Condiciones</h1>
     <p class="cab__meta">
       Promoción «Parcelazo Diecio$0» ·
-      Última actualización: <span class="pl">[FECHA DE PUBLICACIÓN]</span>
+      Última actualización: <span id="fecha-pub">—</span>
     </p>
   </div>
 </header>
@@ -270,7 +270,7 @@ a{color:var(--rojo-hondo)}
           (en adelante, «Compra Tu Parcela» o «la Empresa»).
         </p>
         <p>
-          Sitio web de la Promoción: <span class="pl">[URL DEFINITIVA]</span>.
+          Sitio web de la Promoción: <b>https://www.parcelazo.cl</b>.
           Correo de contacto: <span class="pl">[CORREO DE CONTACTO]</span>.
         </p>
       </section>
@@ -688,6 +688,14 @@ a{color:var(--rojo-hondo)}
   </div>
 </footer>
 
-<script>document.getElementById('anio').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('anio').textContent = new Date().getFullYear();
+/* La fecha de actualizacion se toma del propio archivo, asi no hay que
+   acordarse de cambiarla a mano cada vez que se edita el documento. */
+document.getElementById('fecha-pub').textContent =
+  new Intl.DateTimeFormat('es-CL', { day: 'numeric', month: 'long', year: 'numeric',
+                                     timeZone: 'America/Santiago' })
+    .format(new Date(document.lastModified));
+</script>
 </body>
 </html>
