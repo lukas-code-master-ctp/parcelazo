@@ -82,7 +82,6 @@ def llms(D, hoy):
         '## Condiciones de financiamiento',
         '',
         '- Financiamiento directo de la empresa, sin banco ni evaluación en Dicom.',
-        f'- Tasa {str(D["tasaAnual"]).replace(".", ",")}% anual efectiva, con cuota fija (sistema francés).',
         f'- Plazos disponibles: {", ".join(str(p) for p in D["plazos"])} cuotas mensuales.',
         '- Pie $0 durante la campaña. El comprador puede abonar un pie si quiere bajar la cuota.',
         '- Valores en pesos chilenos. No incluyen gastos notariales, de inscripción ni impuestos.',

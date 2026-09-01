@@ -56,7 +56,7 @@ window.PARCELAZO = {
 | Precios «desde» de los 5 proyectos | Cargados |
 | Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0.xlsx` (1 sept) |
 | Variantes de precio | Ninguna activa; la estructura queda lista |
-| Tasa 19,5% anual | Cargada |
+| Tasa (interna, no se muestra) | Cargada |
 | Número de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
 | Fotos | 3 de 5 proyectos |
@@ -71,8 +71,12 @@ window.PARCELAZO = {
 
 ### 2. Cómo funciona el financiamiento
 
-El financiamiento **tiene interés**: tasa del **19,5% anual efectiva**, con cuota fija (sistema francés).
-La tasa mensual equivalente es `(1 + 0,195)^(1/12) − 1`, no `0,195 / 12`.
+El financiamiento **tiene interés**: `tasaAnual` en `datos.js` es una tasa **efectiva anual**, con cuota
+fija (sistema francés). La tasa mensual equivalente es `(1 + tasa)^(1/12) − 1`, no `tasa / 12`.
+
+> **La tasa no se muestra en ninguna parte del sitio**, por decisión comercial: ni en las calculadoras
+> ni en los Términos ni en `llms.txt`. Sigue en `datos.js` porque es lo que recalcula la cuota cuando
+> el visitante agrega pie. Lo que sí se publica son las cuotas y el total a pagar por plazo.
 
 ```js
 const tasaMensual = () => Math.pow(1 + D.tasaAnual / 100, 1 / 12) - 1;
