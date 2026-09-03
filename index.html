@@ -441,9 +441,10 @@ select{
 }
 
 /* Botones de variante de precio */
-.variantes{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+/* Grilla en vez de flex: con 3 opciones, flex dejaba al ultimo
+   estirado a todo el ancho en su propia fila. */
+.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:4px}
 .variante{
-  flex:1 1 0;min-width:130px;
   font-family:var(--cond);font-weight:700;font-size:1.02rem;line-height:1.1;
   padding:10px 12px 9px;cursor:pointer;
   background:var(--kraft);color:var(--tinta);
@@ -1174,7 +1175,9 @@ $('#calc-nota').innerHTML =
     if (!hay) { varActiva = 0; cajaVar.innerHTML = ''; return; }
     cajaVar.innerHTML = p.variantes.map((v, k) =>
       `<button type="button" class="variante${k === varActiva ? ' on' : ''}"
-               data-var="${k}" aria-pressed="${k === varActiva}">${v.etiqueta}<small>${pesos(v.precio)}</small></button>`).join('');
+               data-var="${k}" aria-pressed="${k === varActiva}">${v.etiqueta}${
+                 v.etiqueta === pesos(v.precio) ? '' : `<small>${pesos(v.precio)}</small>`
+               }</button>`).join('');
   }
 
   function calcular() {

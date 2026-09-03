@@ -54,8 +54,8 @@ window.PARCELAZO = {
 | Dato | Estado |
 |---|---|
 | Precios «desde» de los 5 proyectos | Cargados |
-| Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0.xlsx` (1 sept) |
-| Variantes de precio | Ninguna activa; la estructura queda lista |
+| Cuotas por plazo (12/24/36/48) | Cargadas desde `Financiamiento_pie0.xlsx` (3 sept, final) |
+| Variantes de precio | Longaví con 2, Don Danilo con 3 |
 | Tasa (interna, no se muestra) | Cargada |
 | Número de WhatsApp | Cargado |
 | Planos de loteo | 3 de 5 |
@@ -92,8 +92,11 @@ sobre el saldo.
 | Don Guillermo | $7.990.000 | $730.000 | $400.000 | $290.000 | **$235.000** |
 | Praderas de Cauquenes | $8.990.000 | $820.000 | $445.000 | $325.000 | $265.000 |
 | Jardines de Litueche | $12.990.000 | $1.190.000 | $650.000 | $470.000 | $380.000 |
-| Vive Longaví | $13.500.000 | $1.230.000 | $675.000 | $490.000 | $400.000 |
+| Vive Longaví · más al interior | $13.500.000 | $1.230.000 | $675.000 | $490.000 | $400.000 |
+| Vive Longaví · cerca del acceso | $16.500.000 | $1.510.000 | $825.000 | $595.000 | $485.000 |
 | Hacienda Don Danilo | $14.990.000 | $1.370.000 | $750.000 | $540.000 | $440.000 |
+| Hacienda Don Danilo | $15.990.000 | $1.460.000 | $800.000 | $580.000 | $470.000 |
+| Hacienda Don Danilo | $18.990.000 | $1.735.000 | $950.000 | $690.000 | $560.000 |
 
 > **Las cuotas de la planilla vienen redondeadas a miles**, no son el PMT exacto. Cuando el visitante
 > agrega pie, la web recalcula con PMT y redondea igual, hacia arriba, para no mezclar cifras redondas
@@ -113,9 +116,12 @@ variantes: [
 **La primera del array debe ser siempre la más barata**: es la que alimenta el «desde» de la tarjeta.
 Si hay más de una, la calculadora y la ficha muestran botones para elegir; con una sola no aparecen.
 
-**Hoy los cinco proyectos tienen una sola variante**, así que los botones no se ven en ninguna parte.
-La estructura queda lista por si vuelve a haber parcelas de distinto valor: basta agregar un segundo
-objeto al array. La etiqueta describe la parcela y el precio va debajo, como segunda línea del botón.
+Hoy **Vive Longaví tiene dos** y **Hacienda Don Danilo tres**; los otros tres proyectos, una sola.
+
+La etiqueta describe la parcela y el precio va debajo, como segunda línea del botón. Si la etiqueta
+ya *es* el precio, no se repite. En Vive Longaví la diferencia es la ubicación dentro del loteo: las
+más cercanas al acceso valen más. **En Don Danilo no sabemos qué distingue a las tres**, así que las
+etiquetas son los precios a secas — conviene cambiarlas por algo descriptivo.
 
 El «cuotas desde» del hero sale solo: es la cuota más baja de la tabla con `plazoDestacado`.
 No hay ninguna cifra escrita a mano en el HTML.

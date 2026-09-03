@@ -46,7 +46,8 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Ubicación: Longaví, Región del Maule
 - Coordenadas: -36.125343, -71.534417
 - Superficie: 5.000 m² (referencial)
-- Precio: $13.500.000 — 12 cuotas de $1.230.000 · 24 cuotas de $675.000 · 36 cuotas de $490.000 · 48 cuotas de $400.000
+- Precio (Más al interior): $13.500.000 — 12 cuotas de $1.230.000 · 24 cuotas de $675.000 · 36 cuotas de $490.000 · 48 cuotas de $400.000
+- Precio (Cerca del acceso): $16.500.000 — 12 cuotas de $1.510.000 · 24 cuotas de $825.000 · 36 cuotas de $595.000 · 48 cuotas de $485.000
 - Ficha: https://www.parcelazo.cl/proyecto.html?id=longavi
 
 ### Hacienda Don Danilo
@@ -54,7 +55,9 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Ubicación: Sector El Cuzco, Litueche, Región de O’Higgins
 - Coordenadas: -34.134905, -71.600353
 - Superficie: 5.000 m² (referencial)
-- Precio: $14.990.000 — 12 cuotas de $1.370.000 · 24 cuotas de $750.000 · 36 cuotas de $540.000 · 48 cuotas de $440.000
+- Precio ($14.990.000): $14.990.000 — 12 cuotas de $1.370.000 · 24 cuotas de $750.000 · 36 cuotas de $540.000 · 48 cuotas de $440.000
+- Precio ($15.990.000): $15.990.000 — 12 cuotas de $1.460.000 · 24 cuotas de $800.000 · 36 cuotas de $580.000 · 48 cuotas de $470.000
+- Precio ($18.990.000): $18.990.000 — 12 cuotas de $1.735.000 · 24 cuotas de $950.000 · 36 cuotas de $690.000 · 48 cuotas de $560.000
 - Ficha: https://www.parcelazo.cl/proyecto.html?id=danilo
 
 ## Contacto
@@ -73,5 +76,5 @@ no entera cuota inicial y empieza a pagar con la primera cuota mensual.
 - Nada de esto constituye oferta ni promesa de compraventa: las condiciones
   definitivas quedan en la cotización y en el contrato.
 
-Última actualización: 2026-09-01.
+Última actualización: 2026-09-03.
 

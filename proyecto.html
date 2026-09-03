@@ -202,9 +202,10 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;letter-spacing
 .aviso-live span{font-family:var(--display);font-size:1.02rem;line-height:1.15;display:block;margin-top:2px}
 
 .tarjeta h3{font-size:1.35rem;margin-bottom:14px}
-.variantes{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+/* Grilla en vez de flex: con 3 opciones, flex dejaba al ultimo
+   estirado a todo el ancho en su propia fila. */
+.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(98px,1fr));gap:7px;margin-bottom:16px}
 .variante{
-  flex:1 1 0;min-width:120px;
   font-family:var(--cond);font-weight:700;font-size:.98rem;line-height:1.1;
   padding:10px 10px 9px;cursor:pointer;background:var(--kraft);color:var(--tinta);
   border:var(--borde);border-radius:0;
@@ -722,9 +723,16 @@ function arrancar() {
         <td>${pesos(c * n)}</td>
       </tr>`;
     }).join('');
-    $('#tabla-lead').textContent = P.variantes.length > 1
-      ? `Parcela ${v.etiqueta.toLowerCase()} · ${pesos(v.precio)}. Cambia la opción en el simulador para ver la otra.`
-      : 'Financiamiento directo con Pie $0, sin banco.';
+    if (P.variantes.length > 1) {
+      const nombra = v.etiqueta === pesos(v.precio)
+        ? `Parcela de ${v.etiqueta}`
+        : `Parcela ${v.etiqueta.toLowerCase()} · ${pesos(v.precio)}`;
+      $('#tabla-lead').textContent = `${nombra}. ` +
+        (P.variantes.length === 2 ? 'Cambia la opción en el simulador para ver la otra.'
+                                  : 'Cambia la opción en el simulador para ver las demás.');
+    } else {
+      $('#tabla-lead').textContent = 'Financiamiento directo con Pie $0, sin banco.';
+    }
   }
 
   /* ---------- Plano ---------- */
@@ -778,7 +786,9 @@ function arrancar() {
     $('#s-variantes-campo').hidden = false;
     cajaV.innerHTML = P.variantes.map((v, k) =>
       `<button type="button" class="variante${k === iVar ? ' on' : ''}"
-               data-var="${k}" aria-pressed="${k === iVar}">${v.etiqueta}<small>${pesos(v.precio)}</small></button>`).join('');
+               data-var="${k}" aria-pressed="${k === iVar}">${v.etiqueta}${
+                 v.etiqueta === pesos(v.precio) ? '' : `<small>${pesos(v.precio)}</small>`
+               }</button>`).join('');
     cajaV.addEventListener('click', e => {
       const b = e.target.closest('[data-var]');
       if (!b) return;
