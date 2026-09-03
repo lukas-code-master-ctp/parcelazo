@@ -118,6 +118,7 @@ window.PARCELAZO = {
        ya redondeados en la planilla, no el PMT exacto) */
     /* Variantes de parcela dentro del loteo, de la mas barata a la mas
        cara: la primera alimenta el "desde" de la tarjeta. */
+    variantesNota: 'Las más cercanas al acceso tienen un valor mayor.',
     variantes: [
       { etiqueta: 'Más al interior',  precio: 13500000, cuotas: { 12: 1230000, 24: 675000, 36: 490000, 48: 400000 } },
       { etiqueta: 'Cerca del acceso', precio: 16500000, cuotas: { 12: 1510000, 24: 825000, 36: 595000, 48: 485000 } }
@@ -140,11 +141,11 @@ window.PARCELAZO = {
        ya redondeados en la planilla, no el PMT exacto) */
     /* Variantes de parcela dentro del loteo, de la mas barata a la mas
        cara: la primera alimenta el "desde" de la tarjeta. */
+    variantesNota: 'Las más planas y cercanas al camino principal tienen un valor mayor.',
     variantes: [
-      /* >>> PENDIENTE: nombrar que distingue a cada una <<< */
-      { etiqueta: '$14.990.000', precio: 14990000, cuotas: { 12: 1370000, 24: 750000, 36: 540000, 48: 440000 } },
-      { etiqueta: '$15.990.000', precio: 15990000, cuotas: { 12: 1460000, 24: 800000, 36: 580000, 48: 470000 } },
-      { etiqueta: '$18.990.000', precio: 18990000, cuotas: { 12: 1735000, 24: 950000, 36: 690000, 48: 560000 } }
+      { etiqueta: 'En pendiente',   precio: 14990000, cuotas: { 12: 1370000, 24: 750000, 36: 540000, 48: 440000 } },
+      { etiqueta: 'Intermedia',     precio: 15990000, cuotas: { 12: 1460000, 24: 800000, 36: 580000, 48: 470000 } },
+      { etiqueta: 'Plana y junto al camino', precio: 18990000, cuotas: { 12: 1735000, 24: 950000, 36: 690000, 48: 560000 } }
     ],
     fotos: [],
     plano: null,

@@ -204,7 +204,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1;letter-spacing
 .tarjeta h3{font-size:1.35rem;margin-bottom:14px}
 /* Grilla en vez de flex: con 3 opciones, flex dejaba al ultimo
    estirado a todo el ancho en su propia fila. */
-.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(98px,1fr));gap:7px;margin-bottom:16px}
+.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(98px,1fr));gap:7px;margin-bottom:16px;grid-auto-rows:1fr}
 .variante{
   font-family:var(--cond);font-weight:700;font-size:.98rem;line-height:1.1;
   padding:10px 10px 9px;cursor:pointer;background:var(--kraft);color:var(--tinta);
@@ -404,7 +404,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--rojo
         <div id="s-variantes-campo" hidden>
           <span class="campo__label" id="s-var-lbl"><span>Qué parcela</span></span>
           <div class="variantes" id="s-variantes" role="group" aria-labelledby="s-var-lbl"></div>
-          <p class="campo__hint" style="margin:-8px 0 16px">Las más cercanas al acceso tienen un valor mayor.</p>
+          <p class="campo__hint" id="s-var-hint" style="margin:-8px 0 16px"></p>
         </div>
 
         <span class="campo__label" id="s-plazo-lbl"><span>Plazo</span></span>
@@ -784,6 +784,8 @@ function arrancar() {
 
   if (P.variantes.length > 1) {
     $('#s-variantes-campo').hidden = false;
+    $('#s-var-hint').textContent = P.variantesNota ||
+      'Este loteo tiene parcelas de distinto valor.';
     cajaV.innerHTML = P.variantes.map((v, k) =>
       `<button type="button" class="variante${k === iVar ? ' on' : ''}"
                data-var="${k}" aria-pressed="${k === iVar}">${v.etiqueta}${

@@ -94,9 +94,9 @@ sobre el saldo.
 | Jardines de Litueche | $12.990.000 | $1.190.000 | $650.000 | $470.000 | $380.000 |
 | Vive Longaví · más al interior | $13.500.000 | $1.230.000 | $675.000 | $490.000 | $400.000 |
 | Vive Longaví · cerca del acceso | $16.500.000 | $1.510.000 | $825.000 | $595.000 | $485.000 |
-| Hacienda Don Danilo | $14.990.000 | $1.370.000 | $750.000 | $540.000 | $440.000 |
-| Hacienda Don Danilo | $15.990.000 | $1.460.000 | $800.000 | $580.000 | $470.000 |
-| Hacienda Don Danilo | $18.990.000 | $1.735.000 | $950.000 | $690.000 | $560.000 |
+| Hacienda Don Danilo · en pendiente | $14.990.000 | $1.370.000 | $750.000 | $540.000 | $440.000 |
+| Hacienda Don Danilo · intermedia | $15.990.000 | $1.460.000 | $800.000 | $580.000 | $470.000 |
+| Hacienda Don Danilo · plana y junto al camino | $18.990.000 | $1.735.000 | $950.000 | $690.000 | $560.000 |
 
 > **Las cuotas de la planilla vienen redondeadas a miles**, no son el PMT exacto. Cuando el visitante
 > agrega pie, la web recalcula con PMT y redondea igual, hacia arriba, para no mezclar cifras redondas
@@ -119,9 +119,15 @@ Si hay más de una, la calculadora y la ficha muestran botones para elegir; con 
 Hoy **Vive Longaví tiene dos** y **Hacienda Don Danilo tres**; los otros tres proyectos, una sola.
 
 La etiqueta describe la parcela y el precio va debajo, como segunda línea del botón. Si la etiqueta
-ya *es* el precio, no se repite. En Vive Longaví la diferencia es la ubicación dentro del loteo: las
-más cercanas al acceso valen más. **En Don Danilo no sabemos qué distingue a las tres**, así que las
-etiquetas son los precios a secas — conviene cambiarlas por algo descriptivo.
+ya *es* el precio, no se repite.
+
+Cada proyecto con variantes lleva además `variantesNota`, una línea que explica **por qué** unas valen
+más que otras. Se muestra bajo los botones, en la calculadora y en la ficha:
+
+| Proyecto | Criterio |
+|---|---|
+| Vive Longaví | Las más cercanas al acceso tienen un valor mayor |
+| Hacienda Don Danilo | Las más planas y cercanas al camino principal tienen un valor mayor |
 
 El «cuotas desde» del hero sale solo: es la cuota más baja de la tabla con `plazoDestacado`.
 No hay ninguna cifra escrita a mano en el HTML.

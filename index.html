@@ -443,7 +443,7 @@ select{
 /* Botones de variante de precio */
 /* Grilla en vez de flex: con 3 opciones, flex dejaba al ultimo
    estirado a todo el ancho en su propia fila. */
-.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:4px}
+.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:4px;grid-auto-rows:1fr}
 .variante{
   font-family:var(--cond);font-weight:700;font-size:1.02rem;line-height:1.1;
   padding:10px 12px 9px;cursor:pointer;
@@ -779,7 +779,7 @@ input[type=range]::-moz-range-thumb{
         <div class="campo" id="calc-variantes-campo" hidden>
           <span class="campo__label" id="calc-var-lbl"><span>Valor de la parcela</span></span>
           <div class="variantes" id="calc-variantes" role="group" aria-labelledby="calc-var-lbl"></div>
-          <p class="campo__hint" id="calc-var-hint">Este loteo tiene parcelas de distinto valor según dónde queden dentro del proyecto.</p>
+          <p class="campo__hint" id="calc-var-hint">&mdash;</p>
         </div>
 
         <div class="campo">
@@ -1173,6 +1173,8 @@ $('#calc-nota').innerHTML =
     const hay = p.variantes.length > 1;
     $('#calc-variantes-campo').hidden = !hay;
     if (!hay) { varActiva = 0; cajaVar.innerHTML = ''; return; }
+    $('#calc-var-hint').textContent = p.variantesNota ||
+      'Este loteo tiene parcelas de distinto valor.';
     cajaVar.innerHTML = p.variantes.map((v, k) =>
       `<button type="button" class="variante${k === varActiva ? ' on' : ''}"
                data-var="${k}" aria-pressed="${k === varActiva}">${v.etiqueta}${
