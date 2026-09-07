@@ -26,6 +26,10 @@ window.PARCELAZO = {
   whatsapp: '56950997410',
   whatsappVisible: '+56 9 5099 7410',
 
+  /* Grupo de difusion. Solo lo usa la pagina /grupo: el resto del
+     sitio lleva a la conversacion directa con el numero de arriba. */
+  whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
+
   /* >>> PENDIENTE: endpoint del proveedor de email marketing <<< */
   newsletterEndpoint: '',
 

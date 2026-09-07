@@ -14,6 +14,8 @@ Sitio estático, sin build ni dependencias. En producción: **https://parcelazo.
 | `index.html` | Portada: hero, proyectos, calculadora, newsletter y WhatsApp |
 | `proyecto.html` | Ficha de proyecto. Se abre con `?id=` (por ejemplo `proyecto.html?id=longavi`) |
 | `terminos.html` | Términos y Condiciones de la promoción |
+| `grupo.html` | Página puente en **parcelazo.cl/grupo**: un botón al grupo de WhatsApp |
+| `vercel.json` | Reescribe `/grupo` a `/grupo.html` para que la URL vaya sin extensión |
 | `assets/` | Escudo, logo, favicons y fotos, ya optimizados |
 | `planos/` | Planos de loteo en PDF, para descargar desde cada ficha |
 | `robots.txt` | Permite el rastreo, bloquea `/planos/` y declara el sitemap |
@@ -41,6 +43,7 @@ window.PARCELAZO = {
   liveUrl:     'https://www.instagram.com/compratuparcela/',
   whatsapp:        '56950997410',        // formato wa.me: sin + ni espacios
   whatsappVisible: '+56 9 5099 7410',    // como se muestra en pantalla
+  whatsappGrupo:   'https://chat.whatsapp.com/...',  // solo lo usa /grupo
   newsletterEndpoint: '',                    // PENDIENTE: URL del proveedor de email
   tasaAnual: 19.5,
   plazos: [12, 24, 36, 48],
@@ -245,6 +248,7 @@ Si el SEO orgánico de cada proyecto pasa a importar, la solución es generar ci
 - Las fotos de las tarjetas usan `loading="lazy"`; el escudo del hero usa `fetchpriority="high"`.
 - La ficha de proyecto lee `?id=` de la URL. Si el id no existe, redirige a la portada.
 - El mapa usa el embed de Google Maps sin API key (`maps?q=lat,lng&z=15&output=embed`). Cada proyecto tiene `coords: [lat, lng]` del loteo y `mapsUrl` con el link corto oficial, que alimenta el botón «Cómo llegar». Google redirige ese `src` a `/maps/embed?...`, que responde sin `X-Frame-Options` y por eso sí se puede embeber.
+- **`parcelazo.cl/grupo`** es una página aparte con un solo botón al grupo de difusión, pensada para pegar en historias, bio de Instagram o un QR. Lleva `noindex` y no está en el sitemap: es un puente, no contenido. El resto del sitio sigue llevando a la conversación directa; ahí abajo tiene un enlace secundario por si prefieren eso.
 - **Los botones de WhatsApp abren una conversación directa** con un mensaje ya redactado, vía `wa.me`. El texto cambia según el contexto: genérico en el nav y el hero; con el nombre del proyecto en las fichas; y con proyecto, variante, plazo y cuota en las dos calculadoras, para que el ejecutivo sepa de qué se está hablando sin preguntar.
 - Respeta `prefers-reduced-motion`: con esa preferencia activada se desactivan todas las animaciones.
 - **No hay cuenta regresiva.** El Parcelazo dura todo septiembre, así que el hero muestra un sello con el rango y el aviso de las fichas hace lo mismo. Ambos tienen tres estados: antes, durante y después.
