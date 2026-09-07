@@ -44,7 +44,8 @@ window.PARCELAZO = {
   whatsapp:        '56950997410',        // formato wa.me: sin + ni espacios
   whatsappVisible: '+56 9 5099 7410',    // como se muestra en pantalla
   whatsappGrupo:   'https://chat.whatsapp.com/...',  // solo lo usa /grupo
-  newsletterEndpoint: '',                    // PENDIENTE: URL del proveedor de email
+  newsletterEndpoint: 'https://api.web3forms.com/submit',
+  newsletterKey:      'b2f979be-...',        // clave publica de Web3Forms
   tasaAnual: 19.5,
   plazos: [12, 24, 36, 48],
   plazoDestacado: 48,                        // el que define el "cuotas desde"
@@ -65,7 +66,7 @@ window.PARCELAZO = {
 | Fotos | 3 de 5 proyectos |
 | Periodo del evento | Cargado: 1 al 30 de septiembre |
 | Live de apertura | Cargado: vie 4 de sept, 12:00, por Instagram |
-| Endpoint del newsletter | Pendiente |
+| Formulario de contacto | Conectado a Web3Forms |
 | Datos de la empresa en los Términos | Cargados |
 | Costo de la reserva | Cargado: ~$300.000 |
 | Superficies (5.000 m²) | Supuesto, sin confirmar |
@@ -204,6 +205,21 @@ No hace falta el archivo `CNAME` en el repo: eso era para GitHub Pages.
 
 Todas las rutas del sitio son relativas, así que funciona igual en el dominio de Vercel
 que en uno propio, y en un subdirectorio si hiciera falta.
+
+### El formulario de contacto
+
+Los envíos llegan por correo a través de **Web3Forms**, sin backend. La clave es pública por diseño
+y va en `datos.js`; el destinatario se configura en la cuenta de Web3Forms, no en el código.
+
+Se manda `nombre`, `email`, `telefono`, `proyecto` (el nombre legible, no el `id`) y `origen`,
+con el asunto «Parcelazo · Nueva solicitud de información».
+
+Dos detalles del manejo de errores:
+
+- Web3Forms responde **200 con `success:false`** cuando rechaza un envío, así que no basta con mirar
+  el código HTTP: se comprueba también ese campo, o un rechazo se mostraría como éxito.
+- El formulario lleva un campo trampa `botcheck`, oculto para las personas. Si un robot lo rellena,
+  Web3Forms descarta el envío.
 
 ### Antes de difundir el link
 

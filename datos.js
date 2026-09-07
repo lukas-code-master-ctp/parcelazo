@@ -30,8 +30,10 @@ window.PARCELAZO = {
      sitio lleva a la conversacion directa con el numero de arriba. */
   whatsappGrupo: 'https://chat.whatsapp.com/H2VMUCJoOCtFBfy2UIPvth',
 
-  /* >>> PENDIENTE: endpoint del proveedor de email marketing <<< */
-  newsletterEndpoint: '',
+  /* Formulario de contacto via Web3Forms: los envios llegan por correo.
+     La clave es publica por diseno, va en el codigo del cliente. */
+  newsletterEndpoint: 'https://api.web3forms.com/submit',
+  newsletterKey: 'b2f979be-2fd6-4670-bf63-e9ea796c3565',
 
   /* Financiamiento directo, segun planilla Financiamiento_pie0.xlsx.
      La tasa es EFECTIVA ANUAL. La cuota sale de PMT usando la tasa

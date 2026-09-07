@@ -830,9 +830,9 @@ input[type=range]::-moz-range-thumb{
     <div class="dos">
 
       <div class="panel panel--news rev">
-        <p class="eyebrow" style="color:var(--rojo-hondo)">Lista de espera</p>
-        <h3>Que no te pillen<br>volando el volantín</h3>
-        <p>Déjanos tus datos y te avisamos apenas se abra la venta, con la lista de parcelas y precios antes que al resto.</p>
+        <p class="eyebrow" style="color:var(--rojo-hondo)">Sin compromiso</p>
+        <h3>Te mandamos<br>la lista completa</h3>
+        <p>Déjanos tus datos y te enviamos las parcelas disponibles de cada proyecto, con sus valores y planes de pago.</p>
 
         <form class="form" id="form-news" novalidate>
           <div class="form__fila">
@@ -853,11 +853,14 @@ input[type=range]::-moz-range-thumb{
             <label class="sr" for="news-proyecto">Proyecto de interés</label>
             <select id="news-proyecto" name="proyecto"><!-- opciones desde JS --></select>
           </div>
+          <!-- Trampa para robots: Web3Forms descarta el envio si viene con algo -->
+          <input type="checkbox" name="botcheck" class="sr" tabindex="-1" autocomplete="off">
+
           <label class="form__check">
             <input type="checkbox" id="news-ok" required>
             <span>Acepto los <a href="terminos.html" style="color:var(--rojo-hondo)">términos y condiciones</a>, recibir información comercial de Compra Tu Parcela y la <a href="terminos.html#datos" style="color:var(--rojo-hondo)">política de privacidad</a>.</span>
           </label>
-          <button class="btn btn--rojo btn--block" type="submit">Avísenme del lanzamiento</button>
+          <button class="btn btn--rojo btn--block" type="submit">Quiero la lista de parcelas</button>
           <p class="form__msg" id="news-msg" role="status" hidden></p>
         </form>
       </div>
@@ -1247,11 +1250,16 @@ $('#calc-nota').innerHTML =
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mostrar('error', 'Revisa tu correo, parece incompleto.');
     if (!$('#news-ok').checked) return mostrar('error', 'Necesitamos que aceptes recibir la información.');
 
+    const proyecto = $('#news-proyecto');
     const datos = {
+      access_key: D.newsletterKey,
+      subject: 'Parcelazo · Nueva solicitud de información',
+      from_name: 'Parcelazo Diecio$0',
       nombre, email,
-      telefono: $('#news-fono').value.trim(),
-      proyecto: $('#news-proyecto').value,
-      origen: 'landing-parcelazo'
+      telefono: $('#news-fono').value.trim() || 'no indicado',
+      proyecto: proyecto.options[proyecto.selectedIndex].text,
+      origen: 'parcelazo.cl',
+      botcheck: form.querySelector('[name=botcheck]').checked
     };
 
     const boton = form.querySelector('button[type=submit]');
@@ -1261,20 +1269,23 @@ $('#calc-nota').innerHTML =
       if (D.newsletterEndpoint) {
         const r = await fetch(D.newsletterEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(datos)
         });
-        if (!r.ok) throw new Error('respuesta ' + r.status);
+        /* Web3Forms responde 200 con success:false cuando rechaza el envio,
+           asi que no basta con mirar el codigo HTTP. */
+        const res = await r.json().catch(() => ({}));
+        if (!r.ok || !res.success) throw new Error(res.message || 'respuesta ' + r.status);
       } else {
-        console.info('[newsletter] sin endpoint configurado. Datos:', datos);
+        console.info('[formulario] sin endpoint configurado. Datos:', datos);
       }
       form.reset();
-      mostrar('ok', '¡Listo! Te avisamos apenas parta la venta.');
+      mostrar('ok', '¡Listo! Te llega la información al correo en unos minutos.');
     } catch (err) {
       console.error(err);
       mostrar('error', 'No pudimos registrarte. Escríbenos por WhatsApp.');
     } finally {
-      boton.disabled = false; boton.textContent = 'Avísenme del lanzamiento';
+      boton.disabled = false; boton.textContent = 'Quiero la lista de parcelas';
     }
   });
 })();
