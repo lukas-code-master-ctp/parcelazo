@@ -41,8 +41,8 @@ window.PARCELAZO = {
   live:        '2026-09-04T12:00:00-04:00',  // ojo: el dia 4 tambien va en -04:00
   liveCanal:   '@compratuparcela',           // null para no nombrar el canal
   liveUrl:     'https://www.instagram.com/compratuparcela/',
-  whatsapp:        '56950997410',        // formato wa.me: sin + ni espacios
-  whatsappVisible: '+56 9 5099 7410',    // como se muestra en pantalla
+  whatsapp:        '56954473731',        // formato wa.me: sin + ni espacios
+  whatsappVisible: '+56 9 5447 3731',    // como se muestra en pantalla
   whatsappGrupo:   'https://chat.whatsapp.com/...',  // solo lo usa /grupo
   newsletterEndpoint: 'https://api.web3forms.com/submit',
   newsletterKey:      'b2f979be-...',        // clave publica de Web3Forms

@@ -23,8 +23,8 @@ window.PARCELAZO = {
 
   /* Contacto directo por WhatsApp. El numero va en formato
      internacional sin + ni espacios, como lo pide wa.me. */
-  whatsapp: '56950997410',
-  whatsappVisible: '+56 9 5099 7410',
+  whatsapp: '56954473731',
+  whatsappVisible: '+56 9 5447 3731',
 
   /* Grupo de difusion. Solo lo usa la pagina /grupo: el resto del
      sitio lleva a la conversacion directa con el numero de arriba. */
