@@ -209,7 +209,12 @@ que en uno propio, y en un subdirectorio si hiciera falta.
 ### El formulario de contacto
 
 Los envíos llegan por correo a través de **Web3Forms**, sin backend. La clave es pública por diseño
-y va en `datos.js`; el destinatario se configura en la cuenta de Web3Forms, no en el código.
+y va en `datos.js`.
+
+> **El destinatario no se define en el código.** Web3Forms envía al correo con el que se generó el
+> access key, y por eso no se puede cambiar desde acá. Para que lleguen a otra dirección hay que
+> **generar una clave nueva en web3forms.com con ese correo** y reemplazar `newsletterKey`.
+> Los envíos quedan igual registrados en el panel de Web3Forms, llegue o no el correo.
 
 Se manda `nombre`, `email`, `telefono`, `proyecto` (el nombre legible, no el `id`) y `origen`,
 con el asunto «Parcelazo · Nueva solicitud de información».

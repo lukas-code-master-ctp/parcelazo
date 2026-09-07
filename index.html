@@ -1254,7 +1254,12 @@ $('#calc-nota').innerHTML =
     const datos = {
       access_key: D.newsletterKey,
       subject: 'Parcelazo · Nueva solicitud de información',
-      from_name: 'Parcelazo Diecio$0',
+      /* En from_name se evita el "$0" del nombre de la campana: el signo
+         peso seguido de un digito es un patron de sustitucion en varios
+         motores de plantillas, y aca no aporta nada. */
+      from_name: 'Parcelazo · Compra Tu Parcela',
+      /* Permite responderle al interesado directo desde el correo */
+      replyto: email,
       nombre, email,
       telefono: $('#news-fono').value.trim() || 'no indicado',
       proyecto: proyecto.options[proyecto.selectedIndex].text,
