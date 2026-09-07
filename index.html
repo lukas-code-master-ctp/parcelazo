@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Parcelazo Diecio$0 · El evento online con Pie $0 · Compra Tu Parcela</title>
-<meta name="description" content="Parcelas de 5.000 m² con Pie $0 y cuotas desde $234.500, sin banco. Cinco loteos en Hualañé, Cauquenes, Longaví y Litueche. Todo septiembre de 2026.">
+<meta name="description" content="Parcelas de 5.000 m² con Pie $0 y cuotas desde $235.000, sin banco. Cinco loteos en Hualañé, Cauquenes, Longaví y Litueche. Todo septiembre de 2026.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Compra Tu Parcela">
 <meta name="geo.region" content="CL">
@@ -733,7 +733,7 @@ input[type=range]::-moz-range-thumb{
 
       <article class="bene rev">
         <div class="bene__ico"><svg viewBox="0 0 24 24"><path d="M3 5h18v4H3zm0 6h18v8H3zm3 3h6v2H6z"/></svg></div>
-        <h3>Cuotas desde $234.000</h3>
+        <h3 id="bene-cuota">Cuotas desde&hellip;</h3>
         <p>Financiamiento directo con nosotros, sin banco, sin comisiones de apertura y sin evaluación en Dicom.</p>
       </article>
 
@@ -800,7 +800,7 @@ input[type=range]::-moz-range-thumb{
 
       <div class="calc__out" aria-live="polite">
         <p class="eyebrow">Tu cuota mensual queda en</p>
-        <p class="calc__cuota" id="calc-cuota">$234.000</p>
+        <p class="calc__cuota" id="calc-cuota">&mdash;</p>
         <p class="calc__cuota-sub" id="calc-cuota-sub">120 cuotas · sin interés</p>
 
         <ul class="calc__detalle">
@@ -1016,7 +1016,8 @@ const WA_GENERICO = 'Hola, vi el Parcelazo Diecio$0 y quiero saber más.';
 
 $$('[data-wa]').forEach(a => { a.href = waLink(a.dataset.wa || WA_GENERICO); });
 
-$('#hero-claim').textContent = 'Cuotas desde ' + pesosDesde(cuotaMinima());
+$('#hero-claim').textContent  = 'Cuotas desde ' + pesosDesde(cuotaMinima());
+$('#bene-cuota').textContent  = 'Cuotas desde ' + pesosDesde(cuotaMinima());
 $('#wa-numero').textContent  = D.whatsappVisible;
 $('#calc-nota').innerHTML =
   'Simulación referencial en pesos chilenos, sobre el valor «desde» de cada proyecto. ' +
